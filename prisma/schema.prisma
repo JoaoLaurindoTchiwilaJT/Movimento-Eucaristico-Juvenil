@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  url = env("DATABASE_URL")
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model user{
+  idMejista Int @id @unique
+  nomeMembro String 
+  email  String?
+  senha  String?
+  role  Role
+  cargo String?
+  centro String?
+  numeroMembro String
+  contacto Int
+  livros livros[]
+  noticias noticias []
+  paroquias paroquias []
+}
+
+enum Role{
+  Admin
+  User 
+}
+
+model paroquias{
+  idParoquia Int @id @unique
+  nomeParoquia String
+  qtdCentros Int
+  membroidMejista Int @unique
+  membro  user @relation(fields: [membroidMejista], references: [idMejista],onDelete:Cascade)
+  centrosParoquias centrosParoquias []
+ }
+
+ model centrosParoquias{
+  idCentrosParoquias Int @id @unique
+  nomeCentro  String
+  qtdMembros Int
+  paroquias  Int @unique
+  paroquia paroquias @relation(fields: [paroquias], references: [idParoquia],onDelete: Cascade)
+ }
+
+model noticias {
+  idNoticias Int @id @unique
+  tituloNoticia  String
+  descricao  String
+  dataPub  DateTime
+  users Int
+  user user @relation(fields: [users],references: [idMejista],onDelete: Cascade)
+}
+
+model livros {
+  idLivro  Int @id @unique
+  titulo   String
+  url      String
+  dataCadastro  DateTime
+  autor String
+  user   Int
+  users user @relation(fields: [user],references: [idMejista],onDelete: Cascade)
+}
