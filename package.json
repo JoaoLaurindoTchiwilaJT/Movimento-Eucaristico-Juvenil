@@ -2,11 +2,20 @@
   "name": "back-end",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx prisma db push && tsx watch src/server.ts",
+    "build": "prisma generate && tsc",
+    "start": "tsx watch dist/server.js",
+    "postinstall": "prisma generate",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "prettier": "^3.8.1"
+  }
 }
