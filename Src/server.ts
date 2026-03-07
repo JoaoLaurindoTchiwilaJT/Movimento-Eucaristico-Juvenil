@@ -1,6 +1,10 @@
 import fastifyCors from "@fastify/cors";
 import dotenv from "dotenv";
 import fastify, { type FastifyInstance } from "fastify";
+import { userRouter} from "@router/userRouter";
+import { paroquiasRouter } from "@router/paroquiaRouter";
+import { centrosRouter } from "@router/centroRouter";
+
 // import {serializerCompiler} from"fastify-type-provider-zod";
 // import {validatorCompiler} from "fastify-type-provider-zod";
 
@@ -14,7 +18,11 @@ app.register(fastifyCors, {
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
-});
+}); 
+
+app.register(userRouter, { prefix: "/user" });
+app.register(paroquiasRouter, { prefix: "/paroquias" });
+app.register(centrosRouter, { prefix: "/centros" });
 
 const start = async () => {
   try {
@@ -22,6 +30,7 @@ const start = async () => {
       port: Number(process.env.PORT) || 3000,
       host: process.env.HOST || "0.0.0.0",
     });
+
     app.log.info(`Server listenig on port ${port}`);
   } catch (err) {
     app.log.error(err);

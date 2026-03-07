@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["ES2020"],
-    "module": "esnext",
+    "target": "ES2023",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "rootDir": "./src",
     "outDir": "./dist",
-    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@model/*": ["model/*"],
+      "@controller/*": ["controller/*"],
+      "@repository/*": ["repository/*"],
+      "@router/*": ["router/*"]
+    },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

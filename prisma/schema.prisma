@@ -1,71 +1,89 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL") 
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "mysql"
+  
 }
 
-model user{
-  idMejista Int @id @unique
-  nomeMembro String 
-  email  String?
-  senha  String?
-  role  Role
-  cargo String?
-  centro String?
+model user {
+  idMejista Int @id @default(autoincrement())
+
+  nomeMembro   String
+  email        String?
+  senha        String?
+  nivel        String
+  role         Role
+  cargo        String?
   numeroMembro String
-  contacto Int
-  livros livros[]
-  noticias noticias []
-  paroquias paroquias []
+  contacto     Int
+
+  // relação com paroquia
+  paroquiaId Int?
+  paroquia   paroquias? @relation(fields: [paroquiaId], references: [idParoquia])
+
+  // relação com centro
+  centroId Int?
+  centro   centrosParoquias? @relation(fields: [centroId], references: [idCentrosParoquias])
+
+  livros   livros[]
+  noticias noticias[]
 }
 
-enum Role{
+enum Role {
   Admin
-  User 
+  User
 }
 
-model paroquias{
-  idParoquia Int @id @unique
+model paroquias {
+  idParoquia   Int    @id @default(autoincrement())
   nomeParoquia String
-  qtdCentros Int
-  membroidMejista Int @unique
-  membro  user @relation(fields: [membroidMejista], references: [idMejista],onDelete:Cascade)
-  centrosParoquias centrosParoquias []
- }
+  qtdCentros   Int
 
- model centrosParoquias{
-  idCentrosParoquias Int @id @unique
-  nomeCentro  String
+  membros user[]
+
+  centros centrosParoquias[]
+}
+
+model centrosParoquias {
+  idCentrosParoquias Int @id @default(autoincrement())
+
+  nomeCentro String
   qtdMembros Int
-  paroquias  Int @unique
-  paroquia paroquias @relation(fields: [paroquias], references: [idParoquia],onDelete: Cascade)
- }
+  coordenador coordenador?
+  paroquiaId Int
+  paroquia   paroquias @relation(fields: [paroquiaId], references: [idParoquia], onDelete: Cascade)
+
+  membros user[]
+}
+
+enum coordenador {
+  coordenadorParoquialCentroSede
+  coordenadorCentral
+}
 
 model noticias {
-  idNoticias Int @id @unique
-  tituloNoticia  String
-  descricao  String
-  dataPub  DateTime
-  users Int
-  user user @relation(fields: [users],references: [idMejista],onDelete: Cascade)
+  idNoticias Int @id @default(autoincrement())
+
+  tituloNoticia String
+  descricao     String
+  dataPub       DateTime
+
+  userId Int
+  user   user @relation(fields: [userId], references: [idMejista], onDelete: Cascade)
 }
 
 model livros {
-  idLivro  Int @id @unique
-  titulo   String
-  url      String
-  dataCadastro  DateTime
-  autor String
-  user   Int
-  users user @relation(fields: [user],references: [idMejista],onDelete: Cascade)
+  idLivro Int @id @default(autoincrement())
+
+  titulo       String
+  url          String
+  dataCadastro DateTime
+  autor        String
+
+  userId Int
+  user   user @relation(fields: [userId], references: [idMejista], onDelete: Cascade)
 }

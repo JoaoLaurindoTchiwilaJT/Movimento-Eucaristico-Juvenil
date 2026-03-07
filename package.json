@@ -2,20 +2,39 @@
   "name": "back-end",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx prisma db push && tsx watch src/server.ts",
+    "dev": "prisma generate && prisma db push &&ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/server.ts",
     "build": "prisma generate && tsc",
     "start": "tsx watch dist/server.js",
     "postinstall": "prisma generate",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .ts",
+    "clean:prisma": "rm -rf generated/prisma || true",
+    "reset:db": "npx prisma migrate reset --force && npm run dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "prettier": "^3.8.1"
+    "@types/bcrypt": "^6.0.0",
+    "@types/node": "^25.3.3",
+    "prettier": "^3.8.1",
+    "prisma": "^7.4.2",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.2.0",
+    "@prisma/adapter-mariadb": "^7.4.2",
+    "@prisma/adapter-pg": "^7.4.2",
+    "@prisma/client": "^7.4.2",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.3.1",
+    "fastify": "^4.29.1",
+    "tsconfig-paths": "^4.2.0",
+    "zod": "^4.3.6"
   }
 }

@@ -11,3 +11,6 @@ dist/
 
 # Prisma
 prisma/migrations/
+/generated/prisma
+
+/generated/prisma
