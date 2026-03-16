@@ -21,11 +21,7 @@ model user {
   numeroMembro String
   contacto     Int
 
-  // relação com paroquia
-  paroquiaId Int?
-  paroquia   paroquias? @relation(fields: [paroquiaId], references: [idParoquia])
-
-  // relação com centro
+   // relação com centro
   centroId Int?
   centro   centrosParoquias? @relation(fields: [centroId], references: [idCentrosParoquias])
 
@@ -41,29 +37,19 @@ enum Role {
 model paroquias {
   idParoquia   Int    @id @default(autoincrement())
   nomeParoquia String
-  qtdCentros   Int
-
-  membros user[]
-
   centros centrosParoquias[]
 }
 
 model centrosParoquias {
   idCentrosParoquias Int @id @default(autoincrement())
-
   nomeCentro String
-  qtdMembros Int
-  coordenador coordenador?
+  quota Int
   paroquiaId Int
   paroquia   paroquias @relation(fields: [paroquiaId], references: [idParoquia], onDelete: Cascade)
 
   membros user[]
 }
 
-enum coordenador {
-  coordenadorParoquialCentroSede
-  coordenadorCentral
-}
 
 model noticias {
   idNoticias Int @id @default(autoincrement())

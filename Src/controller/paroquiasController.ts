@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { paroquiasMej } from "@repository/paroquiaRepository";
-import { CreateTypeParoquia } from "@model/dao";
+import { CreateTypeParoquia, updateTypeParoquia } from "@model/dao";
 
 export class paroquiasController {
   private paroquias: paroquiasMej;
@@ -15,39 +15,56 @@ export class paroquiasController {
     try {
       const result = await this.paroquias.createParoquias(data);
 
-      if (result === null) {
+      if (!result) {
         return res.status(200).send("Failure to create paroquia if exists!");
       }
-
+       
       return res.status(201).send(result);
     } catch (error) {
       return res.status(500).send("Internal error server!");
     }
   }
 
+  async updateParoquias(req: FastifyRequest,res:FastifyReply){
+    const data = updateTypeParoquia.parse(req.body);
+
+    try {
+      const result = await this.paroquias.updateParoquias(data);
+     
+      if (result === null) {
+        return res.status(400).send("Failure to update paroquia if not exists!");
+      }
+
+      return res.status(201).send(result);
+    } catch (error) {
+      return res.status(500).send("Internal error server!" + error);
+    }
+
+  }
+
   async deleteParoquia(req: FastifyRequest, res: FastifyReply) {
-    const id = req.body;
+    const id = Number((req.body as any).idParoquia);
 
     try {
       const result = await this.paroquias.deleteParoquias(Number(id));
 
-      if (result === null) {
+       if (result === null) {
         return res.status(400).send("Failure to delete paroquia not found!");
       }
 
       return res.status(200).send(result);
     } catch (error) {
-      return res.status(500).send("Internal error server!");
+      return res.status(500).send("Internal error server!" + error);
     }
   }
 
   async getParoquiaById(req: FastifyRequest, res: FastifyReply) {
-    const id = req.body;
+    const id = Number((req.params as any).idParoquia);
 
     try {
       const result = await this.paroquias.findByIdParoquias(Number(id));
 
-      if (result === null) {
+       if (result === null) {
         return res.status(400).send("Failure to get paroquia by id !");
       }
 
@@ -59,11 +76,10 @@ export class paroquiasController {
 
   async getParoquiaMany(req: FastifyRequest, res: FastifyReply) {
 
-
     try {
       const result = await this.paroquias.findManyParoquias();
 
-      if (result === null) {
+       if (result === null) {
         return res.status(400).send("Failure to get paroquia !");
       }
 

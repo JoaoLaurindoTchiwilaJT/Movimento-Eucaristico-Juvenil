@@ -787,7 +787,6 @@ export const UserScalarFieldEnum = {
   cargo: 'cargo',
   numeroMembro: 'numeroMembro',
   contacto: 'contacto',
-  paroquiaId: 'paroquiaId',
   centroId: 'centroId'
 } as const
 
@@ -796,8 +795,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const ParoquiasScalarFieldEnum = {
   idParoquia: 'idParoquia',
-  nomeParoquia: 'nomeParoquia',
-  qtdCentros: 'qtdCentros'
+  nomeParoquia: 'nomeParoquia'
 } as const
 
 export type ParoquiasScalarFieldEnum = (typeof ParoquiasScalarFieldEnum)[keyof typeof ParoquiasScalarFieldEnum]
@@ -806,8 +804,7 @@ export type ParoquiasScalarFieldEnum = (typeof ParoquiasScalarFieldEnum)[keyof t
 export const CentrosParoquiasScalarFieldEnum = {
   idCentrosParoquias: 'idCentrosParoquias',
   nomeCentro: 'nomeCentro',
-  qtdMembros: 'qtdMembros',
-  coordenador: 'coordenador',
+  quota: 'quota',
   paroquiaId: 'paroquiaId'
 } as const
 
@@ -920,13 +917,6 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'Role'
  */
 export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
-    
-
-
-/**
- * Reference to a field of type 'coordenador'
- */
-export type EnumcoordenadorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'coordenador'>
     
 
 

@@ -1,25 +1,43 @@
 import fastifyCors from "@fastify/cors";
 import dotenv from "dotenv";
 import fastify, { type FastifyInstance } from "fastify";
-import { userRouter} from "@router/userRouter";
+import { userRouter } from "@router/userRouter";
 import { paroquiasRouter } from "@router/paroquiaRouter";
 import { centrosRouter } from "@router/centroRouter";
-
-// import {serializerCompiler} from"fastify-type-provider-zod";
-// import {validatorCompiler} from "fastify-type-provider-zod";
+import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 
 dotenv.config();
 const port = Number(process.env.PORT) || 3000;
-const app: FastifyInstance = fastify({ requestTimeout: 6000 });
+const app = fastify().withTypeProvider<ZodTypeProvider>();
 
-// app.setValidatorCompiler(validatorCompiler);
-// app.setSerializerCompiler(serializerCompiler);
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
+
 app.register(fastifyCors, {
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
-}); 
+});
 
+app.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: "API MEJ",
+      description: "API para gestão de membros do MEJ",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+  },
+  transform: jsonSchemaTransform
+});
+
+app.register(fastifySwaggerUi, { routePrefix: "/docs" });
 app.register(userRouter, { prefix: "/user" });
 app.register(paroquiasRouter, { prefix: "/paroquias" });
 app.register(centrosRouter, { prefix: "/centros" });

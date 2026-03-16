@@ -29,14 +29,12 @@ export type AggregateUser = {
 export type UserAvgAggregateOutputType = {
   idMejista: number | null
   contacto: number | null
-  paroquiaId: number | null
   centroId: number | null
 }
 
 export type UserSumAggregateOutputType = {
   idMejista: number | null
   contacto: number | null
-  paroquiaId: number | null
   centroId: number | null
 }
 
@@ -50,7 +48,6 @@ export type UserMinAggregateOutputType = {
   cargo: string | null
   numeroMembro: string | null
   contacto: number | null
-  paroquiaId: number | null
   centroId: number | null
 }
 
@@ -64,7 +61,6 @@ export type UserMaxAggregateOutputType = {
   cargo: string | null
   numeroMembro: string | null
   contacto: number | null
-  paroquiaId: number | null
   centroId: number | null
 }
 
@@ -78,7 +74,6 @@ export type UserCountAggregateOutputType = {
   cargo: number
   numeroMembro: number
   contacto: number
-  paroquiaId: number
   centroId: number
   _all: number
 }
@@ -87,14 +82,12 @@ export type UserCountAggregateOutputType = {
 export type UserAvgAggregateInputType = {
   idMejista?: true
   contacto?: true
-  paroquiaId?: true
   centroId?: true
 }
 
 export type UserSumAggregateInputType = {
   idMejista?: true
   contacto?: true
-  paroquiaId?: true
   centroId?: true
 }
 
@@ -108,7 +101,6 @@ export type UserMinAggregateInputType = {
   cargo?: true
   numeroMembro?: true
   contacto?: true
-  paroquiaId?: true
   centroId?: true
 }
 
@@ -122,7 +114,6 @@ export type UserMaxAggregateInputType = {
   cargo?: true
   numeroMembro?: true
   contacto?: true
-  paroquiaId?: true
   centroId?: true
 }
 
@@ -136,7 +127,6 @@ export type UserCountAggregateInputType = {
   cargo?: true
   numeroMembro?: true
   contacto?: true
-  paroquiaId?: true
   centroId?: true
   _all?: true
 }
@@ -237,7 +227,6 @@ export type UserGroupByOutputType = {
   cargo: string | null
   numeroMembro: string
   contacto: number
-  paroquiaId: number | null
   centroId: number | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
@@ -274,9 +263,7 @@ export type userWhereInput = {
   cargo?: Prisma.StringNullableFilter<"user"> | string | null
   numeroMembro?: Prisma.StringFilter<"user"> | string
   contacto?: Prisma.IntFilter<"user"> | number
-  paroquiaId?: Prisma.IntNullableFilter<"user"> | number | null
   centroId?: Prisma.IntNullableFilter<"user"> | number | null
-  paroquia?: Prisma.XOR<Prisma.ParoquiasNullableScalarRelationFilter, Prisma.paroquiasWhereInput> | null
   centro?: Prisma.XOR<Prisma.CentrosParoquiasNullableScalarRelationFilter, Prisma.centrosParoquiasWhereInput> | null
   livros?: Prisma.LivrosListRelationFilter
   noticias?: Prisma.NoticiasListRelationFilter
@@ -292,9 +279,7 @@ export type userOrderByWithRelationInput = {
   cargo?: Prisma.SortOrderInput | Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
-  paroquiaId?: Prisma.SortOrderInput | Prisma.SortOrder
   centroId?: Prisma.SortOrderInput | Prisma.SortOrder
-  paroquia?: Prisma.paroquiasOrderByWithRelationInput
   centro?: Prisma.centrosParoquiasOrderByWithRelationInput
   livros?: Prisma.livrosOrderByRelationAggregateInput
   noticias?: Prisma.noticiasOrderByRelationAggregateInput
@@ -314,9 +299,7 @@ export type userWhereUniqueInput = Prisma.AtLeast<{
   cargo?: Prisma.StringNullableFilter<"user"> | string | null
   numeroMembro?: Prisma.StringFilter<"user"> | string
   contacto?: Prisma.IntFilter<"user"> | number
-  paroquiaId?: Prisma.IntNullableFilter<"user"> | number | null
   centroId?: Prisma.IntNullableFilter<"user"> | number | null
-  paroquia?: Prisma.XOR<Prisma.ParoquiasNullableScalarRelationFilter, Prisma.paroquiasWhereInput> | null
   centro?: Prisma.XOR<Prisma.CentrosParoquiasNullableScalarRelationFilter, Prisma.centrosParoquiasWhereInput> | null
   livros?: Prisma.LivrosListRelationFilter
   noticias?: Prisma.NoticiasListRelationFilter
@@ -332,7 +315,6 @@ export type userOrderByWithAggregationInput = {
   cargo?: Prisma.SortOrderInput | Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
-  paroquiaId?: Prisma.SortOrderInput | Prisma.SortOrder
   centroId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.userCountOrderByAggregateInput
   _avg?: Prisma.userAvgOrderByAggregateInput
@@ -354,7 +336,6 @@ export type userScalarWhereWithAggregatesInput = {
   cargo?: Prisma.StringNullableWithAggregatesFilter<"user"> | string | null
   numeroMembro?: Prisma.StringWithAggregatesFilter<"user"> | string
   contacto?: Prisma.IntWithAggregatesFilter<"user"> | number
-  paroquiaId?: Prisma.IntNullableWithAggregatesFilter<"user"> | number | null
   centroId?: Prisma.IntNullableWithAggregatesFilter<"user"> | number | null
 }
 
@@ -367,7 +348,6 @@ export type userCreateInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquia?: Prisma.paroquiasCreateNestedOneWithoutMembrosInput
   centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
   livros?: Prisma.livrosCreateNestedManyWithoutUserInput
   noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
@@ -383,7 +363,6 @@ export type userUncheckedCreateInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquiaId?: number | null
   centroId?: number | null
   livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
   noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
@@ -398,7 +377,6 @@ export type userUpdateInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquia?: Prisma.paroquiasUpdateOneWithoutMembrosNestedInput
   centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
   livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
   noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
@@ -414,7 +392,6 @@ export type userUncheckedUpdateInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquiaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
   noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
@@ -430,7 +407,6 @@ export type userCreateManyInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquiaId?: number | null
   centroId?: number | null
 }
 
@@ -455,7 +431,6 @@ export type userUncheckedUpdateManyInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquiaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -475,14 +450,12 @@ export type userCountOrderByAggregateInput = {
   cargo?: Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
-  paroquiaId?: Prisma.SortOrder
   centroId?: Prisma.SortOrder
 }
 
 export type userAvgOrderByAggregateInput = {
   idMejista?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
-  paroquiaId?: Prisma.SortOrder
   centroId?: Prisma.SortOrder
 }
 
@@ -496,7 +469,6 @@ export type userMaxOrderByAggregateInput = {
   cargo?: Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
-  paroquiaId?: Prisma.SortOrder
   centroId?: Prisma.SortOrder
 }
 
@@ -510,14 +482,12 @@ export type userMinOrderByAggregateInput = {
   cargo?: Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
-  paroquiaId?: Prisma.SortOrder
   centroId?: Prisma.SortOrder
 }
 
 export type userSumOrderByAggregateInput = {
   idMejista?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
-  paroquiaId?: Prisma.SortOrder
   centroId?: Prisma.SortOrder
 }
 
@@ -562,48 +532,6 @@ export type NullableIntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
-}
-
-export type userCreateNestedManyWithoutParoquiaInput = {
-  create?: Prisma.XOR<Prisma.userCreateWithoutParoquiaInput, Prisma.userUncheckedCreateWithoutParoquiaInput> | Prisma.userCreateWithoutParoquiaInput[] | Prisma.userUncheckedCreateWithoutParoquiaInput[]
-  connectOrCreate?: Prisma.userCreateOrConnectWithoutParoquiaInput | Prisma.userCreateOrConnectWithoutParoquiaInput[]
-  createMany?: Prisma.userCreateManyParoquiaInputEnvelope
-  connect?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-}
-
-export type userUncheckedCreateNestedManyWithoutParoquiaInput = {
-  create?: Prisma.XOR<Prisma.userCreateWithoutParoquiaInput, Prisma.userUncheckedCreateWithoutParoquiaInput> | Prisma.userCreateWithoutParoquiaInput[] | Prisma.userUncheckedCreateWithoutParoquiaInput[]
-  connectOrCreate?: Prisma.userCreateOrConnectWithoutParoquiaInput | Prisma.userCreateOrConnectWithoutParoquiaInput[]
-  createMany?: Prisma.userCreateManyParoquiaInputEnvelope
-  connect?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-}
-
-export type userUpdateManyWithoutParoquiaNestedInput = {
-  create?: Prisma.XOR<Prisma.userCreateWithoutParoquiaInput, Prisma.userUncheckedCreateWithoutParoquiaInput> | Prisma.userCreateWithoutParoquiaInput[] | Prisma.userUncheckedCreateWithoutParoquiaInput[]
-  connectOrCreate?: Prisma.userCreateOrConnectWithoutParoquiaInput | Prisma.userCreateOrConnectWithoutParoquiaInput[]
-  upsert?: Prisma.userUpsertWithWhereUniqueWithoutParoquiaInput | Prisma.userUpsertWithWhereUniqueWithoutParoquiaInput[]
-  createMany?: Prisma.userCreateManyParoquiaInputEnvelope
-  set?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-  disconnect?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-  delete?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-  connect?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-  update?: Prisma.userUpdateWithWhereUniqueWithoutParoquiaInput | Prisma.userUpdateWithWhereUniqueWithoutParoquiaInput[]
-  updateMany?: Prisma.userUpdateManyWithWhereWithoutParoquiaInput | Prisma.userUpdateManyWithWhereWithoutParoquiaInput[]
-  deleteMany?: Prisma.userScalarWhereInput | Prisma.userScalarWhereInput[]
-}
-
-export type userUncheckedUpdateManyWithoutParoquiaNestedInput = {
-  create?: Prisma.XOR<Prisma.userCreateWithoutParoquiaInput, Prisma.userUncheckedCreateWithoutParoquiaInput> | Prisma.userCreateWithoutParoquiaInput[] | Prisma.userUncheckedCreateWithoutParoquiaInput[]
-  connectOrCreate?: Prisma.userCreateOrConnectWithoutParoquiaInput | Prisma.userCreateOrConnectWithoutParoquiaInput[]
-  upsert?: Prisma.userUpsertWithWhereUniqueWithoutParoquiaInput | Prisma.userUpsertWithWhereUniqueWithoutParoquiaInput[]
-  createMany?: Prisma.userCreateManyParoquiaInputEnvelope
-  set?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-  disconnect?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-  delete?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-  connect?: Prisma.userWhereUniqueInput | Prisma.userWhereUniqueInput[]
-  update?: Prisma.userUpdateWithWhereUniqueWithoutParoquiaInput | Prisma.userUpdateWithWhereUniqueWithoutParoquiaInput[]
-  updateMany?: Prisma.userUpdateManyWithWhereWithoutParoquiaInput | Prisma.userUpdateManyWithWhereWithoutParoquiaInput[]
-  deleteMany?: Prisma.userScalarWhereInput | Prisma.userScalarWhereInput[]
 }
 
 export type userCreateNestedManyWithoutCentroInput = {
@@ -676,78 +604,6 @@ export type userUpdateOneRequiredWithoutLivrosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.userUpdateToOneWithWhereWithoutLivrosInput, Prisma.userUpdateWithoutLivrosInput>, Prisma.userUncheckedUpdateWithoutLivrosInput>
 }
 
-export type userCreateWithoutParoquiaInput = {
-  nomeMembro: string
-  email?: string | null
-  senha?: string | null
-  nivel: string
-  role: $Enums.Role
-  cargo?: string | null
-  numeroMembro: string
-  contacto: number
-  centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
-  livros?: Prisma.livrosCreateNestedManyWithoutUserInput
-  noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
-}
-
-export type userUncheckedCreateWithoutParoquiaInput = {
-  idMejista?: number
-  nomeMembro: string
-  email?: string | null
-  senha?: string | null
-  nivel: string
-  role: $Enums.Role
-  cargo?: string | null
-  numeroMembro: string
-  contacto: number
-  centroId?: number | null
-  livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
-  noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type userCreateOrConnectWithoutParoquiaInput = {
-  where: Prisma.userWhereUniqueInput
-  create: Prisma.XOR<Prisma.userCreateWithoutParoquiaInput, Prisma.userUncheckedCreateWithoutParoquiaInput>
-}
-
-export type userCreateManyParoquiaInputEnvelope = {
-  data: Prisma.userCreateManyParoquiaInput | Prisma.userCreateManyParoquiaInput[]
-  skipDuplicates?: boolean
-}
-
-export type userUpsertWithWhereUniqueWithoutParoquiaInput = {
-  where: Prisma.userWhereUniqueInput
-  update: Prisma.XOR<Prisma.userUpdateWithoutParoquiaInput, Prisma.userUncheckedUpdateWithoutParoquiaInput>
-  create: Prisma.XOR<Prisma.userCreateWithoutParoquiaInput, Prisma.userUncheckedCreateWithoutParoquiaInput>
-}
-
-export type userUpdateWithWhereUniqueWithoutParoquiaInput = {
-  where: Prisma.userWhereUniqueInput
-  data: Prisma.XOR<Prisma.userUpdateWithoutParoquiaInput, Prisma.userUncheckedUpdateWithoutParoquiaInput>
-}
-
-export type userUpdateManyWithWhereWithoutParoquiaInput = {
-  where: Prisma.userScalarWhereInput
-  data: Prisma.XOR<Prisma.userUpdateManyMutationInput, Prisma.userUncheckedUpdateManyWithoutParoquiaInput>
-}
-
-export type userScalarWhereInput = {
-  AND?: Prisma.userScalarWhereInput | Prisma.userScalarWhereInput[]
-  OR?: Prisma.userScalarWhereInput[]
-  NOT?: Prisma.userScalarWhereInput | Prisma.userScalarWhereInput[]
-  idMejista?: Prisma.IntFilter<"user"> | number
-  nomeMembro?: Prisma.StringFilter<"user"> | string
-  email?: Prisma.StringNullableFilter<"user"> | string | null
-  senha?: Prisma.StringNullableFilter<"user"> | string | null
-  nivel?: Prisma.StringFilter<"user"> | string
-  role?: Prisma.EnumRoleFilter<"user"> | $Enums.Role
-  cargo?: Prisma.StringNullableFilter<"user"> | string | null
-  numeroMembro?: Prisma.StringFilter<"user"> | string
-  contacto?: Prisma.IntFilter<"user"> | number
-  paroquiaId?: Prisma.IntNullableFilter<"user"> | number | null
-  centroId?: Prisma.IntNullableFilter<"user"> | number | null
-}
-
 export type userCreateWithoutCentroInput = {
   nomeMembro: string
   email?: string | null
@@ -757,7 +613,6 @@ export type userCreateWithoutCentroInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquia?: Prisma.paroquiasCreateNestedOneWithoutMembrosInput
   livros?: Prisma.livrosCreateNestedManyWithoutUserInput
   noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
 }
@@ -772,7 +627,6 @@ export type userUncheckedCreateWithoutCentroInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquiaId?: number | null
   livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
   noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
 }
@@ -803,6 +657,22 @@ export type userUpdateManyWithWhereWithoutCentroInput = {
   data: Prisma.XOR<Prisma.userUpdateManyMutationInput, Prisma.userUncheckedUpdateManyWithoutCentroInput>
 }
 
+export type userScalarWhereInput = {
+  AND?: Prisma.userScalarWhereInput | Prisma.userScalarWhereInput[]
+  OR?: Prisma.userScalarWhereInput[]
+  NOT?: Prisma.userScalarWhereInput | Prisma.userScalarWhereInput[]
+  idMejista?: Prisma.IntFilter<"user"> | number
+  nomeMembro?: Prisma.StringFilter<"user"> | string
+  email?: Prisma.StringNullableFilter<"user"> | string | null
+  senha?: Prisma.StringNullableFilter<"user"> | string | null
+  nivel?: Prisma.StringFilter<"user"> | string
+  role?: Prisma.EnumRoleFilter<"user"> | $Enums.Role
+  cargo?: Prisma.StringNullableFilter<"user"> | string | null
+  numeroMembro?: Prisma.StringFilter<"user"> | string
+  contacto?: Prisma.IntFilter<"user"> | number
+  centroId?: Prisma.IntNullableFilter<"user"> | number | null
+}
+
 export type userCreateWithoutNoticiasInput = {
   nomeMembro: string
   email?: string | null
@@ -812,7 +682,6 @@ export type userCreateWithoutNoticiasInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquia?: Prisma.paroquiasCreateNestedOneWithoutMembrosInput
   centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
   livros?: Prisma.livrosCreateNestedManyWithoutUserInput
 }
@@ -827,7 +696,6 @@ export type userUncheckedCreateWithoutNoticiasInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquiaId?: number | null
   centroId?: number | null
   livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
 }
@@ -857,7 +725,6 @@ export type userUpdateWithoutNoticiasInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquia?: Prisma.paroquiasUpdateOneWithoutMembrosNestedInput
   centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
   livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
 }
@@ -872,7 +739,6 @@ export type userUncheckedUpdateWithoutNoticiasInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquiaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -886,7 +752,6 @@ export type userCreateWithoutLivrosInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquia?: Prisma.paroquiasCreateNestedOneWithoutMembrosInput
   centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
   noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
 }
@@ -901,7 +766,6 @@ export type userUncheckedCreateWithoutLivrosInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquiaId?: number | null
   centroId?: number | null
   noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
 }
@@ -931,7 +795,6 @@ export type userUpdateWithoutLivrosInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquia?: Prisma.paroquiasUpdateOneWithoutMembrosNestedInput
   centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
   noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
 }
@@ -946,64 +809,8 @@ export type userUncheckedUpdateWithoutLivrosInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquiaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type userCreateManyParoquiaInput = {
-  idMejista?: number
-  nomeMembro: string
-  email?: string | null
-  senha?: string | null
-  nivel: string
-  role: $Enums.Role
-  cargo?: string | null
-  numeroMembro: string
-  contacto: number
-  centroId?: number | null
-}
-
-export type userUpdateWithoutParoquiaInput = {
-  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivel?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
-  livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
-  noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
-}
-
-export type userUncheckedUpdateWithoutParoquiaInput = {
-  idMejista?: Prisma.IntFieldUpdateOperationsInput | number
-  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivel?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
-  noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type userUncheckedUpdateManyWithoutParoquiaInput = {
-  idMejista?: Prisma.IntFieldUpdateOperationsInput | number
-  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivel?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type userCreateManyCentroInput = {
@@ -1016,7 +823,6 @@ export type userCreateManyCentroInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
-  paroquiaId?: number | null
 }
 
 export type userUpdateWithoutCentroInput = {
@@ -1028,7 +834,6 @@ export type userUpdateWithoutCentroInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquia?: Prisma.paroquiasUpdateOneWithoutMembrosNestedInput
   livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
   noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
 }
@@ -1043,7 +848,6 @@ export type userUncheckedUpdateWithoutCentroInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquiaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
   noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1058,7 +862,6 @@ export type userUncheckedUpdateManyWithoutCentroInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  paroquiaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -1111,9 +914,7 @@ export type userSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   cargo?: boolean
   numeroMembro?: boolean
   contacto?: boolean
-  paroquiaId?: boolean
   centroId?: boolean
-  paroquia?: boolean | Prisma.user$paroquiaArgs<ExtArgs>
   centro?: boolean | Prisma.user$centroArgs<ExtArgs>
   livros?: boolean | Prisma.user$livrosArgs<ExtArgs>
   noticias?: boolean | Prisma.user$noticiasArgs<ExtArgs>
@@ -1132,13 +933,11 @@ export type userSelectScalar = {
   cargo?: boolean
   numeroMembro?: boolean
   contacto?: boolean
-  paroquiaId?: boolean
   centroId?: boolean
 }
 
-export type userOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idMejista" | "nomeMembro" | "email" | "senha" | "nivel" | "role" | "cargo" | "numeroMembro" | "contacto" | "paroquiaId" | "centroId", ExtArgs["result"]["user"]>
+export type userOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idMejista" | "nomeMembro" | "email" | "senha" | "nivel" | "role" | "cargo" | "numeroMembro" | "contacto" | "centroId", ExtArgs["result"]["user"]>
 export type userInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  paroquia?: boolean | Prisma.user$paroquiaArgs<ExtArgs>
   centro?: boolean | Prisma.user$centroArgs<ExtArgs>
   livros?: boolean | Prisma.user$livrosArgs<ExtArgs>
   noticias?: boolean | Prisma.user$noticiasArgs<ExtArgs>
@@ -1148,7 +947,6 @@ export type userInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type $userPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "user"
   objects: {
-    paroquia: Prisma.$paroquiasPayload<ExtArgs> | null
     centro: Prisma.$centrosParoquiasPayload<ExtArgs> | null
     livros: Prisma.$livrosPayload<ExtArgs>[]
     noticias: Prisma.$noticiasPayload<ExtArgs>[]
@@ -1163,7 +961,6 @@ export type $userPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     cargo: string | null
     numeroMembro: string
     contacto: number
-    paroquiaId: number | null
     centroId: number | null
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1505,7 +1302,6 @@ readonly fields: userFieldRefs;
  */
 export interface Prisma__userClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  paroquia<T extends Prisma.user$paroquiaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$paroquiaArgs<ExtArgs>>): Prisma.Prisma__paroquiasClient<runtime.Types.Result.GetResult<Prisma.$paroquiasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   centro<T extends Prisma.user$centroArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$centroArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   livros<T extends Prisma.user$livrosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$livrosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$livrosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   noticias<T extends Prisma.user$noticiasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$noticiasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$noticiasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1547,7 +1343,6 @@ export interface userFieldRefs {
   readonly cargo: Prisma.FieldRef<"user", 'String'>
   readonly numeroMembro: Prisma.FieldRef<"user", 'String'>
   readonly contacto: Prisma.FieldRef<"user", 'Int'>
-  readonly paroquiaId: Prisma.FieldRef<"user", 'Int'>
   readonly centroId: Prisma.FieldRef<"user", 'Int'>
 }
     
@@ -1889,25 +1684,6 @@ export type userDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many users to delete.
    */
   limit?: number
-}
-
-/**
- * user.paroquia
- */
-export type user$paroquiaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the paroquias
-   */
-  select?: Prisma.paroquiasSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the paroquias
-   */
-  omit?: Prisma.paroquiasOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.paroquiasInclude<ExtArgs> | null
-  where?: Prisma.paroquiasWhereInput
 }
 
 /**

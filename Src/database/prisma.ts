@@ -17,13 +17,15 @@ const adapter = new PrismaMariaDb({
 const prisma = new PrismaClient({ adapter });
 
 async function createAdminIfNotExist() {
+ 
   try {
+
     const adminExist = await prisma.user.findMany({
       where: { role: "Admin" },
     });
-console.log(adminExist);
-    const senhas = await criptografar.criptografar("Sagrado_Coração_De_Jesus");
-    if (adminExist) {
+
+  const senhas = await criptografar.criptografar(String(process.env.SECRETE_PASS));
+    if (adminExist.length === 0) {
       await prisma.user.create({
         data: {
           nomeMembro: "Admin",
@@ -37,9 +39,12 @@ console.log(adminExist);
       });
       console.log("Admin criado com sucesso!");
     }
+
   } catch (error) {
     console.error("Error to create Admin:", error);
+    throw new Error("Error to create Admin:" + error);
   }
+  
 }
 
 async function testarConexao() {

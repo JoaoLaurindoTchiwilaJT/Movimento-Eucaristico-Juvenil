@@ -156,23 +156,6 @@ export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntNullableFilter<$PrismaModel>
 }
 
-export type EnumcoordenadorNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.coordenador | Prisma.EnumcoordenadorFieldRefInput<$PrismaModel> | null
-  in?: $Enums.coordenador[] | null
-  notIn?: $Enums.coordenador[] | null
-  not?: Prisma.NestedEnumcoordenadorNullableFilter<$PrismaModel> | $Enums.coordenador | null
-}
-
-export type EnumcoordenadorNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.coordenador | Prisma.EnumcoordenadorFieldRefInput<$PrismaModel> | null
-  in?: $Enums.coordenador[] | null
-  notIn?: $Enums.coordenador[] | null
-  not?: Prisma.NestedEnumcoordenadorNullableWithAggregatesFilter<$PrismaModel> | $Enums.coordenador | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumcoordenadorNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumcoordenadorNullableFilter<$PrismaModel>
-}
-
 export type DateTimeFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[]
@@ -355,23 +338,6 @@ export type NestedFloatNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
-}
-
-export type NestedEnumcoordenadorNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.coordenador | Prisma.EnumcoordenadorFieldRefInput<$PrismaModel> | null
-  in?: $Enums.coordenador[] | null
-  notIn?: $Enums.coordenador[] | null
-  not?: Prisma.NestedEnumcoordenadorNullableFilter<$PrismaModel> | $Enums.coordenador | null
-}
-
-export type NestedEnumcoordenadorNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.coordenador | Prisma.EnumcoordenadorFieldRefInput<$PrismaModel> | null
-  in?: $Enums.coordenador[] | null
-  notIn?: $Enums.coordenador[] | null
-  not?: Prisma.NestedEnumcoordenadorNullableWithAggregatesFilter<$PrismaModel> | $Enums.coordenador | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumcoordenadorNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumcoordenadorNullableFilter<$PrismaModel>
 }
 
 export type NestedDateTimeFilter<$PrismaModel = never> = {

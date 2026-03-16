@@ -15,11 +15,3 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
-
-
-export const coordenador = {
-  coordenadorParoquialCentroSede: 'coordenadorParoquialCentroSede',
-  coordenadorCentral: 'coordenadorCentral'
-} as const
-
-export type coordenador = (typeof coordenador)[keyof typeof coordenador]

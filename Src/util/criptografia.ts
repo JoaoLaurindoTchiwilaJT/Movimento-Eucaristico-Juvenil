@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 
 export class Criptografia {
+ 
   public async criptografar(hash: string): Promise<string> {
     try {
       const hashe = await bcrypt.hash(hash, 10);
@@ -12,14 +13,22 @@ export class Criptografia {
     }
   } 
 
-  public descriptografar(hash: string, senha: string): boolean {
+  public descriptografar(senha: string,hash: string ): boolean {
+   
     try {
-      const hashes = bcrypt.compareSync(hash, senha);
+
+      const hashes = bcrypt.compareSync(senha,hash);
+      
+      console.log(hashes);
 
       return hashes;
+
     } catch (error) {
+
       console.error(error);
       throw error;
+
     }
   }
+  
 }
