@@ -31,6 +31,7 @@ export class userMej {
             nivel: datas.nivel,
             cargo: datas.cargo ?? "Membro",
             centroId: datas.centro,
+            promessado : datas.promessado as any,
             role: "User",
           },
         });

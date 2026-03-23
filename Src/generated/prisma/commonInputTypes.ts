@@ -62,6 +62,13 @@ export type EnumRoleFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
 }
 
+export type EnumPromessadoFilter<$PrismaModel = never> = {
+  equals?: $Enums.Promessado | Prisma.EnumPromessadoFieldRefInput<$PrismaModel>
+  in?: $Enums.Promessado[]
+  notIn?: $Enums.Promessado[]
+  not?: Prisma.NestedEnumPromessadoFilter<$PrismaModel> | $Enums.Promessado
+}
+
 export type IntNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
   in?: number[] | null
@@ -138,6 +145,16 @@ export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumRoleFilter<$PrismaModel>
+}
+
+export type EnumPromessadoWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Promessado | Prisma.EnumPromessadoFieldRefInput<$PrismaModel>
+  in?: $Enums.Promessado[]
+  notIn?: $Enums.Promessado[]
+  not?: Prisma.NestedEnumPromessadoWithAggregatesFilter<$PrismaModel> | $Enums.Promessado
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPromessadoFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPromessadoFilter<$PrismaModel>
 }
 
 export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -229,6 +246,13 @@ export type NestedEnumRoleFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
 }
 
+export type NestedEnumPromessadoFilter<$PrismaModel = never> = {
+  equals?: $Enums.Promessado | Prisma.EnumPromessadoFieldRefInput<$PrismaModel>
+  in?: $Enums.Promessado[]
+  notIn?: $Enums.Promessado[]
+  not?: Prisma.NestedEnumPromessadoFilter<$PrismaModel> | $Enums.Promessado
+}
+
 export type NestedIntNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
   in?: number[] | null
@@ -311,6 +335,16 @@ export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumPromessadoWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Promessado | Prisma.EnumPromessadoFieldRefInput<$PrismaModel>
+  in?: $Enums.Promessado[]
+  notIn?: $Enums.Promessado[]
+  not?: Prisma.NestedEnumPromessadoWithAggregatesFilter<$PrismaModel> | $Enums.Promessado
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPromessadoFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPromessadoFilter<$PrismaModel>
 }
 
 export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {

@@ -20,13 +20,18 @@ model user {
   cargo        String?
   numeroMembro String
   contacto     Int
-
+  promessado   Promessado
    // relação com centro
   centroId Int?
   centro   centrosParoquias? @relation(fields: [centroId], references: [idCentrosParoquias])
 
   livros   livros[]
   noticias noticias[]
+}
+
+enum Promessado {
+  Não
+  Sim
 }
 
 enum Role {
@@ -37,13 +42,13 @@ enum Role {
 model paroquias {
   idParoquia   Int    @id @default(autoincrement())
   nomeParoquia String
+  quota Int
   centros centrosParoquias[]
 }
 
 model centrosParoquias {
   idCentrosParoquias Int @id @default(autoincrement())
   nomeCentro String
-  quota Int
   paroquiaId Int
   paroquia   paroquias @relation(fields: [paroquiaId], references: [idParoquia], onDelete: Cascade)
 

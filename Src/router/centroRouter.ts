@@ -10,21 +10,19 @@ export async function centrosRouter(app: FastifyInstance) {
   app.post(
     "/createCentros",
     {
-      preHandler: verifyJWT,
+     
       schema: {
         description: "Criar um novo centro",
         tags: ["Centros"],
         body: z.object({
           nomeCentro: z.string().min(1, "Centro invalido verifique a escrita!"),
-          paroquia: z.coerce.number().min(1, "Id invalido para paróquia"),
-          quota: z.coerce.number().min(1, "Valor da quota invalido"),
+          paroquia: z.coerce.number().min(1, "Id invalido para paróquia")
         }),
         response: {
           201: z
             .object({
               nomeCentro: z.string(),
-              paroquia: z.number(),
-              quota: z.number(),
+              paroquia: z.number()
             })
             .nullable(),
         },
@@ -43,14 +41,12 @@ export async function centrosRouter(app: FastifyInstance) {
         tags: ["Centros"],
         body: z.object({
           idCentrosParoquias: z.number().min(1, "Id do centro é necessário"),
-          nomeCentro: z.string().min(1,"Nome do centro invalido!"),
-          quota: z.number().min(1,"Valor minimo da quota é de 1500!")
+          nomeCentro: z.string().min(1,"Nome do centro invalido!")
         }),
         response: {
           200: z.object({
             idCentrosParoquias : z.number(),
             nomeCentro : z.string(),
-            quota : z.number(),
             paroquiaId : z.number()
           })
         },
@@ -75,8 +71,7 @@ export async function centrosRouter(app: FastifyInstance) {
             idCentrosParoquias: z.number(),
             nomeCentro: z.string(),
             coordenador: z.string().optional(),
-            paroquia: z.number().optional(),
-            quota: z.number(),
+            paroquia: z.number().optional()
           }),
         },
       },
@@ -88,7 +83,7 @@ export async function centrosRouter(app: FastifyInstance) {
   app.get(
     "/findMany",
     {
-      preHandler: verifyJWT,
+     
       schema: {
         description: "Listar todos os centros",
         tags: ["Centros"],

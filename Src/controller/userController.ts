@@ -18,7 +18,7 @@ export class UserController {
 
   async createUser(req: FastifyRequest, res: FastifyReply): Promise<FastifyReply> {
     const data = CreateTypeMember.parse(req.body);
-
+    
     try {
       const result = await this.user.CreateUser(data);
       console.log(result);

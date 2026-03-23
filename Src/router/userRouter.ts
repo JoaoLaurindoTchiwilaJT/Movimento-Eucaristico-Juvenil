@@ -10,7 +10,7 @@ export async function userRouter(app: FastifyTypeInstance) {
   app.post(
     "/createMember",
     {
-      preHandler: verifyJWT,
+     
       schema: {
         tags: ["Members"],
         description: "Create a new user",
@@ -21,6 +21,7 @@ export async function userRouter(app: FastifyTypeInstance) {
           centro: z.number().min(1, "Selecione um centro valido!"),
           cargo: z.string().min(1, "Escolha um cargo existente!"),
           nivel: z.string().min(1, "O nivel selecionado está incorrecto!"),
+          promessado: z.string().max(3)
         }),
 
         response: {

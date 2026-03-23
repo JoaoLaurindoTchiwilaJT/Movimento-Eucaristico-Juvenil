@@ -11,17 +11,19 @@ export async function paroquiasRouter(app: FastifyInstance) {
   app.post(
     "/createParoquia",
     {
-      preHandler: verifyJWT,
+    
       schema: {
         description: "Criar uma nova paróquia",
-        tags: ["Paroquias"],
+        tags: ["Paroquias"], 
         body: z.object({
           nomeParoquia: z.string().min(1, "Paróquia invalida digite uma paróquia valida"),
+          quota: z.coerce.number().min(1, "Valor da quota invalido"),
         }),
         response: {
           201: z.object({
             idParoquia: z.number(),
             nomeParoquia: z.string(),
+            quota: z.number()
           }),
         },
       }, 
@@ -33,18 +35,19 @@ export async function paroquiasRouter(app: FastifyInstance) {
   app.put(
       "/updateParoquia",
       {
-        preHandler: verifyJWT,
         schema: {
           description: "Atualizar uma paróquia existente",
           tags: ["Paroquias"],
           body: z.object({
             idParoquia: z.number().min(1,"O id da paróquia é necessário"),
-            nomeParoquia: z.string().min(1,"O nome para ser actualizado é necessário") 
+            nomeParoquia: z.string().min(1,"O nome para ser actualizado é necessário").optional(),
+            quota: z.coerce.number().min(1, "Valor da quota invalido").optional(),
           }),
           response: {
             200: z.object({
               idParoquia: z.number(),
-              nomeParoquia: z.string()
+              nomeParoquia: z.string(),
+              quota : z.number()
             }),
           },
         },
@@ -80,7 +83,7 @@ export async function paroquiasRouter(app: FastifyInstance) {
   app.get(
     "/findMany",
     {
-      preHandler: verifyJWT,
+      
       schema: {
         description: "Listar todas as paróquias",
         tags: ["Paroquias"],
@@ -101,7 +104,7 @@ export async function paroquiasRouter(app: FastifyInstance) {
   app.delete(
     "/deleteParoquia",
     {
-      preHandler: verifyJWT,
+     
       schema: {
         description: "Deletar paróquia por Id",
         tags: ["Paroquias"],

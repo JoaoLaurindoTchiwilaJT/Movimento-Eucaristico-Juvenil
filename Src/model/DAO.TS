@@ -14,11 +14,12 @@ export const CreateTypeMember = z.object({
   contacto: z.coerce.number().min(9, "Quantidade de números invalidos! "),
   centro: z.coerce.number().min(1, "Selecione um centro valido!"),
   cargo: z.string().min(1, "Escolha um cargo existente!"),
-  nivel: z.string().min(1, "O nivel selecionado está incorrecto!"),
+  nivel: z.string().min(1, "O nivel selecionado está incorrecto!"), 
+  promessado: z.string()
 });
 
 export type CreateMember = z.infer<typeof CreateTypeMember>;
-
+ 
 export const updateTypeMember = z.object({
   idMejista : z.number().min(1,"Id invalido!").optional(),
   nomeMembro: z.string().min(2, "Insira o 1ª e o Ultimo nome!").optional(),
@@ -32,7 +33,8 @@ export const updateTypeMember = z.object({
 export type updateMember = z.infer<typeof updateTypeMember>;
 
 export const CreateTypeParoquia = z.object({
-  nomeParoquia: z.string().min(1, "Paróquia invalida digite uma paróquia valida")
+  nomeParoquia: z.string().min(1, "Paróquia invalida digite uma paróquia valida"),
+  quota: z.number().min(1, "Valor da quota invalida"),
 });
 
 export type CreateParoquia = z.infer<typeof CreateTypeParoquia>;
@@ -40,13 +42,13 @@ export type CreateParoquia = z.infer<typeof CreateTypeParoquia>;
 export const updateTypeParoquia = z.object({
   idParoquia : z.number().min(1,"Id da paróquia invalido"),
   nomeParoquia: z.string().min(1, "Paróquia invalida digite uma paróquia valida").optional(),
+  quota: z.number().min(1, "Valor da quota invalida").optional(),
 });
 
 export type updateParoquia = z.infer<typeof updateTypeParoquia>;
 
 export const CreateTypeCentro = z.object({
   nomeCentro: z.string().min(1, "Centro invalido verifique a escrita!"),
-  quota: z.number().min(1, "Valor da quota invalida"),
   paroquia: z.coerce.number().min(1, "Id invalido para paróquia"),
 });
 

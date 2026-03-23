@@ -11,13 +11,10 @@ export class centrosMej {
         },
       });
 
-      console.log(paroquiaConfirm);
-
       if (paroquiaConfirm) {
         const result = await prisma.centrosParoquias.create({
           data: {
             nomeCentro: datas.nomeCentro,
-            quota: datas.quota,
             paroquiaId: datas.paroquia,
           },
         });
@@ -38,8 +35,7 @@ export class centrosMej {
         const centro = result1.map((centro) => ({
           nomeCentro: centro.nomeCentro,
           coordenador: centro.membros[0]?.nomeMembro ?? "Sem coordenador",
-          paroquia: centro.paroquiaId,
-          quota: centro.quota,
+          paroquia: centro.paroquiaId
         }));
 
         return centro[0];
@@ -96,8 +92,7 @@ export class centrosMej {
         idCentrosParoquias: result.idCentrosParoquias,
         nomeCentro: result.nomeCentro,
         coordenador: result.membros[0]?.nomeMembro ?? "Sem coordenador",
-        paroquia: result.paroquiaId,
-        quota: result.quota,
+        paroquia: result.paroquiaId
       };
 
       return centro;
@@ -132,7 +127,6 @@ export class centrosMej {
         nomeCentro: centro.nomeCentro,
         coordenador: centro.membros[0]?.nomeMembro ?? "Sem coordenador",
         paroquia: centro.paroquiaId,
-        quota: centro.quota,
         qtdMembros: centro._count.membros,
       }));
 
@@ -143,7 +137,7 @@ export class centrosMej {
       }
 
       throw new Error("Error to find many Centros");
-    }
+    } 
   }
 
   async deleteCentros(id: number) {

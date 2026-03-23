@@ -48,6 +48,7 @@ export type UserMinAggregateOutputType = {
   cargo: string | null
   numeroMembro: string | null
   contacto: number | null
+  promessado: $Enums.Promessado | null
   centroId: number | null
 }
 
@@ -61,6 +62,7 @@ export type UserMaxAggregateOutputType = {
   cargo: string | null
   numeroMembro: string | null
   contacto: number | null
+  promessado: $Enums.Promessado | null
   centroId: number | null
 }
 
@@ -74,6 +76,7 @@ export type UserCountAggregateOutputType = {
   cargo: number
   numeroMembro: number
   contacto: number
+  promessado: number
   centroId: number
   _all: number
 }
@@ -101,6 +104,7 @@ export type UserMinAggregateInputType = {
   cargo?: true
   numeroMembro?: true
   contacto?: true
+  promessado?: true
   centroId?: true
 }
 
@@ -114,6 +118,7 @@ export type UserMaxAggregateInputType = {
   cargo?: true
   numeroMembro?: true
   contacto?: true
+  promessado?: true
   centroId?: true
 }
 
@@ -127,6 +132,7 @@ export type UserCountAggregateInputType = {
   cargo?: true
   numeroMembro?: true
   contacto?: true
+  promessado?: true
   centroId?: true
   _all?: true
 }
@@ -227,6 +233,7 @@ export type UserGroupByOutputType = {
   cargo: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   centroId: number | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
@@ -263,6 +270,7 @@ export type userWhereInput = {
   cargo?: Prisma.StringNullableFilter<"user"> | string | null
   numeroMembro?: Prisma.StringFilter<"user"> | string
   contacto?: Prisma.IntFilter<"user"> | number
+  promessado?: Prisma.EnumPromessadoFilter<"user"> | $Enums.Promessado
   centroId?: Prisma.IntNullableFilter<"user"> | number | null
   centro?: Prisma.XOR<Prisma.CentrosParoquiasNullableScalarRelationFilter, Prisma.centrosParoquiasWhereInput> | null
   livros?: Prisma.LivrosListRelationFilter
@@ -279,6 +287,7 @@ export type userOrderByWithRelationInput = {
   cargo?: Prisma.SortOrderInput | Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
+  promessado?: Prisma.SortOrder
   centroId?: Prisma.SortOrderInput | Prisma.SortOrder
   centro?: Prisma.centrosParoquiasOrderByWithRelationInput
   livros?: Prisma.livrosOrderByRelationAggregateInput
@@ -299,6 +308,7 @@ export type userWhereUniqueInput = Prisma.AtLeast<{
   cargo?: Prisma.StringNullableFilter<"user"> | string | null
   numeroMembro?: Prisma.StringFilter<"user"> | string
   contacto?: Prisma.IntFilter<"user"> | number
+  promessado?: Prisma.EnumPromessadoFilter<"user"> | $Enums.Promessado
   centroId?: Prisma.IntNullableFilter<"user"> | number | null
   centro?: Prisma.XOR<Prisma.CentrosParoquiasNullableScalarRelationFilter, Prisma.centrosParoquiasWhereInput> | null
   livros?: Prisma.LivrosListRelationFilter
@@ -315,6 +325,7 @@ export type userOrderByWithAggregationInput = {
   cargo?: Prisma.SortOrderInput | Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
+  promessado?: Prisma.SortOrder
   centroId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.userCountOrderByAggregateInput
   _avg?: Prisma.userAvgOrderByAggregateInput
@@ -336,6 +347,7 @@ export type userScalarWhereWithAggregatesInput = {
   cargo?: Prisma.StringNullableWithAggregatesFilter<"user"> | string | null
   numeroMembro?: Prisma.StringWithAggregatesFilter<"user"> | string
   contacto?: Prisma.IntWithAggregatesFilter<"user"> | number
+  promessado?: Prisma.EnumPromessadoWithAggregatesFilter<"user"> | $Enums.Promessado
   centroId?: Prisma.IntNullableWithAggregatesFilter<"user"> | number | null
 }
 
@@ -348,6 +360,7 @@ export type userCreateInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
   livros?: Prisma.livrosCreateNestedManyWithoutUserInput
   noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
@@ -363,6 +376,7 @@ export type userUncheckedCreateInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   centroId?: number | null
   livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
   noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
@@ -377,6 +391,7 @@ export type userUpdateInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
   livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
   noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
@@ -392,6 +407,7 @@ export type userUncheckedUpdateInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
   noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
@@ -407,6 +423,7 @@ export type userCreateManyInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   centroId?: number | null
 }
 
@@ -419,6 +436,7 @@ export type userUpdateManyMutationInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
 }
 
 export type userUncheckedUpdateManyInput = {
@@ -431,6 +449,7 @@ export type userUncheckedUpdateManyInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -450,6 +469,7 @@ export type userCountOrderByAggregateInput = {
   cargo?: Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
+  promessado?: Prisma.SortOrder
   centroId?: Prisma.SortOrder
 }
 
@@ -469,6 +489,7 @@ export type userMaxOrderByAggregateInput = {
   cargo?: Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
+  promessado?: Prisma.SortOrder
   centroId?: Prisma.SortOrder
 }
 
@@ -482,6 +503,7 @@ export type userMinOrderByAggregateInput = {
   cargo?: Prisma.SortOrder
   numeroMembro?: Prisma.SortOrder
   contacto?: Prisma.SortOrder
+  promessado?: Prisma.SortOrder
   centroId?: Prisma.SortOrder
 }
 
@@ -524,6 +546,10 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type EnumPromessadoFieldUpdateOperationsInput = {
+  set?: $Enums.Promessado
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -613,6 +639,7 @@ export type userCreateWithoutCentroInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   livros?: Prisma.livrosCreateNestedManyWithoutUserInput
   noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
 }
@@ -627,6 +654,7 @@ export type userUncheckedCreateWithoutCentroInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
   noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
 }
@@ -670,6 +698,7 @@ export type userScalarWhereInput = {
   cargo?: Prisma.StringNullableFilter<"user"> | string | null
   numeroMembro?: Prisma.StringFilter<"user"> | string
   contacto?: Prisma.IntFilter<"user"> | number
+  promessado?: Prisma.EnumPromessadoFilter<"user"> | $Enums.Promessado
   centroId?: Prisma.IntNullableFilter<"user"> | number | null
 }
 
@@ -682,6 +711,7 @@ export type userCreateWithoutNoticiasInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
   livros?: Prisma.livrosCreateNestedManyWithoutUserInput
 }
@@ -696,6 +726,7 @@ export type userUncheckedCreateWithoutNoticiasInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   centroId?: number | null
   livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
 }
@@ -725,6 +756,7 @@ export type userUpdateWithoutNoticiasInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
   livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
 }
@@ -739,6 +771,7 @@ export type userUncheckedUpdateWithoutNoticiasInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -752,6 +785,7 @@ export type userCreateWithoutLivrosInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
   noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
 }
@@ -766,6 +800,7 @@ export type userUncheckedCreateWithoutLivrosInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
   centroId?: number | null
   noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
 }
@@ -795,6 +830,7 @@ export type userUpdateWithoutLivrosInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
   noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
 }
@@ -809,6 +845,7 @@ export type userUncheckedUpdateWithoutLivrosInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -823,6 +860,7 @@ export type userCreateManyCentroInput = {
   cargo?: string | null
   numeroMembro: string
   contacto: number
+  promessado: $Enums.Promessado
 }
 
 export type userUpdateWithoutCentroInput = {
@@ -834,6 +872,7 @@ export type userUpdateWithoutCentroInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
   noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
 }
@@ -848,6 +887,7 @@ export type userUncheckedUpdateWithoutCentroInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
   noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -862,6 +902,7 @@ export type userUncheckedUpdateManyWithoutCentroInput = {
   cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
 }
 
 
@@ -914,6 +955,7 @@ export type userSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   cargo?: boolean
   numeroMembro?: boolean
   contacto?: boolean
+  promessado?: boolean
   centroId?: boolean
   centro?: boolean | Prisma.user$centroArgs<ExtArgs>
   livros?: boolean | Prisma.user$livrosArgs<ExtArgs>
@@ -933,10 +975,11 @@ export type userSelectScalar = {
   cargo?: boolean
   numeroMembro?: boolean
   contacto?: boolean
+  promessado?: boolean
   centroId?: boolean
 }
 
-export type userOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idMejista" | "nomeMembro" | "email" | "senha" | "nivel" | "role" | "cargo" | "numeroMembro" | "contacto" | "centroId", ExtArgs["result"]["user"]>
+export type userOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idMejista" | "nomeMembro" | "email" | "senha" | "nivel" | "role" | "cargo" | "numeroMembro" | "contacto" | "promessado" | "centroId", ExtArgs["result"]["user"]>
 export type userInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   centro?: boolean | Prisma.user$centroArgs<ExtArgs>
   livros?: boolean | Prisma.user$livrosArgs<ExtArgs>
@@ -961,6 +1004,7 @@ export type $userPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     cargo: string | null
     numeroMembro: string
     contacto: number
+    promessado: $Enums.Promessado
     centroId: number | null
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1343,6 +1387,7 @@ export interface userFieldRefs {
   readonly cargo: Prisma.FieldRef<"user", 'String'>
   readonly numeroMembro: Prisma.FieldRef<"user", 'String'>
   readonly contacto: Prisma.FieldRef<"user", 'Int'>
+  readonly promessado: Prisma.FieldRef<"user", 'Promessado'>
   readonly centroId: Prisma.FieldRef<"user", 'Int'>
 }
     

@@ -28,34 +28,29 @@ export type AggregateCentrosParoquias = {
 
 export type CentrosParoquiasAvgAggregateOutputType = {
   idCentrosParoquias: number | null
-  quota: number | null
   paroquiaId: number | null
 }
 
 export type CentrosParoquiasSumAggregateOutputType = {
   idCentrosParoquias: number | null
-  quota: number | null
   paroquiaId: number | null
 }
 
 export type CentrosParoquiasMinAggregateOutputType = {
   idCentrosParoquias: number | null
   nomeCentro: string | null
-  quota: number | null
   paroquiaId: number | null
 }
 
 export type CentrosParoquiasMaxAggregateOutputType = {
   idCentrosParoquias: number | null
   nomeCentro: string | null
-  quota: number | null
   paroquiaId: number | null
 }
 
 export type CentrosParoquiasCountAggregateOutputType = {
   idCentrosParoquias: number
   nomeCentro: number
-  quota: number
   paroquiaId: number
   _all: number
 }
@@ -63,34 +58,29 @@ export type CentrosParoquiasCountAggregateOutputType = {
 
 export type CentrosParoquiasAvgAggregateInputType = {
   idCentrosParoquias?: true
-  quota?: true
   paroquiaId?: true
 }
 
 export type CentrosParoquiasSumAggregateInputType = {
   idCentrosParoquias?: true
-  quota?: true
   paroquiaId?: true
 }
 
 export type CentrosParoquiasMinAggregateInputType = {
   idCentrosParoquias?: true
   nomeCentro?: true
-  quota?: true
   paroquiaId?: true
 }
 
 export type CentrosParoquiasMaxAggregateInputType = {
   idCentrosParoquias?: true
   nomeCentro?: true
-  quota?: true
   paroquiaId?: true
 }
 
 export type CentrosParoquiasCountAggregateInputType = {
   idCentrosParoquias?: true
   nomeCentro?: true
-  quota?: true
   paroquiaId?: true
   _all?: true
 }
@@ -184,7 +174,6 @@ export type centrosParoquiasGroupByArgs<ExtArgs extends runtime.Types.Extensions
 export type CentrosParoquiasGroupByOutputType = {
   idCentrosParoquias: number
   nomeCentro: string
-  quota: number
   paroquiaId: number
   _count: CentrosParoquiasCountAggregateOutputType | null
   _avg: CentrosParoquiasAvgAggregateOutputType | null
@@ -214,7 +203,6 @@ export type centrosParoquiasWhereInput = {
   NOT?: Prisma.centrosParoquiasWhereInput | Prisma.centrosParoquiasWhereInput[]
   idCentrosParoquias?: Prisma.IntFilter<"centrosParoquias"> | number
   nomeCentro?: Prisma.StringFilter<"centrosParoquias"> | string
-  quota?: Prisma.IntFilter<"centrosParoquias"> | number
   paroquiaId?: Prisma.IntFilter<"centrosParoquias"> | number
   paroquia?: Prisma.XOR<Prisma.ParoquiasScalarRelationFilter, Prisma.paroquiasWhereInput>
   membros?: Prisma.UserListRelationFilter
@@ -223,7 +211,6 @@ export type centrosParoquiasWhereInput = {
 export type centrosParoquiasOrderByWithRelationInput = {
   idCentrosParoquias?: Prisma.SortOrder
   nomeCentro?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
   paroquia?: Prisma.paroquiasOrderByWithRelationInput
   membros?: Prisma.userOrderByRelationAggregateInput
@@ -236,7 +223,6 @@ export type centrosParoquiasWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.centrosParoquiasWhereInput[]
   NOT?: Prisma.centrosParoquiasWhereInput | Prisma.centrosParoquiasWhereInput[]
   nomeCentro?: Prisma.StringFilter<"centrosParoquias"> | string
-  quota?: Prisma.IntFilter<"centrosParoquias"> | number
   paroquiaId?: Prisma.IntFilter<"centrosParoquias"> | number
   paroquia?: Prisma.XOR<Prisma.ParoquiasScalarRelationFilter, Prisma.paroquiasWhereInput>
   membros?: Prisma.UserListRelationFilter
@@ -245,7 +231,6 @@ export type centrosParoquiasWhereUniqueInput = Prisma.AtLeast<{
 export type centrosParoquiasOrderByWithAggregationInput = {
   idCentrosParoquias?: Prisma.SortOrder
   nomeCentro?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
   _count?: Prisma.centrosParoquiasCountOrderByAggregateInput
   _avg?: Prisma.centrosParoquiasAvgOrderByAggregateInput
@@ -260,13 +245,11 @@ export type centrosParoquiasScalarWhereWithAggregatesInput = {
   NOT?: Prisma.centrosParoquiasScalarWhereWithAggregatesInput | Prisma.centrosParoquiasScalarWhereWithAggregatesInput[]
   idCentrosParoquias?: Prisma.IntWithAggregatesFilter<"centrosParoquias"> | number
   nomeCentro?: Prisma.StringWithAggregatesFilter<"centrosParoquias"> | string
-  quota?: Prisma.IntWithAggregatesFilter<"centrosParoquias"> | number
   paroquiaId?: Prisma.IntWithAggregatesFilter<"centrosParoquias"> | number
 }
 
 export type centrosParoquiasCreateInput = {
   nomeCentro: string
-  quota: number
   paroquia: Prisma.paroquiasCreateNestedOneWithoutCentrosInput
   membros?: Prisma.userCreateNestedManyWithoutCentroInput
 }
@@ -274,14 +257,12 @@ export type centrosParoquiasCreateInput = {
 export type centrosParoquiasUncheckedCreateInput = {
   idCentrosParoquias?: number
   nomeCentro: string
-  quota: number
   paroquiaId: number
   membros?: Prisma.userUncheckedCreateNestedManyWithoutCentroInput
 }
 
 export type centrosParoquiasUpdateInput = {
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
   paroquia?: Prisma.paroquiasUpdateOneRequiredWithoutCentrosNestedInput
   membros?: Prisma.userUpdateManyWithoutCentroNestedInput
 }
@@ -289,7 +270,6 @@ export type centrosParoquiasUpdateInput = {
 export type centrosParoquiasUncheckedUpdateInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
   paroquiaId?: Prisma.IntFieldUpdateOperationsInput | number
   membros?: Prisma.userUncheckedUpdateManyWithoutCentroNestedInput
 }
@@ -297,19 +277,16 @@ export type centrosParoquiasUncheckedUpdateInput = {
 export type centrosParoquiasCreateManyInput = {
   idCentrosParoquias?: number
   nomeCentro: string
-  quota: number
   paroquiaId: number
 }
 
 export type centrosParoquiasUpdateManyMutationInput = {
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type centrosParoquiasUncheckedUpdateManyInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
   paroquiaId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -337,33 +314,28 @@ export type centrosParoquiasOrderByRelevanceInput = {
 export type centrosParoquiasCountOrderByAggregateInput = {
   idCentrosParoquias?: Prisma.SortOrder
   nomeCentro?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
 }
 
 export type centrosParoquiasAvgOrderByAggregateInput = {
   idCentrosParoquias?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
 }
 
 export type centrosParoquiasMaxOrderByAggregateInput = {
   idCentrosParoquias?: Prisma.SortOrder
   nomeCentro?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
 }
 
 export type centrosParoquiasMinOrderByAggregateInput = {
   idCentrosParoquias?: Prisma.SortOrder
   nomeCentro?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
 }
 
 export type centrosParoquiasSumOrderByAggregateInput = {
   idCentrosParoquias?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
 }
 
@@ -427,14 +399,12 @@ export type centrosParoquiasUncheckedUpdateManyWithoutParoquiaNestedInput = {
 
 export type centrosParoquiasCreateWithoutMembrosInput = {
   nomeCentro: string
-  quota: number
   paroquia: Prisma.paroquiasCreateNestedOneWithoutCentrosInput
 }
 
 export type centrosParoquiasUncheckedCreateWithoutMembrosInput = {
   idCentrosParoquias?: number
   nomeCentro: string
-  quota: number
   paroquiaId: number
 }
 
@@ -456,27 +426,23 @@ export type centrosParoquiasUpdateToOneWithWhereWithoutMembrosInput = {
 
 export type centrosParoquiasUpdateWithoutMembrosInput = {
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
   paroquia?: Prisma.paroquiasUpdateOneRequiredWithoutCentrosNestedInput
 }
 
 export type centrosParoquiasUncheckedUpdateWithoutMembrosInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
   paroquiaId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type centrosParoquiasCreateWithoutParoquiaInput = {
   nomeCentro: string
-  quota: number
   membros?: Prisma.userCreateNestedManyWithoutCentroInput
 }
 
 export type centrosParoquiasUncheckedCreateWithoutParoquiaInput = {
   idCentrosParoquias?: number
   nomeCentro: string
-  quota: number
   membros?: Prisma.userUncheckedCreateNestedManyWithoutCentroInput
 }
 
@@ -512,33 +478,28 @@ export type centrosParoquiasScalarWhereInput = {
   NOT?: Prisma.centrosParoquiasScalarWhereInput | Prisma.centrosParoquiasScalarWhereInput[]
   idCentrosParoquias?: Prisma.IntFilter<"centrosParoquias"> | number
   nomeCentro?: Prisma.StringFilter<"centrosParoquias"> | string
-  quota?: Prisma.IntFilter<"centrosParoquias"> | number
   paroquiaId?: Prisma.IntFilter<"centrosParoquias"> | number
 }
 
 export type centrosParoquiasCreateManyParoquiaInput = {
   idCentrosParoquias?: number
   nomeCentro: string
-  quota: number
 }
 
 export type centrosParoquiasUpdateWithoutParoquiaInput = {
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
   membros?: Prisma.userUpdateManyWithoutCentroNestedInput
 }
 
 export type centrosParoquiasUncheckedUpdateWithoutParoquiaInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
   membros?: Prisma.userUncheckedUpdateManyWithoutCentroNestedInput
 }
 
 export type centrosParoquiasUncheckedUpdateManyWithoutParoquiaInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -575,7 +536,6 @@ export type CentrosParoquiasCountOutputTypeCountMembrosArgs<ExtArgs extends runt
 export type centrosParoquiasSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   idCentrosParoquias?: boolean
   nomeCentro?: boolean
-  quota?: boolean
   paroquiaId?: boolean
   paroquia?: boolean | Prisma.paroquiasDefaultArgs<ExtArgs>
   membros?: boolean | Prisma.centrosParoquias$membrosArgs<ExtArgs>
@@ -587,11 +547,10 @@ export type centrosParoquiasSelect<ExtArgs extends runtime.Types.Extensions.Inte
 export type centrosParoquiasSelectScalar = {
   idCentrosParoquias?: boolean
   nomeCentro?: boolean
-  quota?: boolean
   paroquiaId?: boolean
 }
 
-export type centrosParoquiasOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idCentrosParoquias" | "nomeCentro" | "quota" | "paroquiaId", ExtArgs["result"]["centrosParoquias"]>
+export type centrosParoquiasOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idCentrosParoquias" | "nomeCentro" | "paroquiaId", ExtArgs["result"]["centrosParoquias"]>
 export type centrosParoquiasInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   paroquia?: boolean | Prisma.paroquiasDefaultArgs<ExtArgs>
   membros?: boolean | Prisma.centrosParoquias$membrosArgs<ExtArgs>
@@ -607,7 +566,6 @@ export type $centrosParoquiasPayload<ExtArgs extends runtime.Types.Extensions.In
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     idCentrosParoquias: number
     nomeCentro: string
-    quota: number
     paroquiaId: number
   }, ExtArgs["result"]["centrosParoquias"]>
   composites: {}
@@ -982,7 +940,6 @@ export interface Prisma__centrosParoquiasClient<T, Null = never, ExtArgs extends
 export interface centrosParoquiasFieldRefs {
   readonly idCentrosParoquias: Prisma.FieldRef<"centrosParoquias", 'Int'>
   readonly nomeCentro: Prisma.FieldRef<"centrosParoquias", 'String'>
-  readonly quota: Prisma.FieldRef<"centrosParoquias", 'Int'>
   readonly paroquiaId: Prisma.FieldRef<"centrosParoquias", 'Int'>
 }
     

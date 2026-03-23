@@ -28,50 +28,60 @@ export type AggregateParoquias = {
 
 export type ParoquiasAvgAggregateOutputType = {
   idParoquia: number | null
+  quota: number | null
 }
 
 export type ParoquiasSumAggregateOutputType = {
   idParoquia: number | null
+  quota: number | null
 }
 
 export type ParoquiasMinAggregateOutputType = {
   idParoquia: number | null
   nomeParoquia: string | null
+  quota: number | null
 }
 
 export type ParoquiasMaxAggregateOutputType = {
   idParoquia: number | null
   nomeParoquia: string | null
+  quota: number | null
 }
 
 export type ParoquiasCountAggregateOutputType = {
   idParoquia: number
   nomeParoquia: number
+  quota: number
   _all: number
 }
 
 
 export type ParoquiasAvgAggregateInputType = {
   idParoquia?: true
+  quota?: true
 }
 
 export type ParoquiasSumAggregateInputType = {
   idParoquia?: true
+  quota?: true
 }
 
 export type ParoquiasMinAggregateInputType = {
   idParoquia?: true
   nomeParoquia?: true
+  quota?: true
 }
 
 export type ParoquiasMaxAggregateInputType = {
   idParoquia?: true
   nomeParoquia?: true
+  quota?: true
 }
 
 export type ParoquiasCountAggregateInputType = {
   idParoquia?: true
   nomeParoquia?: true
+  quota?: true
   _all?: true
 }
 
@@ -164,6 +174,7 @@ export type paroquiasGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type ParoquiasGroupByOutputType = {
   idParoquia: number
   nomeParoquia: string
+  quota: number
   _count: ParoquiasCountAggregateOutputType | null
   _avg: ParoquiasAvgAggregateOutputType | null
   _sum: ParoquiasSumAggregateOutputType | null
@@ -192,12 +203,14 @@ export type paroquiasWhereInput = {
   NOT?: Prisma.paroquiasWhereInput | Prisma.paroquiasWhereInput[]
   idParoquia?: Prisma.IntFilter<"paroquias"> | number
   nomeParoquia?: Prisma.StringFilter<"paroquias"> | string
+  quota?: Prisma.IntFilter<"paroquias"> | number
   centros?: Prisma.CentrosParoquiasListRelationFilter
 }
 
 export type paroquiasOrderByWithRelationInput = {
   idParoquia?: Prisma.SortOrder
   nomeParoquia?: Prisma.SortOrder
+  quota?: Prisma.SortOrder
   centros?: Prisma.centrosParoquiasOrderByRelationAggregateInput
   _relevance?: Prisma.paroquiasOrderByRelevanceInput
 }
@@ -208,12 +221,14 @@ export type paroquiasWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.paroquiasWhereInput[]
   NOT?: Prisma.paroquiasWhereInput | Prisma.paroquiasWhereInput[]
   nomeParoquia?: Prisma.StringFilter<"paroquias"> | string
+  quota?: Prisma.IntFilter<"paroquias"> | number
   centros?: Prisma.CentrosParoquiasListRelationFilter
 }, "idParoquia">
 
 export type paroquiasOrderByWithAggregationInput = {
   idParoquia?: Prisma.SortOrder
   nomeParoquia?: Prisma.SortOrder
+  quota?: Prisma.SortOrder
   _count?: Prisma.paroquiasCountOrderByAggregateInput
   _avg?: Prisma.paroquiasAvgOrderByAggregateInput
   _max?: Prisma.paroquiasMaxOrderByAggregateInput
@@ -227,42 +242,50 @@ export type paroquiasScalarWhereWithAggregatesInput = {
   NOT?: Prisma.paroquiasScalarWhereWithAggregatesInput | Prisma.paroquiasScalarWhereWithAggregatesInput[]
   idParoquia?: Prisma.IntWithAggregatesFilter<"paroquias"> | number
   nomeParoquia?: Prisma.StringWithAggregatesFilter<"paroquias"> | string
+  quota?: Prisma.IntWithAggregatesFilter<"paroquias"> | number
 }
 
 export type paroquiasCreateInput = {
   nomeParoquia: string
+  quota: number
   centros?: Prisma.centrosParoquiasCreateNestedManyWithoutParoquiaInput
 }
 
 export type paroquiasUncheckedCreateInput = {
   idParoquia?: number
   nomeParoquia: string
+  quota: number
   centros?: Prisma.centrosParoquiasUncheckedCreateNestedManyWithoutParoquiaInput
 }
 
 export type paroquiasUpdateInput = {
   nomeParoquia?: Prisma.StringFieldUpdateOperationsInput | string
+  quota?: Prisma.IntFieldUpdateOperationsInput | number
   centros?: Prisma.centrosParoquiasUpdateManyWithoutParoquiaNestedInput
 }
 
 export type paroquiasUncheckedUpdateInput = {
   idParoquia?: Prisma.IntFieldUpdateOperationsInput | number
   nomeParoquia?: Prisma.StringFieldUpdateOperationsInput | string
+  quota?: Prisma.IntFieldUpdateOperationsInput | number
   centros?: Prisma.centrosParoquiasUncheckedUpdateManyWithoutParoquiaNestedInput
 }
 
 export type paroquiasCreateManyInput = {
   idParoquia?: number
   nomeParoquia: string
+  quota: number
 }
 
 export type paroquiasUpdateManyMutationInput = {
   nomeParoquia?: Prisma.StringFieldUpdateOperationsInput | string
+  quota?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type paroquiasUncheckedUpdateManyInput = {
   idParoquia?: Prisma.IntFieldUpdateOperationsInput | number
   nomeParoquia?: Prisma.StringFieldUpdateOperationsInput | string
+  quota?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type paroquiasOrderByRelevanceInput = {
@@ -274,24 +297,29 @@ export type paroquiasOrderByRelevanceInput = {
 export type paroquiasCountOrderByAggregateInput = {
   idParoquia?: Prisma.SortOrder
   nomeParoquia?: Prisma.SortOrder
+  quota?: Prisma.SortOrder
 }
 
 export type paroquiasAvgOrderByAggregateInput = {
   idParoquia?: Prisma.SortOrder
+  quota?: Prisma.SortOrder
 }
 
 export type paroquiasMaxOrderByAggregateInput = {
   idParoquia?: Prisma.SortOrder
   nomeParoquia?: Prisma.SortOrder
+  quota?: Prisma.SortOrder
 }
 
 export type paroquiasMinOrderByAggregateInput = {
   idParoquia?: Prisma.SortOrder
   nomeParoquia?: Prisma.SortOrder
+  quota?: Prisma.SortOrder
 }
 
 export type paroquiasSumOrderByAggregateInput = {
   idParoquia?: Prisma.SortOrder
+  quota?: Prisma.SortOrder
 }
 
 export type ParoquiasScalarRelationFilter = {
@@ -315,11 +343,13 @@ export type paroquiasUpdateOneRequiredWithoutCentrosNestedInput = {
 
 export type paroquiasCreateWithoutCentrosInput = {
   nomeParoquia: string
+  quota: number
 }
 
 export type paroquiasUncheckedCreateWithoutCentrosInput = {
   idParoquia?: number
   nomeParoquia: string
+  quota: number
 }
 
 export type paroquiasCreateOrConnectWithoutCentrosInput = {
@@ -340,11 +370,13 @@ export type paroquiasUpdateToOneWithWhereWithoutCentrosInput = {
 
 export type paroquiasUpdateWithoutCentrosInput = {
   nomeParoquia?: Prisma.StringFieldUpdateOperationsInput | string
+  quota?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type paroquiasUncheckedUpdateWithoutCentrosInput = {
   idParoquia?: Prisma.IntFieldUpdateOperationsInput | number
   nomeParoquia?: Prisma.StringFieldUpdateOperationsInput | string
+  quota?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -381,6 +413,7 @@ export type ParoquiasCountOutputTypeCountCentrosArgs<ExtArgs extends runtime.Typ
 export type paroquiasSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   idParoquia?: boolean
   nomeParoquia?: boolean
+  quota?: boolean
   centros?: boolean | Prisma.paroquias$centrosArgs<ExtArgs>
   _count?: boolean | Prisma.ParoquiasCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["paroquias"]>
@@ -390,9 +423,10 @@ export type paroquiasSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type paroquiasSelectScalar = {
   idParoquia?: boolean
   nomeParoquia?: boolean
+  quota?: boolean
 }
 
-export type paroquiasOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idParoquia" | "nomeParoquia", ExtArgs["result"]["paroquias"]>
+export type paroquiasOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idParoquia" | "nomeParoquia" | "quota", ExtArgs["result"]["paroquias"]>
 export type paroquiasInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   centros?: boolean | Prisma.paroquias$centrosArgs<ExtArgs>
   _count?: boolean | Prisma.ParoquiasCountOutputTypeDefaultArgs<ExtArgs>
@@ -406,6 +440,7 @@ export type $paroquiasPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     idParoquia: number
     nomeParoquia: string
+    quota: number
   }, ExtArgs["result"]["paroquias"]>
   composites: {}
 }
@@ -778,6 +813,7 @@ export interface Prisma__paroquiasClient<T, Null = never, ExtArgs extends runtim
 export interface paroquiasFieldRefs {
   readonly idParoquia: Prisma.FieldRef<"paroquias", 'Int'>
   readonly nomeParoquia: Prisma.FieldRef<"paroquias", 'String'>
+  readonly quota: Prisma.FieldRef<"paroquias", 'Int'>
 }
     
 

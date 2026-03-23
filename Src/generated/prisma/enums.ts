@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const Promessado = {
+  Não: 'Não',
+  Sim: 'Sim'
+} as const
+
+export type Promessado = (typeof Promessado)[keyof typeof Promessado]
+
+
 export const Role = {
   Admin: 'Admin',
   User: 'User'

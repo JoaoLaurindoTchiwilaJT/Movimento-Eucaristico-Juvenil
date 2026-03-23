@@ -35,12 +35,13 @@ async function createAdminIfNotExist() {
           numeroMembro: "0001",
           contacto: 123456789,
           nivel: "MEJ",
+          promessado: "Sim" 
         },
       });
       console.log("Admin criado com sucesso!");
     }
 
-  } catch (error) {
+  } catch (error) { 
     console.error("Error to create Admin:", error);
     throw new Error("Error to create Admin:" + error);
   }
