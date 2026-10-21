@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import axios from 'axios';
 import {
   Table,
   TableBody,
@@ -30,7 +29,7 @@ type Paroquia = {
 };
 
 export default function Paroquias() {
-  const [dataParoquia, setDataParoquia] = useState([]);
+  const [dataParoquia, setDataParoquia] = useState<Paroquia[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const {
     register,
@@ -41,10 +40,10 @@ export default function Paroquias() {
     resolver: zodResolver(createTypeParoquia),
   });
   const [paroquiaEdit, setParoquiaEdit] = useState<Paroquia | null>(null);
- const { reset } = useForm();
+  const { reset } = useForm();
 
   const isOpenModal = () => setIsOpen(true);
-   const CloseModal = () => {
+  const CloseModal = () => {
     reset();
     setParoquiaEdit(null);
     setIsOpen(false);
@@ -63,7 +62,6 @@ export default function Paroquias() {
     fetchParoquias();
   }, []);
 
-
   const handleEdit = (item: Paroquia) => {
     setParoquiaEdit(item);
     setIsOpen(true);
@@ -78,7 +76,7 @@ export default function Paroquias() {
 
   const onSubmit = async (data: createParoquiaSchema) => {
     try {
-      console.log(data);
+     
       if (paroquiaEdit) {
         const body = { idParoquia: paroquiaEdit.idParoquia, ...data };
 
@@ -126,7 +124,7 @@ export default function Paroquias() {
         </div>
         <div className="w-screen flex max-w-[80vw] justify-end px-50 ">
           <Button
-            className="bg-white text-[#F91D1D] text-xl shadow cursor-pointer w-45 h-10"
+            className="bg-white  text-amber-800 text-xl shadow cursor-pointer w-45 h-10"
             onClick={isOpenModal}
           >
             Adicionar
@@ -159,8 +157,8 @@ export default function Paroquias() {
 
             <TableBody>
               {dataParoquia.map((item) => (
-                <TableRow className="hover:bg-gray-50 transition">
-                  <TableCell className="font-medium break-words whitespace-normal">
+                <TableRow className="hover:bg-gray-50 transition" key={item.idParoquia}>
+                  <TableCell className="font-medium wrap-break-word whitespace-normal">
                     {item.nomeParoquia}
                   </TableCell>
                   <TableCell>{} Sem coordenador</TableCell>
@@ -265,3 +263,4 @@ export default function Paroquias() {
     </div>
   );
 }
+ 
