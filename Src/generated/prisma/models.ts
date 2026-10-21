@@ -10,7 +10,8 @@
  */
 export type * from './models/user'
 export type * from './models/paroquias'
-export type * from './models/centrosParoquias'
-export type * from './models/noticias'
+export type * from './models/actividade'
+export type * from './models/arquivo'
 export type * from './models/livros'
+export type * from './models/centrosparoquias'
 export type * from './commonInputTypes'

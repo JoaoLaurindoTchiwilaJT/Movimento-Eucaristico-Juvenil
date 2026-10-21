@@ -3,66 +3,93 @@ import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import { PrismaClient } from "../generated/prisma/client";
 import { Criptografia } from "../util/criptografia";
 
-const criptografar = new Criptografia();
+const requiredEnv = [
+  "DATABASE_HOST",
+  "DATABASE_PORT",
+  "DATABASE_USER",
+  "DATABASE_NAME",
+  "email_mej",
+  "SECRETE_PASS",
+] as const;
+
+function validarVariaveisAmbiente() {
+  const missing = requiredEnv.filter((key) => !process.env[key]?.trim());
+
+  if (missing.length > 0) {
+    throw new Error(`Variáveis de ambiente em falta: ${missing.join(", ")}`);
+  }
+
+  const port = Number(process.env.DATABASE_PORT);
+
+  if (!Number.isInteger(port) || port <= 0 || port > 65535) {
+    throw new Error("DATABASE_PORT inválida.");
+  }
+}
+
+
+validarVariaveisAmbiente();
 
 const adapter = new PrismaMariaDb({
-  host: process.env.DATABASE_HOST,
+  host: process.env.DATABASE_HOST!,
   port: Number(process.env.DATABASE_PORT),
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
+  user: process.env.DATABASE_USER!,
+  password: process.env.DATABASE_PASSWORD ?? "",
+  database: process.env.DATABASE_NAME!,
   connectionLimit: 5,
 });
 
-const prisma = new PrismaClient({ adapter });
+export const prisma = new PrismaClient({ adapter });
 
-async function createAdminIfNotExist() {
- 
+export async function createAdminIfNotExist(): Promise<void> {
+  const criptografia = new Criptografia();
+
+  const email = process.env.email_mej!.trim();
+  const senhaOriginal = process.env.SECRETE_PASS!;
+
   try {
-
-    const adminExist = await prisma.user.findMany({
-      where: { role: "Admin" },
+    // Verifica se já existe um administrador com este email.
+    const adminExistente = await prisma.user.findFirst({
+      where: {
+        email,
+      },
     });
 
-  const senhas = await criptografar.criptografar(String(process.env.SECRETE_PASS));
-    if (adminExist.length === 0) {
-      await prisma.user.create({
-        data: {
-          nomeMembro: "Admin",
-          email: "admin@example.com",
-          senha: senhas,
-          role: "Admin",
-          numeroMembro: "0001",
-          contacto: 123456789,
-          nivel: "MEJ",
-          promessado: "Sim" 
-        },
-      });
-      console.log("Admin criado com sucesso!");
+    if (adminExistente) {
+      console.log("O administrador já existe:", email);
+      return;
     }
 
-  } catch (error) { 
-    console.error("Error to create Admin:", error);
-    throw new Error("Error to create Admin:" + error);
-  }
-  
-}
+    // Evita criar outro administrador se já existir um.
+    const outroAdmin = await prisma.user.findFirst({
+      where: {
+        role: "Admin",
+      },
+    });
 
-async function testarConexao() {
-  try {
-    await prisma.$connect();
-    await createAdminIfNotExist();
-    console.log("Conexão com o banco de dados bem-sucedida");
+    if (outroAdmin) {
+      console.log("Já existe um administrador registado. Nenhum foi criado.");
+      return;
+    }
 
-    // Chama a função para cadastrar o admin se necessário
-    
+    const senhaHash = await criptografia.criptografar(senhaOriginal);
+
+    await prisma.user.create({
+      data: {
+        nomeMembro: "Admin",
+        email,
+        senha: senhaHash,
+        role: "Admin",
+        numeroMembro: "0001",
+        contacto: 123456789,
+        nivel: "MEJ",
+        promessado: "Sim",
+      },
+    });
+
+    console.log("Administrador criado com sucesso!");
   } catch (error) {
-    console.error("Falha na conexão com o banco de dados:", error);
-  } finally {
-    await prisma.$disconnect();
+    console.error("Erro ao verificar ou criar o administrador:", error);
+
+    throw error;
   }
 }
-
-testarConexao();
-
-export { prisma };

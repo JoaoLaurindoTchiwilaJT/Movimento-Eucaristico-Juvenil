@@ -1,15 +1,12 @@
-import { JwtPayload } from "./../../node_modules/@types/jsonwebtoken/index.d";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { CreateTypeMember, LoginTypeUser, updateTypeMember } from "@model/dao";
 import { userMej } from "@repository/userRepository";
 import { Criptografia } from "util/criptografia";
-import  Jwt  from "jsonwebtoken";
-
+import Jwt from "jsonwebtoken";
 
 export class UserController {
-
   private user: userMej;
-  private criptografar : Criptografia;
+  private criptografar: Criptografia;
 
   constructor() {
     this.user = new userMej();
@@ -18,10 +15,10 @@ export class UserController {
 
   async createUser(req: FastifyRequest, res: FastifyReply): Promise<FastifyReply> {
     const data = CreateTypeMember.parse(req.body);
-    
+
     try {
       const result = await this.user.CreateUser(data);
-      console.log(result);
+
       if (result) {
         return res.status(201).send(result);
       } else {
@@ -101,32 +98,52 @@ export class UserController {
   }
 
   async LoginUser(req: FastifyRequest, res: FastifyReply): Promise<FastifyReply> {
-    
     let data = LoginTypeUser.parse(req.body);
 
     try {
       const result = await this.user.adminLogin(data);
-
       if (result) {
-         
+        const hash = result.senha || "não passou";
 
-         const hash = result.senha || "não passou";
+        const password = this.criptografar.descriptografar(data.password, hash);
 
-         const senha = this.criptografar.descriptografar(data.senha,hash);
-         
-         if (senha) {
-          const token = Jwt.sign(result, data.senha, {
+        if (password) {
+          const token = Jwt.sign(result, data.password, {
             expiresIn: "24h",
           });
 
-          return res.status(200).send(token);
-         }   
+          //console.log("login realizado com sucesso");
+          return res.status(200).send({ token: token, message: true });
+        }
       }
+      console.log("Erro ao logar");
 
-      return res.status(200).send("Error to login Admin!");
+      return res.status(401).send();
     } catch (error) {
+      console.error("errou", error);
       return res.status(500).send("Internal server Error !" + error);
     }
   }
 
+  async dashboard(req: FastifyRequest, res: FastifyReply): Promise<FastifyReply> {
+    try {
+      const result = await this.user.dashboard();
+
+      return res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send("Internal server Error !" + error);
+    }
+  }
+
+  async updateAdmin(req: FastifyRequest, res: FastifyReply): Promise<FastifyReply> {
+    try {
+      const loca = req.params;
+
+      const data = req
+      return res.status(200).send();
+    } catch (error) {
+      return res.status(500).send("Internal Error Server!")
+    }
+  }
 }

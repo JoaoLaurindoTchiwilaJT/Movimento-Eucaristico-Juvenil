@@ -50,17 +50,22 @@ export type user = Prisma.userModel
  */
 export type paroquias = Prisma.paroquiasModel
 /**
- * Model centrosParoquias
+ * Model actividade
  * 
  */
-export type centrosParoquias = Prisma.centrosParoquiasModel
+export type actividade = Prisma.actividadeModel
 /**
- * Model noticias
+ * Model arquivo
  * 
  */
-export type noticias = Prisma.noticiasModel
+export type arquivo = Prisma.arquivoModel
 /**
  * Model livros
  * 
  */
 export type livros = Prisma.livrosModel
+/**
+ * Model centrosparoquias
+ * 
+ */
+export type centrosparoquias = Prisma.centrosparoquiasModel

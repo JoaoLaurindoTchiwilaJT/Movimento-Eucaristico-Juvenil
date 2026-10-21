@@ -1,4 +1,3 @@
-import { Promessado } from "./../generated/prisma/enums";
 import type { CreateParoquia, updateParoquia } from "@model/dao";
 import { prisma } from "database/prisma";
 import { Prisma } from "generated/prisma/client";
@@ -17,6 +16,7 @@ export class paroquiasMej {
         data: {
           nomeCentro: "Centro sede " + datas.nomeParoquia,
           paroquiaId: result.idParoquia,
+          tipo: "Sede",
         },
       });
 
@@ -77,8 +77,9 @@ export class paroquiasMej {
         const dadosParoquia = {
           idParoquia: paroquia.idParoquia,
           nomeParoquia: paroquia.nomeParoquia,
-          quota : paroquia.quota,
+          quota: paroquia.quota,
           centros: paroquia.centros,
+          coordenador: "Coordenador ausente ",
           totalPromessados: 0,
           totalNaoPromessados: 0,
         };
@@ -86,6 +87,9 @@ export class paroquiasMej {
         paroquia.centros.forEach((centro) => {
           centro.membros.forEach((membro) => {
             if (membro.promessado === "Sim") {
+              if (membro.cargo?.toLocaleLowerCase() === "coordenador") {
+                dadosParoquia.coordenador = membro.nomeMembro;
+              }
               dadosParoquia.totalPromessados++;
             } else {
               dadosParoquia.totalNaoPromessados++;
@@ -118,4 +122,5 @@ export class paroquiasMej {
       throw new Error("Error to delete paroquia whith id " + id);
     }
   }
+  
 }

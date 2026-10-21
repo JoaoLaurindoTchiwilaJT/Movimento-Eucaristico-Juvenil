@@ -17,7 +17,7 @@ export class centroController {
 
       if (result === null) {
         return res.status(200).send("Failure to create centro if exists !");
-      }else if ((result as any).message === "Id da paróquia invalido") {
+      } else if ((result as any).message === "Id da paróquia invalido") {
         return res.status(404).send("Id da paróquia invalido!");
       }
 
@@ -27,47 +27,61 @@ export class centroController {
     }
   }
 
-    async updateCentros(req: FastifyRequest,res:FastifyReply){
-        const data = updateTypeCentro.parse(req.body);
-    
-        try {
-          const result = await this.centros.updateCentro(data);
-         
-          if (result === null) {
-            return res.status(400).send("Failure to update centro if not exists!");
-          }
-    
-          return res.status(201).send(result);
-        } catch (error) {
-          return res.status(500).send("Internal error server!" + error);
-        }
-    
-    }
-
-
-  async deleteCentros(req: FastifyRequest, res: FastifyReply) {
-    const id = Number((req.body as any).idCentrosParoquias);
+  async updateCentros(req: FastifyRequest, res: FastifyReply) {
+    const data = updateTypeCentro.parse(req.body);
 
     try {
-      const result = await this.centros.deleteCentros(Number(id));
+      const result = await this.centros.updateCentro(data);
 
       if (result === null) {
-        return res.status(400).send("Failure to delete centros not found!");
-      }else{
-        return { message: "Centro deleted successfully" };
+        return res.status(400).send("Failure to update centro if not exists!");
       }
 
+      return res.status(201).send(result);
     } catch (error) {
       return res.status(500).send("Internal error server!" + error);
     }
   }
 
+  async deleteCentros(req: FastifyRequest, res: FastifyReply) {
+    const id = Number((req.body as any).idCentrosParoquias);
+
+    try {
+      const result = await this.centros.deleteCentros(id);
+
+      if (!result) {
+        return res.status(404).send({
+          success: false,
+          message: "Centro não encontrado",
+        });
+      }
+
+      return res.status(200).send({
+        success: true,
+        message: "Centro eliminado com sucesso",
+      });
+    } catch (error: any) {
+      // trata erro de centro sede
+      if (error.message?.includes("sede")) {
+        return res.status(400).send({
+          success: false,
+          message: error.message,
+        });
+      }
+
+      return res.status(500).send({
+        success: false,
+        message: "Erro interno no servidor",
+      });
+    }
+  }
+  
   async getCentrosById(req: FastifyRequest, res: FastifyReply) {
     const id = Number((req.params as any).idCentrosParoquias);
 
     try {
       const result = await this.centros.findByIdCentros(Number(id));
-      console.log(result)
+      
       if (result === null) {
         return res.status(400).send("Failure to get centros by id !");
       }
@@ -79,7 +93,6 @@ export class centroController {
   }
 
   async getCentrosMany(req: FastifyRequest, res: FastifyReply) {
-
     try {
       const result = await this.centros.findManyCentros();
 

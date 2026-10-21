@@ -7,7 +7,7 @@ export class centrosMej {
     try {
       const paroquiaConfirm = await prisma.paroquias.findFirst({
         where: {
-          idParoquia: datas.paroquia,
+          idParoquia: datas.idParoquia,
         },
       });
 
@@ -15,7 +15,7 @@ export class centrosMej {
         const result = await prisma.centrosParoquias.create({
           data: {
             nomeCentro: datas.nomeCentro,
-            paroquiaId: datas.paroquia,
+            paroquiaId: datas.idParoquia,
           },
         });
 
@@ -35,7 +35,7 @@ export class centrosMej {
         const centro = result1.map((centro) => ({
           nomeCentro: centro.nomeCentro,
           coordenador: centro.membros[0]?.nomeMembro ?? "Sem coordenador",
-          paroquia: centro.paroquiaId
+          paroquia: centro.paroquiaId,
         }));
 
         return centro[0];
@@ -63,7 +63,6 @@ export class centrosMej {
         },
       });
 
-      console.log(result)
       return result;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
@@ -92,7 +91,7 @@ export class centrosMej {
         idCentrosParoquias: result.idCentrosParoquias,
         nomeCentro: result.nomeCentro,
         coordenador: result.membros[0]?.nomeMembro ?? "Sem coordenador",
-        paroquia: result.paroquiaId
+        paroquia: result.paroquiaId,
       };
 
       return centro;
@@ -109,26 +108,36 @@ export class centrosMej {
     try {
       const result = await prisma.centrosParoquias.findMany({
         include: {
-          membros: {
-            where: { cargo: "Coordenador" },
-          },
+          membros: true,
           paroquia: true,
-          _count: {
-            select: {
-              membros: true,
-            },
-          },
         },
       });
 
       // Formata todos os centros em um array simples
-      const centros = result.map((centro) => ({
-        idCentrosParoquias: centro.idCentrosParoquias,
-        nomeCentro: centro.nomeCentro,
-        coordenador: centro.membros[0]?.nomeMembro ?? "Sem coordenador",
-        paroquia: centro.paroquiaId,
-        qtdMembros: centro._count.membros,
-      }));
+      const centros = result.map((centro) => {
+        const dadosCentro = {
+          idCentrosParoquias: centro.idCentrosParoquias,
+          nomeCentro: centro.nomeCentro,
+          coordenador: "Sem coordenador",
+          paroquia: centro.paroquia,
+          totalPromessados: 0,
+          totalNaoPromessados: 0,
+        };
+
+        centro.membros.forEach((membro) => {
+          if (membro.promessado === "Sim") {
+            dadosCentro.totalPromessados++;
+          } else {
+            dadosCentro.totalNaoPromessados++;
+          }
+
+          if (membro.cargo?.toLowerCase() === "coordenador") {
+            dadosCentro.coordenador = membro.nomeMembro;
+          }
+        });
+
+        return dadosCentro;
+      });
 
       return centros;
     } catch (error) {
@@ -137,21 +146,30 @@ export class centrosMej {
       }
 
       throw new Error("Error to find many Centros");
-    } 
+    }
   }
 
   async deleteCentros(id: number) {
     try {
-      const result = await prisma.centrosParoquias.delete({ where: { idCentrosParoquias: id } });
+      const centro = await prisma.centrosParoquias.findUnique({
+        where: { idCentrosParoquias: id },
+      });
 
-      return result;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
-        return null;
+      if (!centro) {
+        throw new Error("Centro não encontrado");
       }
 
-      throw new Error("Error to delete centro whith id " + id);
+      if (centro.tipo?.toLowerCase() === "sede") {
+        throw new Error("Não é possível eliminar este centro porque é um centro sede");
+      }
+
+      const result = await prisma.centrosParoquias.delete({
+        where: { idCentrosParoquias: id },
+      });
+
+      return result;
+    } catch (error: any) {
+      throw new Error(error.message || "Erro ao eliminar centro");
     }
   }
-
 }

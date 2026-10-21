@@ -9,8 +9,8 @@ export function gerarSiglaParoquia(nomeParoquia: string) {
   return primeira + ultima;
 }
 
-export function gerarCodigo(id:number, paroquia:string) {
-  const numero = String(id).padStart(9, "0");
+export function gerarCodigo(id: number, paroquia: string) {
+  const numero = String(1000 + id); 
 
   const sigla = gerarSiglaParoquia(paroquia);
 

@@ -53,9 +53,10 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   user: 'user',
   paroquias: 'paroquias',
-  centrosParoquias: 'centrosParoquias',
-  noticias: 'noticias',
-  livros: 'livros'
+  actividade: 'actividade',
+  arquivo: 'arquivo',
+  livros: 'livros',
+  centrosparoquias: 'centrosparoquias'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -100,24 +101,33 @@ export const ParoquiasScalarFieldEnum = {
 export type ParoquiasScalarFieldEnum = (typeof ParoquiasScalarFieldEnum)[keyof typeof ParoquiasScalarFieldEnum]
 
 
-export const CentrosParoquiasScalarFieldEnum = {
-  idCentrosParoquias: 'idCentrosParoquias',
-  nomeCentro: 'nomeCentro',
-  paroquiaId: 'paroquiaId'
-} as const
-
-export type CentrosParoquiasScalarFieldEnum = (typeof CentrosParoquiasScalarFieldEnum)[keyof typeof CentrosParoquiasScalarFieldEnum]
-
-
-export const NoticiasScalarFieldEnum = {
-  idNoticias: 'idNoticias',
-  tituloNoticia: 'tituloNoticia',
+export const ActividadeScalarFieldEnum = {
+  idActividades: 'idActividades',
+  nomeActividade: 'nomeActividade',
+  localizacao: 'localizacao',
+  dataActiv: 'dataActiv',
   descricao: 'descricao',
-  dataPub: 'dataPub',
-  userId: 'userId'
+  userId: 'userId',
+  categoria: 'categoria',
+  estado: 'estado',
+  statusUpload: 'statusUpload'
 } as const
 
-export type NoticiasScalarFieldEnum = (typeof NoticiasScalarFieldEnum)[keyof typeof NoticiasScalarFieldEnum]
+export type ActividadeScalarFieldEnum = (typeof ActividadeScalarFieldEnum)[keyof typeof ActividadeScalarFieldEnum]
+
+
+export const ArquivoScalarFieldEnum = {
+  idArquivo: 'idArquivo',
+  filename: 'filename',
+  urlfile: 'urlfile',
+  dataFile: 'dataFile',
+  local: 'local',
+  tipoArqui: 'tipoArqui',
+  userId: 'userId',
+  actividadeId: 'actividadeId'
+} as const
+
+export type ArquivoScalarFieldEnum = (typeof ArquivoScalarFieldEnum)[keyof typeof ArquivoScalarFieldEnum]
 
 
 export const LivrosScalarFieldEnum = {
@@ -130,6 +140,16 @@ export const LivrosScalarFieldEnum = {
 } as const
 
 export type LivrosScalarFieldEnum = (typeof LivrosScalarFieldEnum)[keyof typeof LivrosScalarFieldEnum]
+
+
+export const CentrosparoquiasScalarFieldEnum = {
+  idCentrosParoquias: 'idCentrosParoquias',
+  nomeCentro: 'nomeCentro',
+  paroquiaId: 'paroquiaId',
+  tipo: 'tipo'
+} as const
+
+export type CentrosparoquiasScalarFieldEnum = (typeof CentrosparoquiasScalarFieldEnum)[keyof typeof CentrosparoquiasScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -167,19 +187,21 @@ export const paroquiasOrderByRelevanceFieldEnum = {
 export type paroquiasOrderByRelevanceFieldEnum = (typeof paroquiasOrderByRelevanceFieldEnum)[keyof typeof paroquiasOrderByRelevanceFieldEnum]
 
 
-export const centrosParoquiasOrderByRelevanceFieldEnum = {
-  nomeCentro: 'nomeCentro'
-} as const
-
-export type centrosParoquiasOrderByRelevanceFieldEnum = (typeof centrosParoquiasOrderByRelevanceFieldEnum)[keyof typeof centrosParoquiasOrderByRelevanceFieldEnum]
-
-
-export const noticiasOrderByRelevanceFieldEnum = {
-  tituloNoticia: 'tituloNoticia',
+export const actividadeOrderByRelevanceFieldEnum = {
+  nomeActividade: 'nomeActividade',
+  localizacao: 'localizacao',
   descricao: 'descricao'
 } as const
 
-export type noticiasOrderByRelevanceFieldEnum = (typeof noticiasOrderByRelevanceFieldEnum)[keyof typeof noticiasOrderByRelevanceFieldEnum]
+export type actividadeOrderByRelevanceFieldEnum = (typeof actividadeOrderByRelevanceFieldEnum)[keyof typeof actividadeOrderByRelevanceFieldEnum]
+
+
+export const arquivoOrderByRelevanceFieldEnum = {
+  filename: 'filename',
+  urlfile: 'urlfile'
+} as const
+
+export type arquivoOrderByRelevanceFieldEnum = (typeof arquivoOrderByRelevanceFieldEnum)[keyof typeof arquivoOrderByRelevanceFieldEnum]
 
 
 export const livrosOrderByRelevanceFieldEnum = {
@@ -189,4 +211,11 @@ export const livrosOrderByRelevanceFieldEnum = {
 } as const
 
 export type livrosOrderByRelevanceFieldEnum = (typeof livrosOrderByRelevanceFieldEnum)[keyof typeof livrosOrderByRelevanceFieldEnum]
+
+
+export const centrosparoquiasOrderByRelevanceFieldEnum = {
+  nomeCentro: 'nomeCentro'
+} as const
+
+export type centrosparoquiasOrderByRelevanceFieldEnum = (typeof centrosparoquiasOrderByRelevanceFieldEnum)[keyof typeof centrosparoquiasOrderByRelevanceFieldEnum]
 

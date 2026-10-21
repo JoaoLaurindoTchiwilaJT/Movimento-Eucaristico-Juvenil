@@ -1,28 +1,27 @@
 import { FastifyInstance } from "fastify";
 import { centroController } from "@controller/centroController";
 import z from "zod";
-import { verifyJWT } from "util/autenticar";
+
 
 export async function centrosRouter(app: FastifyInstance) {
   const controllCentros = new centroController();
- 
+
   // Criar centro
   app.post(
     "/createCentros",
     {
-     
       schema: {
         description: "Criar um novo centro",
         tags: ["Centros"],
         body: z.object({
           nomeCentro: z.string().min(1, "Centro invalido verifique a escrita!"),
-          paroquia: z.coerce.number().min(1, "Id invalido para paróquia")
+          idParoquia: z.coerce.number().min(1, "Id invalido para paróquia"),
         }),
         response: {
           201: z
             .object({
               nomeCentro: z.string(),
-              paroquia: z.number()
+              paroquia: z.number(),
             })
             .nullable(),
         },
@@ -35,20 +34,20 @@ export async function centrosRouter(app: FastifyInstance) {
   app.put(
     "/updateCentros",
     {
-      preHandler: verifyJWT,
+      // preHandler: verifyJWT,
       schema: {
         description: "Atualizar um centro existente",
         tags: ["Centros"],
         body: z.object({
           idCentrosParoquias: z.number().min(1, "Id do centro é necessário"),
-          nomeCentro: z.string().min(1,"Nome do centro invalido!")
+          nomeParoquia: z.string().min(1, "Paróquia invalida digite uma paróquia valida").optional(),
+          nomeCentro: z.string().min(1, "Nome do centro invalido!"),
         }),
         response: {
           200: z.object({
-            idCentrosParoquias : z.number(),
-            nomeCentro : z.string(),
-            paroquiaId : z.number()
-          })
+            idCentrosParoquias: z.number(),
+            nomeCentro: z.string(),
+          }),
         },
       },
     },
@@ -59,7 +58,7 @@ export async function centrosRouter(app: FastifyInstance) {
   app.get(
     "/findByID/:idCentrosParoquias",
     {
-      preHandler: verifyJWT,
+      // preHandler: verifyJWT,
       schema: {
         description: "Buscar centro por Id",
         tags: ["Centros"],
@@ -71,7 +70,7 @@ export async function centrosRouter(app: FastifyInstance) {
             idCentrosParoquias: z.number(),
             nomeCentro: z.string(),
             coordenador: z.string().optional(),
-            paroquia: z.number().optional()
+            paroquia: z.number().optional(),
           }),
         },
       },
@@ -83,7 +82,7 @@ export async function centrosRouter(app: FastifyInstance) {
   app.get(
     "/findMany",
     {
-     
+      // preHandler: verifyJWT,
       schema: {
         description: "Listar todos os centros",
         tags: ["Centros"],
@@ -92,9 +91,14 @@ export async function centrosRouter(app: FastifyInstance) {
             z.object({
               idCentrosParoquias: z.number(),
               nomeCentro: z.string(),
-              coordenador: z.string().optional(),
-              paroquia: z.number().optional(),
-              qtdMembros: z.number(),
+              coordenador: z.string(),
+              paroquia: z.object({
+                idParoquia: z.number(),
+                nomeParoquia: z.string(),
+                quota: z.number()
+              }),
+              totalPromessados: z.number(),
+              totalNaoPromessados: z.number(),
             }),
           ),
         },
@@ -107,19 +111,19 @@ export async function centrosRouter(app: FastifyInstance) {
   app.delete(
     "/deleteCentros",
     {
-      preHandler: verifyJWT,
+      // preHandler: verifyJWT,
       schema: {
         description: "Deletar centro por Id",
         tags: ["Centros"],
-        body:  z.object({idCentrosParoquias: z.coerce.number().min(1,"User Id invalido")}),
-           response: {
-            200: z.object({
-                 message: z.string(),
-            }),
-          },
+        body: z.object({ idCentrosParoquias: z.coerce.number().min(1, "User Id invalido") }),
+        response: {
+          200: z.object({
+            message: z.string(),
+          }),
+        },
       },
     },
-   async (req,res) => controllCentros.deleteCentros(req,res)
+    async (req, res) => controllCentros.deleteCentros(req, res),
   );
-
+  
 }

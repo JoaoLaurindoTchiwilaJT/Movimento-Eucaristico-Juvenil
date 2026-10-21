@@ -272,9 +272,10 @@ export type userWhereInput = {
   contacto?: Prisma.IntFilter<"user"> | number
   promessado?: Prisma.EnumPromessadoFilter<"user"> | $Enums.Promessado
   centroId?: Prisma.IntNullableFilter<"user"> | number | null
-  centro?: Prisma.XOR<Prisma.CentrosParoquiasNullableScalarRelationFilter, Prisma.centrosParoquiasWhereInput> | null
+  actividades?: Prisma.ActividadeListRelationFilter
+  arquivos?: Prisma.ArquivoListRelationFilter
   livros?: Prisma.LivrosListRelationFilter
-  noticias?: Prisma.NoticiasListRelationFilter
+  centro?: Prisma.XOR<Prisma.CentrosparoquiasNullableScalarRelationFilter, Prisma.centrosparoquiasWhereInput> | null
 }
 
 export type userOrderByWithRelationInput = {
@@ -289,9 +290,10 @@ export type userOrderByWithRelationInput = {
   contacto?: Prisma.SortOrder
   promessado?: Prisma.SortOrder
   centroId?: Prisma.SortOrderInput | Prisma.SortOrder
-  centro?: Prisma.centrosParoquiasOrderByWithRelationInput
+  actividades?: Prisma.actividadeOrderByRelationAggregateInput
+  arquivos?: Prisma.arquivoOrderByRelationAggregateInput
   livros?: Prisma.livrosOrderByRelationAggregateInput
-  noticias?: Prisma.noticiasOrderByRelationAggregateInput
+  centro?: Prisma.centrosparoquiasOrderByWithRelationInput
   _relevance?: Prisma.userOrderByRelevanceInput
 }
 
@@ -310,9 +312,10 @@ export type userWhereUniqueInput = Prisma.AtLeast<{
   contacto?: Prisma.IntFilter<"user"> | number
   promessado?: Prisma.EnumPromessadoFilter<"user"> | $Enums.Promessado
   centroId?: Prisma.IntNullableFilter<"user"> | number | null
-  centro?: Prisma.XOR<Prisma.CentrosParoquiasNullableScalarRelationFilter, Prisma.centrosParoquiasWhereInput> | null
+  actividades?: Prisma.ActividadeListRelationFilter
+  arquivos?: Prisma.ArquivoListRelationFilter
   livros?: Prisma.LivrosListRelationFilter
-  noticias?: Prisma.NoticiasListRelationFilter
+  centro?: Prisma.XOR<Prisma.CentrosparoquiasNullableScalarRelationFilter, Prisma.centrosparoquiasWhereInput> | null
 }, "idMejista">
 
 export type userOrderByWithAggregationInput = {
@@ -361,9 +364,10 @@ export type userCreateInput = {
   numeroMembro: string
   contacto: number
   promessado: $Enums.Promessado
-  centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
+  actividades?: Prisma.actividadeCreateNestedManyWithoutUserInput
+  arquivos?: Prisma.arquivoCreateNestedManyWithoutUserInput
   livros?: Prisma.livrosCreateNestedManyWithoutUserInput
-  noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
+  centro?: Prisma.centrosparoquiasCreateNestedOneWithoutMembrosInput
 }
 
 export type userUncheckedCreateInput = {
@@ -378,8 +382,9 @@ export type userUncheckedCreateInput = {
   contacto: number
   promessado: $Enums.Promessado
   centroId?: number | null
+  actividades?: Prisma.actividadeUncheckedCreateNestedManyWithoutUserInput
+  arquivos?: Prisma.arquivoUncheckedCreateNestedManyWithoutUserInput
   livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
-  noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type userUpdateInput = {
@@ -392,9 +397,10 @@ export type userUpdateInput = {
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
   promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
-  centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
+  actividades?: Prisma.actividadeUpdateManyWithoutUserNestedInput
+  arquivos?: Prisma.arquivoUpdateManyWithoutUserNestedInput
   livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
-  noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
+  centro?: Prisma.centrosparoquiasUpdateOneWithoutMembrosNestedInput
 }
 
 export type userUncheckedUpdateInput = {
@@ -409,8 +415,9 @@ export type userUncheckedUpdateInput = {
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
   promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
   centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actividades?: Prisma.actividadeUncheckedUpdateManyWithoutUserNestedInput
+  arquivos?: Prisma.arquivoUncheckedUpdateManyWithoutUserNestedInput
   livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
-  noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type userCreateManyInput = {
@@ -513,6 +520,16 @@ export type userSumOrderByAggregateInput = {
   centroId?: Prisma.SortOrder
 }
 
+export type UserScalarRelationFilter = {
+  is?: Prisma.userWhereInput
+  isNot?: Prisma.userWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.userWhereInput | null
+  isNot?: Prisma.userWhereInput | null
+}
+
 export type UserListRelationFilter = {
   every?: Prisma.userWhereInput
   some?: Prisma.userWhereInput
@@ -521,11 +538,6 @@ export type UserListRelationFilter = {
 
 export type userOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type UserScalarRelationFilter = {
-  is?: Prisma.userWhereInput
-  isNot?: Prisma.userWhereInput
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -558,6 +570,50 @@ export type NullableIntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type userCreateNestedOneWithoutActividadesInput = {
+  create?: Prisma.XOR<Prisma.userCreateWithoutActividadesInput, Prisma.userUncheckedCreateWithoutActividadesInput>
+  connectOrCreate?: Prisma.userCreateOrConnectWithoutActividadesInput
+  connect?: Prisma.userWhereUniqueInput
+}
+
+export type userUpdateOneRequiredWithoutActividadesNestedInput = {
+  create?: Prisma.XOR<Prisma.userCreateWithoutActividadesInput, Prisma.userUncheckedCreateWithoutActividadesInput>
+  connectOrCreate?: Prisma.userCreateOrConnectWithoutActividadesInput
+  upsert?: Prisma.userUpsertWithoutActividadesInput
+  connect?: Prisma.userWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.userUpdateToOneWithWhereWithoutActividadesInput, Prisma.userUpdateWithoutActividadesInput>, Prisma.userUncheckedUpdateWithoutActividadesInput>
+}
+
+export type userCreateNestedOneWithoutArquivosInput = {
+  create?: Prisma.XOR<Prisma.userCreateWithoutArquivosInput, Prisma.userUncheckedCreateWithoutArquivosInput>
+  connectOrCreate?: Prisma.userCreateOrConnectWithoutArquivosInput
+  connect?: Prisma.userWhereUniqueInput
+}
+
+export type userUpdateOneWithoutArquivosNestedInput = {
+  create?: Prisma.XOR<Prisma.userCreateWithoutArquivosInput, Prisma.userUncheckedCreateWithoutArquivosInput>
+  connectOrCreate?: Prisma.userCreateOrConnectWithoutArquivosInput
+  upsert?: Prisma.userUpsertWithoutArquivosInput
+  disconnect?: Prisma.userWhereInput | boolean
+  delete?: Prisma.userWhereInput | boolean
+  connect?: Prisma.userWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.userUpdateToOneWithWhereWithoutArquivosInput, Prisma.userUpdateWithoutArquivosInput>, Prisma.userUncheckedUpdateWithoutArquivosInput>
+}
+
+export type userCreateNestedOneWithoutLivrosInput = {
+  create?: Prisma.XOR<Prisma.userCreateWithoutLivrosInput, Prisma.userUncheckedCreateWithoutLivrosInput>
+  connectOrCreate?: Prisma.userCreateOrConnectWithoutLivrosInput
+  connect?: Prisma.userWhereUniqueInput
+}
+
+export type userUpdateOneRequiredWithoutLivrosNestedInput = {
+  create?: Prisma.XOR<Prisma.userCreateWithoutLivrosInput, Prisma.userUncheckedCreateWithoutLivrosInput>
+  connectOrCreate?: Prisma.userCreateOrConnectWithoutLivrosInput
+  upsert?: Prisma.userUpsertWithoutLivrosInput
+  connect?: Prisma.userWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.userUpdateToOneWithWhereWithoutLivrosInput, Prisma.userUpdateWithoutLivrosInput>, Prisma.userUncheckedUpdateWithoutLivrosInput>
 }
 
 export type userCreateNestedManyWithoutCentroInput = {
@@ -602,32 +658,238 @@ export type userUncheckedUpdateManyWithoutCentroNestedInput = {
   deleteMany?: Prisma.userScalarWhereInput | Prisma.userScalarWhereInput[]
 }
 
-export type userCreateNestedOneWithoutNoticiasInput = {
-  create?: Prisma.XOR<Prisma.userCreateWithoutNoticiasInput, Prisma.userUncheckedCreateWithoutNoticiasInput>
-  connectOrCreate?: Prisma.userCreateOrConnectWithoutNoticiasInput
-  connect?: Prisma.userWhereUniqueInput
+export type userCreateWithoutActividadesInput = {
+  nomeMembro: string
+  email?: string | null
+  senha?: string | null
+  nivel: string
+  role: $Enums.Role
+  cargo?: string | null
+  numeroMembro: string
+  contacto: number
+  promessado: $Enums.Promessado
+  arquivos?: Prisma.arquivoCreateNestedManyWithoutUserInput
+  livros?: Prisma.livrosCreateNestedManyWithoutUserInput
+  centro?: Prisma.centrosparoquiasCreateNestedOneWithoutMembrosInput
 }
 
-export type userUpdateOneRequiredWithoutNoticiasNestedInput = {
-  create?: Prisma.XOR<Prisma.userCreateWithoutNoticiasInput, Prisma.userUncheckedCreateWithoutNoticiasInput>
-  connectOrCreate?: Prisma.userCreateOrConnectWithoutNoticiasInput
-  upsert?: Prisma.userUpsertWithoutNoticiasInput
-  connect?: Prisma.userWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.userUpdateToOneWithWhereWithoutNoticiasInput, Prisma.userUpdateWithoutNoticiasInput>, Prisma.userUncheckedUpdateWithoutNoticiasInput>
+export type userUncheckedCreateWithoutActividadesInput = {
+  idMejista?: number
+  nomeMembro: string
+  email?: string | null
+  senha?: string | null
+  nivel: string
+  role: $Enums.Role
+  cargo?: string | null
+  numeroMembro: string
+  contacto: number
+  promessado: $Enums.Promessado
+  centroId?: number | null
+  arquivos?: Prisma.arquivoUncheckedCreateNestedManyWithoutUserInput
+  livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type userCreateNestedOneWithoutLivrosInput = {
-  create?: Prisma.XOR<Prisma.userCreateWithoutLivrosInput, Prisma.userUncheckedCreateWithoutLivrosInput>
-  connectOrCreate?: Prisma.userCreateOrConnectWithoutLivrosInput
-  connect?: Prisma.userWhereUniqueInput
+export type userCreateOrConnectWithoutActividadesInput = {
+  where: Prisma.userWhereUniqueInput
+  create: Prisma.XOR<Prisma.userCreateWithoutActividadesInput, Prisma.userUncheckedCreateWithoutActividadesInput>
 }
 
-export type userUpdateOneRequiredWithoutLivrosNestedInput = {
-  create?: Prisma.XOR<Prisma.userCreateWithoutLivrosInput, Prisma.userUncheckedCreateWithoutLivrosInput>
-  connectOrCreate?: Prisma.userCreateOrConnectWithoutLivrosInput
-  upsert?: Prisma.userUpsertWithoutLivrosInput
-  connect?: Prisma.userWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.userUpdateToOneWithWhereWithoutLivrosInput, Prisma.userUpdateWithoutLivrosInput>, Prisma.userUncheckedUpdateWithoutLivrosInput>
+export type userUpsertWithoutActividadesInput = {
+  update: Prisma.XOR<Prisma.userUpdateWithoutActividadesInput, Prisma.userUncheckedUpdateWithoutActividadesInput>
+  create: Prisma.XOR<Prisma.userCreateWithoutActividadesInput, Prisma.userUncheckedCreateWithoutActividadesInput>
+  where?: Prisma.userWhereInput
+}
+
+export type userUpdateToOneWithWhereWithoutActividadesInput = {
+  where?: Prisma.userWhereInput
+  data: Prisma.XOR<Prisma.userUpdateWithoutActividadesInput, Prisma.userUncheckedUpdateWithoutActividadesInput>
+}
+
+export type userUpdateWithoutActividadesInput = {
+  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivel?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
+  arquivos?: Prisma.arquivoUpdateManyWithoutUserNestedInput
+  livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
+  centro?: Prisma.centrosparoquiasUpdateOneWithoutMembrosNestedInput
+}
+
+export type userUncheckedUpdateWithoutActividadesInput = {
+  idMejista?: Prisma.IntFieldUpdateOperationsInput | number
+  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivel?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
+  centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  arquivos?: Prisma.arquivoUncheckedUpdateManyWithoutUserNestedInput
+  livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type userCreateWithoutArquivosInput = {
+  nomeMembro: string
+  email?: string | null
+  senha?: string | null
+  nivel: string
+  role: $Enums.Role
+  cargo?: string | null
+  numeroMembro: string
+  contacto: number
+  promessado: $Enums.Promessado
+  actividades?: Prisma.actividadeCreateNestedManyWithoutUserInput
+  livros?: Prisma.livrosCreateNestedManyWithoutUserInput
+  centro?: Prisma.centrosparoquiasCreateNestedOneWithoutMembrosInput
+}
+
+export type userUncheckedCreateWithoutArquivosInput = {
+  idMejista?: number
+  nomeMembro: string
+  email?: string | null
+  senha?: string | null
+  nivel: string
+  role: $Enums.Role
+  cargo?: string | null
+  numeroMembro: string
+  contacto: number
+  promessado: $Enums.Promessado
+  centroId?: number | null
+  actividades?: Prisma.actividadeUncheckedCreateNestedManyWithoutUserInput
+  livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type userCreateOrConnectWithoutArquivosInput = {
+  where: Prisma.userWhereUniqueInput
+  create: Prisma.XOR<Prisma.userCreateWithoutArquivosInput, Prisma.userUncheckedCreateWithoutArquivosInput>
+}
+
+export type userUpsertWithoutArquivosInput = {
+  update: Prisma.XOR<Prisma.userUpdateWithoutArquivosInput, Prisma.userUncheckedUpdateWithoutArquivosInput>
+  create: Prisma.XOR<Prisma.userCreateWithoutArquivosInput, Prisma.userUncheckedCreateWithoutArquivosInput>
+  where?: Prisma.userWhereInput
+}
+
+export type userUpdateToOneWithWhereWithoutArquivosInput = {
+  where?: Prisma.userWhereInput
+  data: Prisma.XOR<Prisma.userUpdateWithoutArquivosInput, Prisma.userUncheckedUpdateWithoutArquivosInput>
+}
+
+export type userUpdateWithoutArquivosInput = {
+  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivel?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
+  actividades?: Prisma.actividadeUpdateManyWithoutUserNestedInput
+  livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
+  centro?: Prisma.centrosparoquiasUpdateOneWithoutMembrosNestedInput
+}
+
+export type userUncheckedUpdateWithoutArquivosInput = {
+  idMejista?: Prisma.IntFieldUpdateOperationsInput | number
+  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivel?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
+  centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actividades?: Prisma.actividadeUncheckedUpdateManyWithoutUserNestedInput
+  livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type userCreateWithoutLivrosInput = {
+  nomeMembro: string
+  email?: string | null
+  senha?: string | null
+  nivel: string
+  role: $Enums.Role
+  cargo?: string | null
+  numeroMembro: string
+  contacto: number
+  promessado: $Enums.Promessado
+  actividades?: Prisma.actividadeCreateNestedManyWithoutUserInput
+  arquivos?: Prisma.arquivoCreateNestedManyWithoutUserInput
+  centro?: Prisma.centrosparoquiasCreateNestedOneWithoutMembrosInput
+}
+
+export type userUncheckedCreateWithoutLivrosInput = {
+  idMejista?: number
+  nomeMembro: string
+  email?: string | null
+  senha?: string | null
+  nivel: string
+  role: $Enums.Role
+  cargo?: string | null
+  numeroMembro: string
+  contacto: number
+  promessado: $Enums.Promessado
+  centroId?: number | null
+  actividades?: Prisma.actividadeUncheckedCreateNestedManyWithoutUserInput
+  arquivos?: Prisma.arquivoUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type userCreateOrConnectWithoutLivrosInput = {
+  where: Prisma.userWhereUniqueInput
+  create: Prisma.XOR<Prisma.userCreateWithoutLivrosInput, Prisma.userUncheckedCreateWithoutLivrosInput>
+}
+
+export type userUpsertWithoutLivrosInput = {
+  update: Prisma.XOR<Prisma.userUpdateWithoutLivrosInput, Prisma.userUncheckedUpdateWithoutLivrosInput>
+  create: Prisma.XOR<Prisma.userCreateWithoutLivrosInput, Prisma.userUncheckedCreateWithoutLivrosInput>
+  where?: Prisma.userWhereInput
+}
+
+export type userUpdateToOneWithWhereWithoutLivrosInput = {
+  where?: Prisma.userWhereInput
+  data: Prisma.XOR<Prisma.userUpdateWithoutLivrosInput, Prisma.userUncheckedUpdateWithoutLivrosInput>
+}
+
+export type userUpdateWithoutLivrosInput = {
+  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivel?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
+  actividades?: Prisma.actividadeUpdateManyWithoutUserNestedInput
+  arquivos?: Prisma.arquivoUpdateManyWithoutUserNestedInput
+  centro?: Prisma.centrosparoquiasUpdateOneWithoutMembrosNestedInput
+}
+
+export type userUncheckedUpdateWithoutLivrosInput = {
+  idMejista?: Prisma.IntFieldUpdateOperationsInput | number
+  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivel?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
+  contacto?: Prisma.IntFieldUpdateOperationsInput | number
+  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
+  centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actividades?: Prisma.actividadeUncheckedUpdateManyWithoutUserNestedInput
+  arquivos?: Prisma.arquivoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type userCreateWithoutCentroInput = {
@@ -640,8 +902,9 @@ export type userCreateWithoutCentroInput = {
   numeroMembro: string
   contacto: number
   promessado: $Enums.Promessado
+  actividades?: Prisma.actividadeCreateNestedManyWithoutUserInput
+  arquivos?: Prisma.arquivoCreateNestedManyWithoutUserInput
   livros?: Prisma.livrosCreateNestedManyWithoutUserInput
-  noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
 }
 
 export type userUncheckedCreateWithoutCentroInput = {
@@ -655,8 +918,9 @@ export type userUncheckedCreateWithoutCentroInput = {
   numeroMembro: string
   contacto: number
   promessado: $Enums.Promessado
+  actividades?: Prisma.actividadeUncheckedCreateNestedManyWithoutUserInput
+  arquivos?: Prisma.arquivoUncheckedCreateNestedManyWithoutUserInput
   livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
-  noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type userCreateOrConnectWithoutCentroInput = {
@@ -702,154 +966,6 @@ export type userScalarWhereInput = {
   centroId?: Prisma.IntNullableFilter<"user"> | number | null
 }
 
-export type userCreateWithoutNoticiasInput = {
-  nomeMembro: string
-  email?: string | null
-  senha?: string | null
-  nivel: string
-  role: $Enums.Role
-  cargo?: string | null
-  numeroMembro: string
-  contacto: number
-  promessado: $Enums.Promessado
-  centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
-  livros?: Prisma.livrosCreateNestedManyWithoutUserInput
-}
-
-export type userUncheckedCreateWithoutNoticiasInput = {
-  idMejista?: number
-  nomeMembro: string
-  email?: string | null
-  senha?: string | null
-  nivel: string
-  role: $Enums.Role
-  cargo?: string | null
-  numeroMembro: string
-  contacto: number
-  promessado: $Enums.Promessado
-  centroId?: number | null
-  livros?: Prisma.livrosUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type userCreateOrConnectWithoutNoticiasInput = {
-  where: Prisma.userWhereUniqueInput
-  create: Prisma.XOR<Prisma.userCreateWithoutNoticiasInput, Prisma.userUncheckedCreateWithoutNoticiasInput>
-}
-
-export type userUpsertWithoutNoticiasInput = {
-  update: Prisma.XOR<Prisma.userUpdateWithoutNoticiasInput, Prisma.userUncheckedUpdateWithoutNoticiasInput>
-  create: Prisma.XOR<Prisma.userCreateWithoutNoticiasInput, Prisma.userUncheckedCreateWithoutNoticiasInput>
-  where?: Prisma.userWhereInput
-}
-
-export type userUpdateToOneWithWhereWithoutNoticiasInput = {
-  where?: Prisma.userWhereInput
-  data: Prisma.XOR<Prisma.userUpdateWithoutNoticiasInput, Prisma.userUncheckedUpdateWithoutNoticiasInput>
-}
-
-export type userUpdateWithoutNoticiasInput = {
-  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivel?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
-  centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
-  livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
-}
-
-export type userUncheckedUpdateWithoutNoticiasInput = {
-  idMejista?: Prisma.IntFieldUpdateOperationsInput | number
-  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivel?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
-  centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type userCreateWithoutLivrosInput = {
-  nomeMembro: string
-  email?: string | null
-  senha?: string | null
-  nivel: string
-  role: $Enums.Role
-  cargo?: string | null
-  numeroMembro: string
-  contacto: number
-  promessado: $Enums.Promessado
-  centro?: Prisma.centrosParoquiasCreateNestedOneWithoutMembrosInput
-  noticias?: Prisma.noticiasCreateNestedManyWithoutUserInput
-}
-
-export type userUncheckedCreateWithoutLivrosInput = {
-  idMejista?: number
-  nomeMembro: string
-  email?: string | null
-  senha?: string | null
-  nivel: string
-  role: $Enums.Role
-  cargo?: string | null
-  numeroMembro: string
-  contacto: number
-  promessado: $Enums.Promessado
-  centroId?: number | null
-  noticias?: Prisma.noticiasUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type userCreateOrConnectWithoutLivrosInput = {
-  where: Prisma.userWhereUniqueInput
-  create: Prisma.XOR<Prisma.userCreateWithoutLivrosInput, Prisma.userUncheckedCreateWithoutLivrosInput>
-}
-
-export type userUpsertWithoutLivrosInput = {
-  update: Prisma.XOR<Prisma.userUpdateWithoutLivrosInput, Prisma.userUncheckedUpdateWithoutLivrosInput>
-  create: Prisma.XOR<Prisma.userCreateWithoutLivrosInput, Prisma.userUncheckedCreateWithoutLivrosInput>
-  where?: Prisma.userWhereInput
-}
-
-export type userUpdateToOneWithWhereWithoutLivrosInput = {
-  where?: Prisma.userWhereInput
-  data: Prisma.XOR<Prisma.userUpdateWithoutLivrosInput, Prisma.userUncheckedUpdateWithoutLivrosInput>
-}
-
-export type userUpdateWithoutLivrosInput = {
-  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivel?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
-  centro?: Prisma.centrosParoquiasUpdateOneWithoutMembrosNestedInput
-  noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
-}
-
-export type userUncheckedUpdateWithoutLivrosInput = {
-  idMejista?: Prisma.IntFieldUpdateOperationsInput | number
-  nomeMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  senha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivel?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  cargo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
-  contacto?: Prisma.IntFieldUpdateOperationsInput | number
-  promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
-  centroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
-}
-
 export type userCreateManyCentroInput = {
   idMejista?: number
   nomeMembro: string
@@ -873,8 +989,9 @@ export type userUpdateWithoutCentroInput = {
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
   promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
+  actividades?: Prisma.actividadeUpdateManyWithoutUserNestedInput
+  arquivos?: Prisma.arquivoUpdateManyWithoutUserNestedInput
   livros?: Prisma.livrosUpdateManyWithoutUserNestedInput
-  noticias?: Prisma.noticiasUpdateManyWithoutUserNestedInput
 }
 
 export type userUncheckedUpdateWithoutCentroInput = {
@@ -888,8 +1005,9 @@ export type userUncheckedUpdateWithoutCentroInput = {
   numeroMembro?: Prisma.StringFieldUpdateOperationsInput | string
   contacto?: Prisma.IntFieldUpdateOperationsInput | number
   promessado?: Prisma.EnumPromessadoFieldUpdateOperationsInput | $Enums.Promessado
+  actividades?: Prisma.actividadeUncheckedUpdateManyWithoutUserNestedInput
+  arquivos?: Prisma.arquivoUncheckedUpdateManyWithoutUserNestedInput
   livros?: Prisma.livrosUncheckedUpdateManyWithoutUserNestedInput
-  noticias?: Prisma.noticiasUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type userUncheckedUpdateManyWithoutCentroInput = {
@@ -911,13 +1029,15 @@ export type userUncheckedUpdateManyWithoutCentroInput = {
  */
 
 export type UserCountOutputType = {
+  actividades: number
+  arquivos: number
   livros: number
-  noticias: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  actividades?: boolean | UserCountOutputTypeCountActividadesArgs
+  arquivos?: boolean | UserCountOutputTypeCountArquivosArgs
   livros?: boolean | UserCountOutputTypeCountLivrosArgs
-  noticias?: boolean | UserCountOutputTypeCountNoticiasArgs
 }
 
 /**
@@ -933,15 +1053,22 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountLivrosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.livrosWhereInput
+export type UserCountOutputTypeCountActividadesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.actividadeWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountNoticiasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.noticiasWhereInput
+export type UserCountOutputTypeCountArquivosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.arquivoWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLivrosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.livrosWhereInput
 }
 
 
@@ -957,9 +1084,10 @@ export type userSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   contacto?: boolean
   promessado?: boolean
   centroId?: boolean
-  centro?: boolean | Prisma.user$centroArgs<ExtArgs>
+  actividades?: boolean | Prisma.user$actividadesArgs<ExtArgs>
+  arquivos?: boolean | Prisma.user$arquivosArgs<ExtArgs>
   livros?: boolean | Prisma.user$livrosArgs<ExtArgs>
-  noticias?: boolean | Prisma.user$noticiasArgs<ExtArgs>
+  centro?: boolean | Prisma.user$centroArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -981,18 +1109,20 @@ export type userSelectScalar = {
 
 export type userOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idMejista" | "nomeMembro" | "email" | "senha" | "nivel" | "role" | "cargo" | "numeroMembro" | "contacto" | "promessado" | "centroId", ExtArgs["result"]["user"]>
 export type userInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  centro?: boolean | Prisma.user$centroArgs<ExtArgs>
+  actividades?: boolean | Prisma.user$actividadesArgs<ExtArgs>
+  arquivos?: boolean | Prisma.user$arquivosArgs<ExtArgs>
   livros?: boolean | Prisma.user$livrosArgs<ExtArgs>
-  noticias?: boolean | Prisma.user$noticiasArgs<ExtArgs>
+  centro?: boolean | Prisma.user$centroArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $userPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "user"
   objects: {
-    centro: Prisma.$centrosParoquiasPayload<ExtArgs> | null
+    actividades: Prisma.$actividadePayload<ExtArgs>[]
+    arquivos: Prisma.$arquivoPayload<ExtArgs>[]
     livros: Prisma.$livrosPayload<ExtArgs>[]
-    noticias: Prisma.$noticiasPayload<ExtArgs>[]
+    centro: Prisma.$centrosparoquiasPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     idMejista: number
@@ -1346,9 +1476,10 @@ readonly fields: userFieldRefs;
  */
 export interface Prisma__userClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  centro<T extends Prisma.user$centroArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$centroArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  actividades<T extends Prisma.user$actividadesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$actividadesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$actividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  arquivos<T extends Prisma.user$arquivosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$arquivosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$arquivoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   livros<T extends Prisma.user$livrosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$livrosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$livrosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  noticias<T extends Prisma.user$noticiasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$noticiasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$noticiasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  centro<T extends Prisma.user$centroArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$centroArgs<ExtArgs>>): Prisma.Prisma__centrosparoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1732,22 +1863,51 @@ export type userDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * user.centro
+ * user.actividades
  */
-export type user$centroArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type user$actividadesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the actividade
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.actividadeSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the actividade
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.actividadeOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
-  where?: Prisma.centrosParoquiasWhereInput
+  include?: Prisma.actividadeInclude<ExtArgs> | null
+  where?: Prisma.actividadeWhereInput
+  orderBy?: Prisma.actividadeOrderByWithRelationInput | Prisma.actividadeOrderByWithRelationInput[]
+  cursor?: Prisma.actividadeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ActividadeScalarFieldEnum | Prisma.ActividadeScalarFieldEnum[]
+}
+
+/**
+ * user.arquivos
+ */
+export type user$arquivosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the arquivo
+   */
+  select?: Prisma.arquivoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the arquivo
+   */
+  omit?: Prisma.arquivoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.arquivoInclude<ExtArgs> | null
+  where?: Prisma.arquivoWhereInput
+  orderBy?: Prisma.arquivoOrderByWithRelationInput | Prisma.arquivoOrderByWithRelationInput[]
+  cursor?: Prisma.arquivoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ArquivoScalarFieldEnum | Prisma.ArquivoScalarFieldEnum[]
 }
 
 /**
@@ -1775,27 +1935,22 @@ export type user$livrosArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 /**
- * user.noticias
+ * user.centro
  */
-export type user$noticiasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type user$centroArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the noticias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.noticiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the noticias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.noticiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.noticiasInclude<ExtArgs> | null
-  where?: Prisma.noticiasWhereInput
-  orderBy?: Prisma.noticiasOrderByWithRelationInput | Prisma.noticiasOrderByWithRelationInput[]
-  cursor?: Prisma.noticiasWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.NoticiasScalarFieldEnum | Prisma.NoticiasScalarFieldEnum[]
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
+  where?: Prisma.centrosparoquiasWhereInput
 }
 
 /**

@@ -10,7 +10,7 @@
 */
 
 export const Promessado = {
-  Não: 'Não',
+  Nao: 'Nao',
   Sim: 'Sim'
 } as const
 
@@ -23,3 +23,55 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const localArqu = {
+  PERFIL: 'PERFIL',
+  MESSAGE: 'MESSAGE',
+  ACTIVIDADE: 'ACTIVIDADE'
+} as const
+
+export type localArqu = (typeof localArqu)[keyof typeof localArqu]
+
+
+export const TipoArqui = {
+  USER: 'USER',
+  ACTIVIDADE: 'ACTIVIDADE'
+} as const
+
+export type TipoArqui = (typeof TipoArqui)[keyof typeof TipoArqui]
+
+
+export const TipoStatus = {
+  PROCESSANDO: 'PROCESSANDO',
+  CONCLUIDO: 'CONCLUIDO',
+  ERRO: 'ERRO'
+} as const
+
+export type TipoStatus = (typeof TipoStatus)[keyof typeof TipoStatus]
+
+
+export const TipoEstado = {
+  Aberta: 'Aberta',
+  Encerrada: 'Encerrada'
+} as const
+
+export type TipoEstado = (typeof TipoEstado)[keyof typeof TipoEstado]
+
+
+export const TipoCategoria = {
+  Espiritualidade: 'Espiritualidade',
+  Missao: 'Missao',
+  Acampamento: 'Acampamento',
+  Formacao: 'Formacao'
+} as const
+
+export type TipoCategoria = (typeof TipoCategoria)[keyof typeof TipoCategoria]
+
+
+export const centrosparoquias_tipo = {
+  Sede: 'Sede',
+  Normal: 'Normal'
+} as const
+
+export type centrosparoquias_tipo = (typeof centrosparoquias_tipo)[keyof typeof centrosparoquias_tipo]

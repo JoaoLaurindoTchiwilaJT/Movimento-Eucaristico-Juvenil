@@ -4,7 +4,7 @@
 // biome-ignore-all lint: generated file
 // @ts-nocheck 
 /*
- * This file exports the `centrosParoquias` model and its related types.
+ * This file exports the `centrosparoquias` model and its related types.
  *
  * 🟢 You can import this file directly.
  */
@@ -13,697 +13,737 @@ import type * as $Enums from "../enums"
 import type * as Prisma from "../internal/prismaNamespace"
 
 /**
- * Model centrosParoquias
+ * Model centrosparoquias
  * 
  */
-export type centrosParoquiasModel = runtime.Types.Result.DefaultSelection<Prisma.$centrosParoquiasPayload>
+export type centrosparoquiasModel = runtime.Types.Result.DefaultSelection<Prisma.$centrosparoquiasPayload>
 
-export type AggregateCentrosParoquias = {
-  _count: CentrosParoquiasCountAggregateOutputType | null
-  _avg: CentrosParoquiasAvgAggregateOutputType | null
-  _sum: CentrosParoquiasSumAggregateOutputType | null
-  _min: CentrosParoquiasMinAggregateOutputType | null
-  _max: CentrosParoquiasMaxAggregateOutputType | null
+export type AggregateCentrosparoquias = {
+  _count: CentrosparoquiasCountAggregateOutputType | null
+  _avg: CentrosparoquiasAvgAggregateOutputType | null
+  _sum: CentrosparoquiasSumAggregateOutputType | null
+  _min: CentrosparoquiasMinAggregateOutputType | null
+  _max: CentrosparoquiasMaxAggregateOutputType | null
 }
 
-export type CentrosParoquiasAvgAggregateOutputType = {
+export type CentrosparoquiasAvgAggregateOutputType = {
   idCentrosParoquias: number | null
   paroquiaId: number | null
 }
 
-export type CentrosParoquiasSumAggregateOutputType = {
+export type CentrosparoquiasSumAggregateOutputType = {
   idCentrosParoquias: number | null
   paroquiaId: number | null
 }
 
-export type CentrosParoquiasMinAggregateOutputType = {
-  idCentrosParoquias: number | null
-  nomeCentro: string | null
-  paroquiaId: number | null
-}
-
-export type CentrosParoquiasMaxAggregateOutputType = {
+export type CentrosparoquiasMinAggregateOutputType = {
   idCentrosParoquias: number | null
   nomeCentro: string | null
   paroquiaId: number | null
+  tipo: $Enums.centrosparoquias_tipo | null
 }
 
-export type CentrosParoquiasCountAggregateOutputType = {
+export type CentrosparoquiasMaxAggregateOutputType = {
+  idCentrosParoquias: number | null
+  nomeCentro: string | null
+  paroquiaId: number | null
+  tipo: $Enums.centrosparoquias_tipo | null
+}
+
+export type CentrosparoquiasCountAggregateOutputType = {
   idCentrosParoquias: number
   nomeCentro: number
   paroquiaId: number
+  tipo: number
   _all: number
 }
 
 
-export type CentrosParoquiasAvgAggregateInputType = {
+export type CentrosparoquiasAvgAggregateInputType = {
   idCentrosParoquias?: true
   paroquiaId?: true
 }
 
-export type CentrosParoquiasSumAggregateInputType = {
+export type CentrosparoquiasSumAggregateInputType = {
   idCentrosParoquias?: true
   paroquiaId?: true
 }
 
-export type CentrosParoquiasMinAggregateInputType = {
+export type CentrosparoquiasMinAggregateInputType = {
   idCentrosParoquias?: true
   nomeCentro?: true
   paroquiaId?: true
+  tipo?: true
 }
 
-export type CentrosParoquiasMaxAggregateInputType = {
+export type CentrosparoquiasMaxAggregateInputType = {
   idCentrosParoquias?: true
   nomeCentro?: true
   paroquiaId?: true
+  tipo?: true
 }
 
-export type CentrosParoquiasCountAggregateInputType = {
+export type CentrosparoquiasCountAggregateInputType = {
   idCentrosParoquias?: true
   nomeCentro?: true
   paroquiaId?: true
+  tipo?: true
   _all?: true
 }
 
-export type CentrosParoquiasAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type CentrosparoquiasAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Filter which centrosParoquias to aggregate.
+   * Filter which centrosparoquias to aggregate.
    */
-  where?: Prisma.centrosParoquiasWhereInput
+  where?: Prisma.centrosparoquiasWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of centrosParoquias to fetch.
+   * Determine the order of centrosparoquias to fetch.
    */
-  orderBy?: Prisma.centrosParoquiasOrderByWithRelationInput | Prisma.centrosParoquiasOrderByWithRelationInput[]
+  orderBy?: Prisma.centrosparoquiasOrderByWithRelationInput | Prisma.centrosparoquiasOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
    * Sets the start position
    */
-  cursor?: Prisma.centrosParoquiasWhereUniqueInput
+  cursor?: Prisma.centrosparoquiasWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` centrosParoquias from the position of the cursor.
+   * Take `±n` centrosparoquias from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` centrosParoquias.
+   * Skip the first `n` centrosparoquias.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Count returned centrosParoquias
+   * Count returned centrosparoquias
   **/
-  _count?: true | CentrosParoquiasCountAggregateInputType
+  _count?: true | CentrosparoquiasCountAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to average
   **/
-  _avg?: CentrosParoquiasAvgAggregateInputType
+  _avg?: CentrosparoquiasAvgAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to sum
   **/
-  _sum?: CentrosParoquiasSumAggregateInputType
+  _sum?: CentrosparoquiasSumAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to find the minimum value
   **/
-  _min?: CentrosParoquiasMinAggregateInputType
+  _min?: CentrosparoquiasMinAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to find the maximum value
   **/
-  _max?: CentrosParoquiasMaxAggregateInputType
+  _max?: CentrosparoquiasMaxAggregateInputType
 }
 
-export type GetCentrosParoquiasAggregateType<T extends CentrosParoquiasAggregateArgs> = {
-      [P in keyof T & keyof AggregateCentrosParoquias]: P extends '_count' | 'count'
+export type GetCentrosparoquiasAggregateType<T extends CentrosparoquiasAggregateArgs> = {
+      [P in keyof T & keyof AggregateCentrosparoquias]: P extends '_count' | 'count'
     ? T[P] extends true
       ? number
-      : Prisma.GetScalarType<T[P], AggregateCentrosParoquias[P]>
-    : Prisma.GetScalarType<T[P], AggregateCentrosParoquias[P]>
+      : Prisma.GetScalarType<T[P], AggregateCentrosparoquias[P]>
+    : Prisma.GetScalarType<T[P], AggregateCentrosparoquias[P]>
 }
 
 
 
 
-export type centrosParoquiasGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.centrosParoquiasWhereInput
-  orderBy?: Prisma.centrosParoquiasOrderByWithAggregationInput | Prisma.centrosParoquiasOrderByWithAggregationInput[]
-  by: Prisma.CentrosParoquiasScalarFieldEnum[] | Prisma.CentrosParoquiasScalarFieldEnum
-  having?: Prisma.centrosParoquiasScalarWhereWithAggregatesInput
+export type centrosparoquiasGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.centrosparoquiasWhereInput
+  orderBy?: Prisma.centrosparoquiasOrderByWithAggregationInput | Prisma.centrosparoquiasOrderByWithAggregationInput[]
+  by: Prisma.CentrosparoquiasScalarFieldEnum[] | Prisma.CentrosparoquiasScalarFieldEnum
+  having?: Prisma.centrosparoquiasScalarWhereWithAggregatesInput
   take?: number
   skip?: number
-  _count?: CentrosParoquiasCountAggregateInputType | true
-  _avg?: CentrosParoquiasAvgAggregateInputType
-  _sum?: CentrosParoquiasSumAggregateInputType
-  _min?: CentrosParoquiasMinAggregateInputType
-  _max?: CentrosParoquiasMaxAggregateInputType
+  _count?: CentrosparoquiasCountAggregateInputType | true
+  _avg?: CentrosparoquiasAvgAggregateInputType
+  _sum?: CentrosparoquiasSumAggregateInputType
+  _min?: CentrosparoquiasMinAggregateInputType
+  _max?: CentrosparoquiasMaxAggregateInputType
 }
 
-export type CentrosParoquiasGroupByOutputType = {
+export type CentrosparoquiasGroupByOutputType = {
   idCentrosParoquias: number
   nomeCentro: string
   paroquiaId: number
-  _count: CentrosParoquiasCountAggregateOutputType | null
-  _avg: CentrosParoquiasAvgAggregateOutputType | null
-  _sum: CentrosParoquiasSumAggregateOutputType | null
-  _min: CentrosParoquiasMinAggregateOutputType | null
-  _max: CentrosParoquiasMaxAggregateOutputType | null
+  tipo: $Enums.centrosparoquias_tipo
+  _count: CentrosparoquiasCountAggregateOutputType | null
+  _avg: CentrosparoquiasAvgAggregateOutputType | null
+  _sum: CentrosparoquiasSumAggregateOutputType | null
+  _min: CentrosparoquiasMinAggregateOutputType | null
+  _max: CentrosparoquiasMaxAggregateOutputType | null
 }
 
-type GetCentrosParoquiasGroupByPayload<T extends centrosParoquiasGroupByArgs> = Prisma.PrismaPromise<
+type GetCentrosparoquiasGroupByPayload<T extends centrosparoquiasGroupByArgs> = Prisma.PrismaPromise<
   Array<
-    Prisma.PickEnumerable<CentrosParoquiasGroupByOutputType, T['by']> &
+    Prisma.PickEnumerable<CentrosparoquiasGroupByOutputType, T['by']> &
       {
-        [P in ((keyof T) & (keyof CentrosParoquiasGroupByOutputType))]: P extends '_count'
+        [P in ((keyof T) & (keyof CentrosparoquiasGroupByOutputType))]: P extends '_count'
           ? T[P] extends boolean
             ? number
-            : Prisma.GetScalarType<T[P], CentrosParoquiasGroupByOutputType[P]>
-          : Prisma.GetScalarType<T[P], CentrosParoquiasGroupByOutputType[P]>
+            : Prisma.GetScalarType<T[P], CentrosparoquiasGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], CentrosparoquiasGroupByOutputType[P]>
       }
     >
   >
 
 
 
-export type centrosParoquiasWhereInput = {
-  AND?: Prisma.centrosParoquiasWhereInput | Prisma.centrosParoquiasWhereInput[]
-  OR?: Prisma.centrosParoquiasWhereInput[]
-  NOT?: Prisma.centrosParoquiasWhereInput | Prisma.centrosParoquiasWhereInput[]
-  idCentrosParoquias?: Prisma.IntFilter<"centrosParoquias"> | number
-  nomeCentro?: Prisma.StringFilter<"centrosParoquias"> | string
-  paroquiaId?: Prisma.IntFilter<"centrosParoquias"> | number
-  paroquia?: Prisma.XOR<Prisma.ParoquiasScalarRelationFilter, Prisma.paroquiasWhereInput>
+export type centrosparoquiasWhereInput = {
+  AND?: Prisma.centrosparoquiasWhereInput | Prisma.centrosparoquiasWhereInput[]
+  OR?: Prisma.centrosparoquiasWhereInput[]
+  NOT?: Prisma.centrosparoquiasWhereInput | Prisma.centrosparoquiasWhereInput[]
+  idCentrosParoquias?: Prisma.IntFilter<"centrosparoquias"> | number
+  nomeCentro?: Prisma.StringFilter<"centrosparoquias"> | string
+  paroquiaId?: Prisma.IntFilter<"centrosparoquias"> | number
+  tipo?: Prisma.Enumcentrosparoquias_tipoFilter<"centrosparoquias"> | $Enums.centrosparoquias_tipo
+  paroquias?: Prisma.XOR<Prisma.ParoquiasScalarRelationFilter, Prisma.paroquiasWhereInput>
   membros?: Prisma.UserListRelationFilter
 }
 
-export type centrosParoquiasOrderByWithRelationInput = {
+export type centrosparoquiasOrderByWithRelationInput = {
   idCentrosParoquias?: Prisma.SortOrder
   nomeCentro?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
-  paroquia?: Prisma.paroquiasOrderByWithRelationInput
+  tipo?: Prisma.SortOrder
+  paroquias?: Prisma.paroquiasOrderByWithRelationInput
   membros?: Prisma.userOrderByRelationAggregateInput
-  _relevance?: Prisma.centrosParoquiasOrderByRelevanceInput
+  _relevance?: Prisma.centrosparoquiasOrderByRelevanceInput
 }
 
-export type centrosParoquiasWhereUniqueInput = Prisma.AtLeast<{
+export type centrosparoquiasWhereUniqueInput = Prisma.AtLeast<{
   idCentrosParoquias?: number
-  AND?: Prisma.centrosParoquiasWhereInput | Prisma.centrosParoquiasWhereInput[]
-  OR?: Prisma.centrosParoquiasWhereInput[]
-  NOT?: Prisma.centrosParoquiasWhereInput | Prisma.centrosParoquiasWhereInput[]
-  nomeCentro?: Prisma.StringFilter<"centrosParoquias"> | string
-  paroquiaId?: Prisma.IntFilter<"centrosParoquias"> | number
-  paroquia?: Prisma.XOR<Prisma.ParoquiasScalarRelationFilter, Prisma.paroquiasWhereInput>
+  AND?: Prisma.centrosparoquiasWhereInput | Prisma.centrosparoquiasWhereInput[]
+  OR?: Prisma.centrosparoquiasWhereInput[]
+  NOT?: Prisma.centrosparoquiasWhereInput | Prisma.centrosparoquiasWhereInput[]
+  nomeCentro?: Prisma.StringFilter<"centrosparoquias"> | string
+  paroquiaId?: Prisma.IntFilter<"centrosparoquias"> | number
+  tipo?: Prisma.Enumcentrosparoquias_tipoFilter<"centrosparoquias"> | $Enums.centrosparoquias_tipo
+  paroquias?: Prisma.XOR<Prisma.ParoquiasScalarRelationFilter, Prisma.paroquiasWhereInput>
   membros?: Prisma.UserListRelationFilter
 }, "idCentrosParoquias">
 
-export type centrosParoquiasOrderByWithAggregationInput = {
+export type centrosparoquiasOrderByWithAggregationInput = {
   idCentrosParoquias?: Prisma.SortOrder
   nomeCentro?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
-  _count?: Prisma.centrosParoquiasCountOrderByAggregateInput
-  _avg?: Prisma.centrosParoquiasAvgOrderByAggregateInput
-  _max?: Prisma.centrosParoquiasMaxOrderByAggregateInput
-  _min?: Prisma.centrosParoquiasMinOrderByAggregateInput
-  _sum?: Prisma.centrosParoquiasSumOrderByAggregateInput
+  tipo?: Prisma.SortOrder
+  _count?: Prisma.centrosparoquiasCountOrderByAggregateInput
+  _avg?: Prisma.centrosparoquiasAvgOrderByAggregateInput
+  _max?: Prisma.centrosparoquiasMaxOrderByAggregateInput
+  _min?: Prisma.centrosparoquiasMinOrderByAggregateInput
+  _sum?: Prisma.centrosparoquiasSumOrderByAggregateInput
 }
 
-export type centrosParoquiasScalarWhereWithAggregatesInput = {
-  AND?: Prisma.centrosParoquiasScalarWhereWithAggregatesInput | Prisma.centrosParoquiasScalarWhereWithAggregatesInput[]
-  OR?: Prisma.centrosParoquiasScalarWhereWithAggregatesInput[]
-  NOT?: Prisma.centrosParoquiasScalarWhereWithAggregatesInput | Prisma.centrosParoquiasScalarWhereWithAggregatesInput[]
-  idCentrosParoquias?: Prisma.IntWithAggregatesFilter<"centrosParoquias"> | number
-  nomeCentro?: Prisma.StringWithAggregatesFilter<"centrosParoquias"> | string
-  paroquiaId?: Prisma.IntWithAggregatesFilter<"centrosParoquias"> | number
+export type centrosparoquiasScalarWhereWithAggregatesInput = {
+  AND?: Prisma.centrosparoquiasScalarWhereWithAggregatesInput | Prisma.centrosparoquiasScalarWhereWithAggregatesInput[]
+  OR?: Prisma.centrosparoquiasScalarWhereWithAggregatesInput[]
+  NOT?: Prisma.centrosparoquiasScalarWhereWithAggregatesInput | Prisma.centrosparoquiasScalarWhereWithAggregatesInput[]
+  idCentrosParoquias?: Prisma.IntWithAggregatesFilter<"centrosparoquias"> | number
+  nomeCentro?: Prisma.StringWithAggregatesFilter<"centrosparoquias"> | string
+  paroquiaId?: Prisma.IntWithAggregatesFilter<"centrosparoquias"> | number
+  tipo?: Prisma.Enumcentrosparoquias_tipoWithAggregatesFilter<"centrosparoquias"> | $Enums.centrosparoquias_tipo
 }
 
-export type centrosParoquiasCreateInput = {
+export type centrosparoquiasCreateInput = {
   nomeCentro: string
-  paroquia: Prisma.paroquiasCreateNestedOneWithoutCentrosInput
+  tipo?: $Enums.centrosparoquias_tipo
+  paroquias: Prisma.paroquiasCreateNestedOneWithoutCentrosparoquiasInput
   membros?: Prisma.userCreateNestedManyWithoutCentroInput
 }
 
-export type centrosParoquiasUncheckedCreateInput = {
+export type centrosparoquiasUncheckedCreateInput = {
   idCentrosParoquias?: number
   nomeCentro: string
   paroquiaId: number
+  tipo?: $Enums.centrosparoquias_tipo
   membros?: Prisma.userUncheckedCreateNestedManyWithoutCentroInput
 }
 
-export type centrosParoquiasUpdateInput = {
+export type centrosparoquiasUpdateInput = {
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  paroquia?: Prisma.paroquiasUpdateOneRequiredWithoutCentrosNestedInput
+  tipo?: Prisma.Enumcentrosparoquias_tipoFieldUpdateOperationsInput | $Enums.centrosparoquias_tipo
+  paroquias?: Prisma.paroquiasUpdateOneRequiredWithoutCentrosparoquiasNestedInput
   membros?: Prisma.userUpdateManyWithoutCentroNestedInput
 }
 
-export type centrosParoquiasUncheckedUpdateInput = {
+export type centrosparoquiasUncheckedUpdateInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
   paroquiaId?: Prisma.IntFieldUpdateOperationsInput | number
+  tipo?: Prisma.Enumcentrosparoquias_tipoFieldUpdateOperationsInput | $Enums.centrosparoquias_tipo
   membros?: Prisma.userUncheckedUpdateManyWithoutCentroNestedInput
 }
 
-export type centrosParoquiasCreateManyInput = {
+export type centrosparoquiasCreateManyInput = {
   idCentrosParoquias?: number
   nomeCentro: string
   paroquiaId: number
+  tipo?: $Enums.centrosparoquias_tipo
 }
 
-export type centrosParoquiasUpdateManyMutationInput = {
+export type centrosparoquiasUpdateManyMutationInput = {
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.Enumcentrosparoquias_tipoFieldUpdateOperationsInput | $Enums.centrosparoquias_tipo
 }
 
-export type centrosParoquiasUncheckedUpdateManyInput = {
+export type centrosparoquiasUncheckedUpdateManyInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
   paroquiaId?: Prisma.IntFieldUpdateOperationsInput | number
+  tipo?: Prisma.Enumcentrosparoquias_tipoFieldUpdateOperationsInput | $Enums.centrosparoquias_tipo
 }
 
-export type CentrosParoquiasNullableScalarRelationFilter = {
-  is?: Prisma.centrosParoquiasWhereInput | null
-  isNot?: Prisma.centrosParoquiasWhereInput | null
+export type CentrosparoquiasNullableScalarRelationFilter = {
+  is?: Prisma.centrosparoquiasWhereInput | null
+  isNot?: Prisma.centrosparoquiasWhereInput | null
 }
 
-export type CentrosParoquiasListRelationFilter = {
-  every?: Prisma.centrosParoquiasWhereInput
-  some?: Prisma.centrosParoquiasWhereInput
-  none?: Prisma.centrosParoquiasWhereInput
+export type CentrosparoquiasListRelationFilter = {
+  every?: Prisma.centrosparoquiasWhereInput
+  some?: Prisma.centrosparoquiasWhereInput
+  none?: Prisma.centrosparoquiasWhereInput
 }
 
-export type centrosParoquiasOrderByRelationAggregateInput = {
+export type centrosparoquiasOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type centrosParoquiasOrderByRelevanceInput = {
-  fields: Prisma.centrosParoquiasOrderByRelevanceFieldEnum | Prisma.centrosParoquiasOrderByRelevanceFieldEnum[]
+export type centrosparoquiasOrderByRelevanceInput = {
+  fields: Prisma.centrosparoquiasOrderByRelevanceFieldEnum | Prisma.centrosparoquiasOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
 }
 
-export type centrosParoquiasCountOrderByAggregateInput = {
+export type centrosparoquiasCountOrderByAggregateInput = {
   idCentrosParoquias?: Prisma.SortOrder
   nomeCentro?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
+  tipo?: Prisma.SortOrder
 }
 
-export type centrosParoquiasAvgOrderByAggregateInput = {
+export type centrosparoquiasAvgOrderByAggregateInput = {
   idCentrosParoquias?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
 }
 
-export type centrosParoquiasMaxOrderByAggregateInput = {
-  idCentrosParoquias?: Prisma.SortOrder
-  nomeCentro?: Prisma.SortOrder
-  paroquiaId?: Prisma.SortOrder
-}
-
-export type centrosParoquiasMinOrderByAggregateInput = {
+export type centrosparoquiasMaxOrderByAggregateInput = {
   idCentrosParoquias?: Prisma.SortOrder
   nomeCentro?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
+  tipo?: Prisma.SortOrder
 }
 
-export type centrosParoquiasSumOrderByAggregateInput = {
+export type centrosparoquiasMinOrderByAggregateInput = {
+  idCentrosParoquias?: Prisma.SortOrder
+  nomeCentro?: Prisma.SortOrder
+  paroquiaId?: Prisma.SortOrder
+  tipo?: Prisma.SortOrder
+}
+
+export type centrosparoquiasSumOrderByAggregateInput = {
   idCentrosParoquias?: Prisma.SortOrder
   paroquiaId?: Prisma.SortOrder
 }
 
-export type centrosParoquiasCreateNestedOneWithoutMembrosInput = {
-  create?: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutMembrosInput, Prisma.centrosParoquiasUncheckedCreateWithoutMembrosInput>
-  connectOrCreate?: Prisma.centrosParoquiasCreateOrConnectWithoutMembrosInput
-  connect?: Prisma.centrosParoquiasWhereUniqueInput
+export type centrosparoquiasCreateNestedOneWithoutMembrosInput = {
+  create?: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutMembrosInput, Prisma.centrosparoquiasUncheckedCreateWithoutMembrosInput>
+  connectOrCreate?: Prisma.centrosparoquiasCreateOrConnectWithoutMembrosInput
+  connect?: Prisma.centrosparoquiasWhereUniqueInput
 }
 
-export type centrosParoquiasUpdateOneWithoutMembrosNestedInput = {
-  create?: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutMembrosInput, Prisma.centrosParoquiasUncheckedCreateWithoutMembrosInput>
-  connectOrCreate?: Prisma.centrosParoquiasCreateOrConnectWithoutMembrosInput
-  upsert?: Prisma.centrosParoquiasUpsertWithoutMembrosInput
-  disconnect?: Prisma.centrosParoquiasWhereInput | boolean
-  delete?: Prisma.centrosParoquiasWhereInput | boolean
-  connect?: Prisma.centrosParoquiasWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.centrosParoquiasUpdateToOneWithWhereWithoutMembrosInput, Prisma.centrosParoquiasUpdateWithoutMembrosInput>, Prisma.centrosParoquiasUncheckedUpdateWithoutMembrosInput>
+export type centrosparoquiasUpdateOneWithoutMembrosNestedInput = {
+  create?: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutMembrosInput, Prisma.centrosparoquiasUncheckedCreateWithoutMembrosInput>
+  connectOrCreate?: Prisma.centrosparoquiasCreateOrConnectWithoutMembrosInput
+  upsert?: Prisma.centrosparoquiasUpsertWithoutMembrosInput
+  disconnect?: Prisma.centrosparoquiasWhereInput | boolean
+  delete?: Prisma.centrosparoquiasWhereInput | boolean
+  connect?: Prisma.centrosparoquiasWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.centrosparoquiasUpdateToOneWithWhereWithoutMembrosInput, Prisma.centrosparoquiasUpdateWithoutMembrosInput>, Prisma.centrosparoquiasUncheckedUpdateWithoutMembrosInput>
 }
 
-export type centrosParoquiasCreateNestedManyWithoutParoquiaInput = {
-  create?: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutParoquiaInput, Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput> | Prisma.centrosParoquiasCreateWithoutParoquiaInput[] | Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput[]
-  connectOrCreate?: Prisma.centrosParoquiasCreateOrConnectWithoutParoquiaInput | Prisma.centrosParoquiasCreateOrConnectWithoutParoquiaInput[]
-  createMany?: Prisma.centrosParoquiasCreateManyParoquiaInputEnvelope
-  connect?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
+export type centrosparoquiasCreateNestedManyWithoutParoquiasInput = {
+  create?: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutParoquiasInput, Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput> | Prisma.centrosparoquiasCreateWithoutParoquiasInput[] | Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput[]
+  connectOrCreate?: Prisma.centrosparoquiasCreateOrConnectWithoutParoquiasInput | Prisma.centrosparoquiasCreateOrConnectWithoutParoquiasInput[]
+  createMany?: Prisma.centrosparoquiasCreateManyParoquiasInputEnvelope
+  connect?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
 }
 
-export type centrosParoquiasUncheckedCreateNestedManyWithoutParoquiaInput = {
-  create?: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutParoquiaInput, Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput> | Prisma.centrosParoquiasCreateWithoutParoquiaInput[] | Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput[]
-  connectOrCreate?: Prisma.centrosParoquiasCreateOrConnectWithoutParoquiaInput | Prisma.centrosParoquiasCreateOrConnectWithoutParoquiaInput[]
-  createMany?: Prisma.centrosParoquiasCreateManyParoquiaInputEnvelope
-  connect?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
+export type centrosparoquiasUncheckedCreateNestedManyWithoutParoquiasInput = {
+  create?: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutParoquiasInput, Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput> | Prisma.centrosparoquiasCreateWithoutParoquiasInput[] | Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput[]
+  connectOrCreate?: Prisma.centrosparoquiasCreateOrConnectWithoutParoquiasInput | Prisma.centrosparoquiasCreateOrConnectWithoutParoquiasInput[]
+  createMany?: Prisma.centrosparoquiasCreateManyParoquiasInputEnvelope
+  connect?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
 }
 
-export type centrosParoquiasUpdateManyWithoutParoquiaNestedInput = {
-  create?: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutParoquiaInput, Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput> | Prisma.centrosParoquiasCreateWithoutParoquiaInput[] | Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput[]
-  connectOrCreate?: Prisma.centrosParoquiasCreateOrConnectWithoutParoquiaInput | Prisma.centrosParoquiasCreateOrConnectWithoutParoquiaInput[]
-  upsert?: Prisma.centrosParoquiasUpsertWithWhereUniqueWithoutParoquiaInput | Prisma.centrosParoquiasUpsertWithWhereUniqueWithoutParoquiaInput[]
-  createMany?: Prisma.centrosParoquiasCreateManyParoquiaInputEnvelope
-  set?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
-  disconnect?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
-  delete?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
-  connect?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
-  update?: Prisma.centrosParoquiasUpdateWithWhereUniqueWithoutParoquiaInput | Prisma.centrosParoquiasUpdateWithWhereUniqueWithoutParoquiaInput[]
-  updateMany?: Prisma.centrosParoquiasUpdateManyWithWhereWithoutParoquiaInput | Prisma.centrosParoquiasUpdateManyWithWhereWithoutParoquiaInput[]
-  deleteMany?: Prisma.centrosParoquiasScalarWhereInput | Prisma.centrosParoquiasScalarWhereInput[]
+export type centrosparoquiasUpdateManyWithoutParoquiasNestedInput = {
+  create?: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutParoquiasInput, Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput> | Prisma.centrosparoquiasCreateWithoutParoquiasInput[] | Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput[]
+  connectOrCreate?: Prisma.centrosparoquiasCreateOrConnectWithoutParoquiasInput | Prisma.centrosparoquiasCreateOrConnectWithoutParoquiasInput[]
+  upsert?: Prisma.centrosparoquiasUpsertWithWhereUniqueWithoutParoquiasInput | Prisma.centrosparoquiasUpsertWithWhereUniqueWithoutParoquiasInput[]
+  createMany?: Prisma.centrosparoquiasCreateManyParoquiasInputEnvelope
+  set?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
+  disconnect?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
+  delete?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
+  connect?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
+  update?: Prisma.centrosparoquiasUpdateWithWhereUniqueWithoutParoquiasInput | Prisma.centrosparoquiasUpdateWithWhereUniqueWithoutParoquiasInput[]
+  updateMany?: Prisma.centrosparoquiasUpdateManyWithWhereWithoutParoquiasInput | Prisma.centrosparoquiasUpdateManyWithWhereWithoutParoquiasInput[]
+  deleteMany?: Prisma.centrosparoquiasScalarWhereInput | Prisma.centrosparoquiasScalarWhereInput[]
 }
 
-export type centrosParoquiasUncheckedUpdateManyWithoutParoquiaNestedInput = {
-  create?: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutParoquiaInput, Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput> | Prisma.centrosParoquiasCreateWithoutParoquiaInput[] | Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput[]
-  connectOrCreate?: Prisma.centrosParoquiasCreateOrConnectWithoutParoquiaInput | Prisma.centrosParoquiasCreateOrConnectWithoutParoquiaInput[]
-  upsert?: Prisma.centrosParoquiasUpsertWithWhereUniqueWithoutParoquiaInput | Prisma.centrosParoquiasUpsertWithWhereUniqueWithoutParoquiaInput[]
-  createMany?: Prisma.centrosParoquiasCreateManyParoquiaInputEnvelope
-  set?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
-  disconnect?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
-  delete?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
-  connect?: Prisma.centrosParoquiasWhereUniqueInput | Prisma.centrosParoquiasWhereUniqueInput[]
-  update?: Prisma.centrosParoquiasUpdateWithWhereUniqueWithoutParoquiaInput | Prisma.centrosParoquiasUpdateWithWhereUniqueWithoutParoquiaInput[]
-  updateMany?: Prisma.centrosParoquiasUpdateManyWithWhereWithoutParoquiaInput | Prisma.centrosParoquiasUpdateManyWithWhereWithoutParoquiaInput[]
-  deleteMany?: Prisma.centrosParoquiasScalarWhereInput | Prisma.centrosParoquiasScalarWhereInput[]
+export type centrosparoquiasUncheckedUpdateManyWithoutParoquiasNestedInput = {
+  create?: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutParoquiasInput, Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput> | Prisma.centrosparoquiasCreateWithoutParoquiasInput[] | Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput[]
+  connectOrCreate?: Prisma.centrosparoquiasCreateOrConnectWithoutParoquiasInput | Prisma.centrosparoquiasCreateOrConnectWithoutParoquiasInput[]
+  upsert?: Prisma.centrosparoquiasUpsertWithWhereUniqueWithoutParoquiasInput | Prisma.centrosparoquiasUpsertWithWhereUniqueWithoutParoquiasInput[]
+  createMany?: Prisma.centrosparoquiasCreateManyParoquiasInputEnvelope
+  set?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
+  disconnect?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
+  delete?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
+  connect?: Prisma.centrosparoquiasWhereUniqueInput | Prisma.centrosparoquiasWhereUniqueInput[]
+  update?: Prisma.centrosparoquiasUpdateWithWhereUniqueWithoutParoquiasInput | Prisma.centrosparoquiasUpdateWithWhereUniqueWithoutParoquiasInput[]
+  updateMany?: Prisma.centrosparoquiasUpdateManyWithWhereWithoutParoquiasInput | Prisma.centrosparoquiasUpdateManyWithWhereWithoutParoquiasInput[]
+  deleteMany?: Prisma.centrosparoquiasScalarWhereInput | Prisma.centrosparoquiasScalarWhereInput[]
 }
 
-export type centrosParoquiasCreateWithoutMembrosInput = {
+export type Enumcentrosparoquias_tipoFieldUpdateOperationsInput = {
+  set?: $Enums.centrosparoquias_tipo
+}
+
+export type centrosparoquiasCreateWithoutMembrosInput = {
   nomeCentro: string
-  paroquia: Prisma.paroquiasCreateNestedOneWithoutCentrosInput
+  tipo?: $Enums.centrosparoquias_tipo
+  paroquias: Prisma.paroquiasCreateNestedOneWithoutCentrosparoquiasInput
 }
 
-export type centrosParoquiasUncheckedCreateWithoutMembrosInput = {
+export type centrosparoquiasUncheckedCreateWithoutMembrosInput = {
   idCentrosParoquias?: number
   nomeCentro: string
   paroquiaId: number
+  tipo?: $Enums.centrosparoquias_tipo
 }
 
-export type centrosParoquiasCreateOrConnectWithoutMembrosInput = {
-  where: Prisma.centrosParoquiasWhereUniqueInput
-  create: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutMembrosInput, Prisma.centrosParoquiasUncheckedCreateWithoutMembrosInput>
+export type centrosparoquiasCreateOrConnectWithoutMembrosInput = {
+  where: Prisma.centrosparoquiasWhereUniqueInput
+  create: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutMembrosInput, Prisma.centrosparoquiasUncheckedCreateWithoutMembrosInput>
 }
 
-export type centrosParoquiasUpsertWithoutMembrosInput = {
-  update: Prisma.XOR<Prisma.centrosParoquiasUpdateWithoutMembrosInput, Prisma.centrosParoquiasUncheckedUpdateWithoutMembrosInput>
-  create: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutMembrosInput, Prisma.centrosParoquiasUncheckedCreateWithoutMembrosInput>
-  where?: Prisma.centrosParoquiasWhereInput
+export type centrosparoquiasUpsertWithoutMembrosInput = {
+  update: Prisma.XOR<Prisma.centrosparoquiasUpdateWithoutMembrosInput, Prisma.centrosparoquiasUncheckedUpdateWithoutMembrosInput>
+  create: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutMembrosInput, Prisma.centrosparoquiasUncheckedCreateWithoutMembrosInput>
+  where?: Prisma.centrosparoquiasWhereInput
 }
 
-export type centrosParoquiasUpdateToOneWithWhereWithoutMembrosInput = {
-  where?: Prisma.centrosParoquiasWhereInput
-  data: Prisma.XOR<Prisma.centrosParoquiasUpdateWithoutMembrosInput, Prisma.centrosParoquiasUncheckedUpdateWithoutMembrosInput>
+export type centrosparoquiasUpdateToOneWithWhereWithoutMembrosInput = {
+  where?: Prisma.centrosparoquiasWhereInput
+  data: Prisma.XOR<Prisma.centrosparoquiasUpdateWithoutMembrosInput, Prisma.centrosparoquiasUncheckedUpdateWithoutMembrosInput>
 }
 
-export type centrosParoquiasUpdateWithoutMembrosInput = {
+export type centrosparoquiasUpdateWithoutMembrosInput = {
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
-  paroquia?: Prisma.paroquiasUpdateOneRequiredWithoutCentrosNestedInput
+  tipo?: Prisma.Enumcentrosparoquias_tipoFieldUpdateOperationsInput | $Enums.centrosparoquias_tipo
+  paroquias?: Prisma.paroquiasUpdateOneRequiredWithoutCentrosparoquiasNestedInput
 }
 
-export type centrosParoquiasUncheckedUpdateWithoutMembrosInput = {
+export type centrosparoquiasUncheckedUpdateWithoutMembrosInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
   paroquiaId?: Prisma.IntFieldUpdateOperationsInput | number
+  tipo?: Prisma.Enumcentrosparoquias_tipoFieldUpdateOperationsInput | $Enums.centrosparoquias_tipo
 }
 
-export type centrosParoquiasCreateWithoutParoquiaInput = {
+export type centrosparoquiasCreateWithoutParoquiasInput = {
   nomeCentro: string
+  tipo?: $Enums.centrosparoquias_tipo
   membros?: Prisma.userCreateNestedManyWithoutCentroInput
 }
 
-export type centrosParoquiasUncheckedCreateWithoutParoquiaInput = {
+export type centrosparoquiasUncheckedCreateWithoutParoquiasInput = {
   idCentrosParoquias?: number
   nomeCentro: string
+  tipo?: $Enums.centrosparoquias_tipo
   membros?: Prisma.userUncheckedCreateNestedManyWithoutCentroInput
 }
 
-export type centrosParoquiasCreateOrConnectWithoutParoquiaInput = {
-  where: Prisma.centrosParoquiasWhereUniqueInput
-  create: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutParoquiaInput, Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput>
+export type centrosparoquiasCreateOrConnectWithoutParoquiasInput = {
+  where: Prisma.centrosparoquiasWhereUniqueInput
+  create: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutParoquiasInput, Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput>
 }
 
-export type centrosParoquiasCreateManyParoquiaInputEnvelope = {
-  data: Prisma.centrosParoquiasCreateManyParoquiaInput | Prisma.centrosParoquiasCreateManyParoquiaInput[]
+export type centrosparoquiasCreateManyParoquiasInputEnvelope = {
+  data: Prisma.centrosparoquiasCreateManyParoquiasInput | Prisma.centrosparoquiasCreateManyParoquiasInput[]
   skipDuplicates?: boolean
 }
 
-export type centrosParoquiasUpsertWithWhereUniqueWithoutParoquiaInput = {
-  where: Prisma.centrosParoquiasWhereUniqueInput
-  update: Prisma.XOR<Prisma.centrosParoquiasUpdateWithoutParoquiaInput, Prisma.centrosParoquiasUncheckedUpdateWithoutParoquiaInput>
-  create: Prisma.XOR<Prisma.centrosParoquiasCreateWithoutParoquiaInput, Prisma.centrosParoquiasUncheckedCreateWithoutParoquiaInput>
+export type centrosparoquiasUpsertWithWhereUniqueWithoutParoquiasInput = {
+  where: Prisma.centrosparoquiasWhereUniqueInput
+  update: Prisma.XOR<Prisma.centrosparoquiasUpdateWithoutParoquiasInput, Prisma.centrosparoquiasUncheckedUpdateWithoutParoquiasInput>
+  create: Prisma.XOR<Prisma.centrosparoquiasCreateWithoutParoquiasInput, Prisma.centrosparoquiasUncheckedCreateWithoutParoquiasInput>
 }
 
-export type centrosParoquiasUpdateWithWhereUniqueWithoutParoquiaInput = {
-  where: Prisma.centrosParoquiasWhereUniqueInput
-  data: Prisma.XOR<Prisma.centrosParoquiasUpdateWithoutParoquiaInput, Prisma.centrosParoquiasUncheckedUpdateWithoutParoquiaInput>
+export type centrosparoquiasUpdateWithWhereUniqueWithoutParoquiasInput = {
+  where: Prisma.centrosparoquiasWhereUniqueInput
+  data: Prisma.XOR<Prisma.centrosparoquiasUpdateWithoutParoquiasInput, Prisma.centrosparoquiasUncheckedUpdateWithoutParoquiasInput>
 }
 
-export type centrosParoquiasUpdateManyWithWhereWithoutParoquiaInput = {
-  where: Prisma.centrosParoquiasScalarWhereInput
-  data: Prisma.XOR<Prisma.centrosParoquiasUpdateManyMutationInput, Prisma.centrosParoquiasUncheckedUpdateManyWithoutParoquiaInput>
+export type centrosparoquiasUpdateManyWithWhereWithoutParoquiasInput = {
+  where: Prisma.centrosparoquiasScalarWhereInput
+  data: Prisma.XOR<Prisma.centrosparoquiasUpdateManyMutationInput, Prisma.centrosparoquiasUncheckedUpdateManyWithoutParoquiasInput>
 }
 
-export type centrosParoquiasScalarWhereInput = {
-  AND?: Prisma.centrosParoquiasScalarWhereInput | Prisma.centrosParoquiasScalarWhereInput[]
-  OR?: Prisma.centrosParoquiasScalarWhereInput[]
-  NOT?: Prisma.centrosParoquiasScalarWhereInput | Prisma.centrosParoquiasScalarWhereInput[]
-  idCentrosParoquias?: Prisma.IntFilter<"centrosParoquias"> | number
-  nomeCentro?: Prisma.StringFilter<"centrosParoquias"> | string
-  paroquiaId?: Prisma.IntFilter<"centrosParoquias"> | number
+export type centrosparoquiasScalarWhereInput = {
+  AND?: Prisma.centrosparoquiasScalarWhereInput | Prisma.centrosparoquiasScalarWhereInput[]
+  OR?: Prisma.centrosparoquiasScalarWhereInput[]
+  NOT?: Prisma.centrosparoquiasScalarWhereInput | Prisma.centrosparoquiasScalarWhereInput[]
+  idCentrosParoquias?: Prisma.IntFilter<"centrosparoquias"> | number
+  nomeCentro?: Prisma.StringFilter<"centrosparoquias"> | string
+  paroquiaId?: Prisma.IntFilter<"centrosparoquias"> | number
+  tipo?: Prisma.Enumcentrosparoquias_tipoFilter<"centrosparoquias"> | $Enums.centrosparoquias_tipo
 }
 
-export type centrosParoquiasCreateManyParoquiaInput = {
+export type centrosparoquiasCreateManyParoquiasInput = {
   idCentrosParoquias?: number
   nomeCentro: string
+  tipo?: $Enums.centrosparoquias_tipo
 }
 
-export type centrosParoquiasUpdateWithoutParoquiaInput = {
+export type centrosparoquiasUpdateWithoutParoquiasInput = {
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.Enumcentrosparoquias_tipoFieldUpdateOperationsInput | $Enums.centrosparoquias_tipo
   membros?: Prisma.userUpdateManyWithoutCentroNestedInput
 }
 
-export type centrosParoquiasUncheckedUpdateWithoutParoquiaInput = {
+export type centrosparoquiasUncheckedUpdateWithoutParoquiasInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.Enumcentrosparoquias_tipoFieldUpdateOperationsInput | $Enums.centrosparoquias_tipo
   membros?: Prisma.userUncheckedUpdateManyWithoutCentroNestedInput
 }
 
-export type centrosParoquiasUncheckedUpdateManyWithoutParoquiaInput = {
+export type centrosparoquiasUncheckedUpdateManyWithoutParoquiasInput = {
   idCentrosParoquias?: Prisma.IntFieldUpdateOperationsInput | number
   nomeCentro?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.Enumcentrosparoquias_tipoFieldUpdateOperationsInput | $Enums.centrosparoquias_tipo
 }
 
 
 /**
- * Count Type CentrosParoquiasCountOutputType
+ * Count Type CentrosparoquiasCountOutputType
  */
 
-export type CentrosParoquiasCountOutputType = {
+export type CentrosparoquiasCountOutputType = {
   membros: number
 }
 
-export type CentrosParoquiasCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  membros?: boolean | CentrosParoquiasCountOutputTypeCountMembrosArgs
+export type CentrosparoquiasCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  membros?: boolean | CentrosparoquiasCountOutputTypeCountMembrosArgs
 }
 
 /**
- * CentrosParoquiasCountOutputType without action
+ * CentrosparoquiasCountOutputType without action
  */
-export type CentrosParoquiasCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type CentrosparoquiasCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the CentrosParoquiasCountOutputType
+   * Select specific fields to fetch from the CentrosparoquiasCountOutputType
    */
-  select?: Prisma.CentrosParoquiasCountOutputTypeSelect<ExtArgs> | null
+  select?: Prisma.CentrosparoquiasCountOutputTypeSelect<ExtArgs> | null
 }
 
 /**
- * CentrosParoquiasCountOutputType without action
+ * CentrosparoquiasCountOutputType without action
  */
-export type CentrosParoquiasCountOutputTypeCountMembrosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type CentrosparoquiasCountOutputTypeCountMembrosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.userWhereInput
 }
 
 
-export type centrosParoquiasSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type centrosparoquiasSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   idCentrosParoquias?: boolean
   nomeCentro?: boolean
   paroquiaId?: boolean
-  paroquia?: boolean | Prisma.paroquiasDefaultArgs<ExtArgs>
-  membros?: boolean | Prisma.centrosParoquias$membrosArgs<ExtArgs>
-  _count?: boolean | Prisma.CentrosParoquiasCountOutputTypeDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["centrosParoquias"]>
+  tipo?: boolean
+  paroquias?: boolean | Prisma.paroquiasDefaultArgs<ExtArgs>
+  membros?: boolean | Prisma.centrosparoquias$membrosArgs<ExtArgs>
+  _count?: boolean | Prisma.CentrosparoquiasCountOutputTypeDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["centrosparoquias"]>
 
 
 
-export type centrosParoquiasSelectScalar = {
+export type centrosparoquiasSelectScalar = {
   idCentrosParoquias?: boolean
   nomeCentro?: boolean
   paroquiaId?: boolean
+  tipo?: boolean
 }
 
-export type centrosParoquiasOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idCentrosParoquias" | "nomeCentro" | "paroquiaId", ExtArgs["result"]["centrosParoquias"]>
-export type centrosParoquiasInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  paroquia?: boolean | Prisma.paroquiasDefaultArgs<ExtArgs>
-  membros?: boolean | Prisma.centrosParoquias$membrosArgs<ExtArgs>
-  _count?: boolean | Prisma.CentrosParoquiasCountOutputTypeDefaultArgs<ExtArgs>
+export type centrosparoquiasOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idCentrosParoquias" | "nomeCentro" | "paroquiaId" | "tipo", ExtArgs["result"]["centrosparoquias"]>
+export type centrosparoquiasInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  paroquias?: boolean | Prisma.paroquiasDefaultArgs<ExtArgs>
+  membros?: boolean | Prisma.centrosparoquias$membrosArgs<ExtArgs>
+  _count?: boolean | Prisma.CentrosparoquiasCountOutputTypeDefaultArgs<ExtArgs>
 }
 
-export type $centrosParoquiasPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  name: "centrosParoquias"
+export type $centrosparoquiasPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  name: "centrosparoquias"
   objects: {
-    paroquia: Prisma.$paroquiasPayload<ExtArgs>
+    paroquias: Prisma.$paroquiasPayload<ExtArgs>
     membros: Prisma.$userPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     idCentrosParoquias: number
     nomeCentro: string
     paroquiaId: number
-  }, ExtArgs["result"]["centrosParoquias"]>
+    tipo: $Enums.centrosparoquias_tipo
+  }, ExtArgs["result"]["centrosparoquias"]>
   composites: {}
 }
 
-export type centrosParoquiasGetPayload<S extends boolean | null | undefined | centrosParoquiasDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload, S>
+export type centrosparoquiasGetPayload<S extends boolean | null | undefined | centrosparoquiasDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload, S>
 
-export type centrosParoquiasCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
-  Omit<centrosParoquiasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-    select?: CentrosParoquiasCountAggregateInputType | true
+export type centrosparoquiasCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
+  Omit<centrosparoquiasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: CentrosparoquiasCountAggregateInputType | true
   }
 
-export interface centrosParoquiasDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['centrosParoquias'], meta: { name: 'centrosParoquias' } }
+export interface centrosparoquiasDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['centrosparoquias'], meta: { name: 'centrosparoquias' } }
   /**
-   * Find zero or one CentrosParoquias that matches the filter.
-   * @param {centrosParoquiasFindUniqueArgs} args - Arguments to find a CentrosParoquias
+   * Find zero or one Centrosparoquias that matches the filter.
+   * @param {centrosparoquiasFindUniqueArgs} args - Arguments to find a Centrosparoquias
    * @example
-   * // Get one CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.findUnique({
+   * // Get one Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.findUnique({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findUnique<T extends centrosParoquiasFindUniqueArgs>(args: Prisma.SelectSubset<T, centrosParoquiasFindUniqueArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  findUnique<T extends centrosparoquiasFindUniqueArgs>(args: Prisma.SelectSubset<T, centrosparoquiasFindUniqueArgs<ExtArgs>>): Prisma.Prisma__centrosparoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find one CentrosParoquias that matches the filter or throw an error with `error.code='P2025'`
+   * Find one Centrosparoquias that matches the filter or throw an error with `error.code='P2025'`
    * if no matches were found.
-   * @param {centrosParoquiasFindUniqueOrThrowArgs} args - Arguments to find a CentrosParoquias
+   * @param {centrosparoquiasFindUniqueOrThrowArgs} args - Arguments to find a Centrosparoquias
    * @example
-   * // Get one CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.findUniqueOrThrow({
+   * // Get one Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.findUniqueOrThrow({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findUniqueOrThrow<T extends centrosParoquiasFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, centrosParoquiasFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  findUniqueOrThrow<T extends centrosparoquiasFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, centrosparoquiasFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__centrosparoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find the first CentrosParoquias that matches the filter.
+   * Find the first Centrosparoquias that matches the filter.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {centrosParoquiasFindFirstArgs} args - Arguments to find a CentrosParoquias
+   * @param {centrosparoquiasFindFirstArgs} args - Arguments to find a Centrosparoquias
    * @example
-   * // Get one CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.findFirst({
+   * // Get one Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.findFirst({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findFirst<T extends centrosParoquiasFindFirstArgs>(args?: Prisma.SelectSubset<T, centrosParoquiasFindFirstArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  findFirst<T extends centrosparoquiasFindFirstArgs>(args?: Prisma.SelectSubset<T, centrosparoquiasFindFirstArgs<ExtArgs>>): Prisma.Prisma__centrosparoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find the first CentrosParoquias that matches the filter or
+   * Find the first Centrosparoquias that matches the filter or
    * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {centrosParoquiasFindFirstOrThrowArgs} args - Arguments to find a CentrosParoquias
+   * @param {centrosparoquiasFindFirstOrThrowArgs} args - Arguments to find a Centrosparoquias
    * @example
-   * // Get one CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.findFirstOrThrow({
+   * // Get one Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.findFirstOrThrow({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findFirstOrThrow<T extends centrosParoquiasFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, centrosParoquiasFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  findFirstOrThrow<T extends centrosparoquiasFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, centrosparoquiasFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__centrosparoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find zero or more CentrosParoquias that matches the filter.
+   * Find zero or more Centrosparoquias that matches the filter.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {centrosParoquiasFindManyArgs} args - Arguments to filter and select certain fields only.
+   * @param {centrosparoquiasFindManyArgs} args - Arguments to filter and select certain fields only.
    * @example
-   * // Get all CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.findMany()
+   * // Get all Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.findMany()
    * 
-   * // Get first 10 CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.findMany({ take: 10 })
+   * // Get first 10 Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.findMany({ take: 10 })
    * 
    * // Only select the `idCentrosParoquias`
-   * const centrosParoquiasWithIdCentrosParoquiasOnly = await prisma.centrosParoquias.findMany({ select: { idCentrosParoquias: true } })
+   * const centrosparoquiasWithIdCentrosParoquiasOnly = await prisma.centrosparoquias.findMany({ select: { idCentrosParoquias: true } })
    * 
    */
-  findMany<T extends centrosParoquiasFindManyArgs>(args?: Prisma.SelectSubset<T, centrosParoquiasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+  findMany<T extends centrosparoquiasFindManyArgs>(args?: Prisma.SelectSubset<T, centrosparoquiasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
   /**
-   * Create a CentrosParoquias.
-   * @param {centrosParoquiasCreateArgs} args - Arguments to create a CentrosParoquias.
+   * Create a Centrosparoquias.
+   * @param {centrosparoquiasCreateArgs} args - Arguments to create a Centrosparoquias.
    * @example
-   * // Create one CentrosParoquias
-   * const CentrosParoquias = await prisma.centrosParoquias.create({
+   * // Create one Centrosparoquias
+   * const Centrosparoquias = await prisma.centrosparoquias.create({
    *   data: {
-   *     // ... data to create a CentrosParoquias
+   *     // ... data to create a Centrosparoquias
    *   }
    * })
    * 
    */
-  create<T extends centrosParoquiasCreateArgs>(args: Prisma.SelectSubset<T, centrosParoquiasCreateArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  create<T extends centrosparoquiasCreateArgs>(args: Prisma.SelectSubset<T, centrosparoquiasCreateArgs<ExtArgs>>): Prisma.Prisma__centrosparoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Create many CentrosParoquias.
-   * @param {centrosParoquiasCreateManyArgs} args - Arguments to create many CentrosParoquias.
+   * Create many Centrosparoquias.
+   * @param {centrosparoquiasCreateManyArgs} args - Arguments to create many Centrosparoquias.
    * @example
-   * // Create many CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.createMany({
+   * // Create many Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.createMany({
    *   data: [
    *     // ... provide data here
    *   ]
    * })
    *     
    */
-  createMany<T extends centrosParoquiasCreateManyArgs>(args?: Prisma.SelectSubset<T, centrosParoquiasCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  createMany<T extends centrosparoquiasCreateManyArgs>(args?: Prisma.SelectSubset<T, centrosparoquiasCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Delete a CentrosParoquias.
-   * @param {centrosParoquiasDeleteArgs} args - Arguments to delete one CentrosParoquias.
+   * Delete a Centrosparoquias.
+   * @param {centrosparoquiasDeleteArgs} args - Arguments to delete one Centrosparoquias.
    * @example
-   * // Delete one CentrosParoquias
-   * const CentrosParoquias = await prisma.centrosParoquias.delete({
+   * // Delete one Centrosparoquias
+   * const Centrosparoquias = await prisma.centrosparoquias.delete({
    *   where: {
-   *     // ... filter to delete one CentrosParoquias
+   *     // ... filter to delete one Centrosparoquias
    *   }
    * })
    * 
    */
-  delete<T extends centrosParoquiasDeleteArgs>(args: Prisma.SelectSubset<T, centrosParoquiasDeleteArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  delete<T extends centrosparoquiasDeleteArgs>(args: Prisma.SelectSubset<T, centrosparoquiasDeleteArgs<ExtArgs>>): Prisma.Prisma__centrosparoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Update one CentrosParoquias.
-   * @param {centrosParoquiasUpdateArgs} args - Arguments to update one CentrosParoquias.
+   * Update one Centrosparoquias.
+   * @param {centrosparoquiasUpdateArgs} args - Arguments to update one Centrosparoquias.
    * @example
-   * // Update one CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.update({
+   * // Update one Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.update({
    *   where: {
    *     // ... provide filter here
    *   },
@@ -713,30 +753,30 @@ export interface centrosParoquiasDelegate<ExtArgs extends runtime.Types.Extensio
    * })
    * 
    */
-  update<T extends centrosParoquiasUpdateArgs>(args: Prisma.SelectSubset<T, centrosParoquiasUpdateArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  update<T extends centrosparoquiasUpdateArgs>(args: Prisma.SelectSubset<T, centrosparoquiasUpdateArgs<ExtArgs>>): Prisma.Prisma__centrosparoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Delete zero or more CentrosParoquias.
-   * @param {centrosParoquiasDeleteManyArgs} args - Arguments to filter CentrosParoquias to delete.
+   * Delete zero or more Centrosparoquias.
+   * @param {centrosparoquiasDeleteManyArgs} args - Arguments to filter Centrosparoquias to delete.
    * @example
-   * // Delete a few CentrosParoquias
-   * const { count } = await prisma.centrosParoquias.deleteMany({
+   * // Delete a few Centrosparoquias
+   * const { count } = await prisma.centrosparoquias.deleteMany({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    * 
    */
-  deleteMany<T extends centrosParoquiasDeleteManyArgs>(args?: Prisma.SelectSubset<T, centrosParoquiasDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  deleteMany<T extends centrosparoquiasDeleteManyArgs>(args?: Prisma.SelectSubset<T, centrosparoquiasDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Update zero or more CentrosParoquias.
+   * Update zero or more Centrosparoquias.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {centrosParoquiasUpdateManyArgs} args - Arguments to update one or more rows.
+   * @param {centrosparoquiasUpdateManyArgs} args - Arguments to update one or more rows.
    * @example
-   * // Update many CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.updateMany({
+   * // Update many Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.updateMany({
    *   where: {
    *     // ... provide filter here
    *   },
@@ -746,56 +786,56 @@ export interface centrosParoquiasDelegate<ExtArgs extends runtime.Types.Extensio
    * })
    * 
    */
-  updateMany<T extends centrosParoquiasUpdateManyArgs>(args: Prisma.SelectSubset<T, centrosParoquiasUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  updateMany<T extends centrosparoquiasUpdateManyArgs>(args: Prisma.SelectSubset<T, centrosparoquiasUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create or update one CentrosParoquias.
-   * @param {centrosParoquiasUpsertArgs} args - Arguments to update or create a CentrosParoquias.
+   * Create or update one Centrosparoquias.
+   * @param {centrosparoquiasUpsertArgs} args - Arguments to update or create a Centrosparoquias.
    * @example
-   * // Update or create a CentrosParoquias
-   * const centrosParoquias = await prisma.centrosParoquias.upsert({
+   * // Update or create a Centrosparoquias
+   * const centrosparoquias = await prisma.centrosparoquias.upsert({
    *   create: {
-   *     // ... data to create a CentrosParoquias
+   *     // ... data to create a Centrosparoquias
    *   },
    *   update: {
    *     // ... in case it already exists, update
    *   },
    *   where: {
-   *     // ... the filter for the CentrosParoquias we want to update
+   *     // ... the filter for the Centrosparoquias we want to update
    *   }
    * })
    */
-  upsert<T extends centrosParoquiasUpsertArgs>(args: Prisma.SelectSubset<T, centrosParoquiasUpsertArgs<ExtArgs>>): Prisma.Prisma__centrosParoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosParoquiasPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  upsert<T extends centrosparoquiasUpsertArgs>(args: Prisma.SelectSubset<T, centrosparoquiasUpsertArgs<ExtArgs>>): Prisma.Prisma__centrosparoquiasClient<runtime.Types.Result.GetResult<Prisma.$centrosparoquiasPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
   /**
-   * Count the number of CentrosParoquias.
+   * Count the number of Centrosparoquias.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {centrosParoquiasCountArgs} args - Arguments to filter CentrosParoquias to count.
+   * @param {centrosparoquiasCountArgs} args - Arguments to filter Centrosparoquias to count.
    * @example
-   * // Count the number of CentrosParoquias
-   * const count = await prisma.centrosParoquias.count({
+   * // Count the number of Centrosparoquias
+   * const count = await prisma.centrosparoquias.count({
    *   where: {
-   *     // ... the filter for the CentrosParoquias we want to count
+   *     // ... the filter for the Centrosparoquias we want to count
    *   }
    * })
   **/
-  count<T extends centrosParoquiasCountArgs>(
-    args?: Prisma.Subset<T, centrosParoquiasCountArgs>,
+  count<T extends centrosparoquiasCountArgs>(
+    args?: Prisma.Subset<T, centrosparoquiasCountArgs>,
   ): Prisma.PrismaPromise<
     T extends runtime.Types.Utils.Record<'select', any>
       ? T['select'] extends true
         ? number
-        : Prisma.GetScalarType<T['select'], CentrosParoquiasCountAggregateOutputType>
+        : Prisma.GetScalarType<T['select'], CentrosparoquiasCountAggregateOutputType>
       : number
   >
 
   /**
-   * Allows you to perform aggregations operations on a CentrosParoquias.
+   * Allows you to perform aggregations operations on a Centrosparoquias.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {CentrosParoquiasAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+   * @param {CentrosparoquiasAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
    * // Ordered by age ascending
    * // Where email contains prisma.io
@@ -815,13 +855,13 @@ export interface centrosParoquiasDelegate<ExtArgs extends runtime.Types.Extensio
    *   take: 10,
    * })
   **/
-  aggregate<T extends CentrosParoquiasAggregateArgs>(args: Prisma.Subset<T, CentrosParoquiasAggregateArgs>): Prisma.PrismaPromise<GetCentrosParoquiasAggregateType<T>>
+  aggregate<T extends CentrosparoquiasAggregateArgs>(args: Prisma.Subset<T, CentrosparoquiasAggregateArgs>): Prisma.PrismaPromise<GetCentrosparoquiasAggregateType<T>>
 
   /**
-   * Group by CentrosParoquias.
+   * Group by Centrosparoquias.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {centrosParoquiasGroupByArgs} args - Group by arguments.
+   * @param {centrosparoquiasGroupByArgs} args - Group by arguments.
    * @example
    * // Group by city, order by createdAt, get count
    * const result = await prisma.user.groupBy({
@@ -836,14 +876,14 @@ export interface centrosParoquiasDelegate<ExtArgs extends runtime.Types.Extensio
    * 
   **/
   groupBy<
-    T extends centrosParoquiasGroupByArgs,
+    T extends centrosparoquiasGroupByArgs,
     HasSelectOrTake extends Prisma.Or<
       Prisma.Extends<'skip', Prisma.Keys<T>>,
       Prisma.Extends<'take', Prisma.Keys<T>>
     >,
     OrderByArg extends Prisma.True extends HasSelectOrTake
-      ? { orderBy: centrosParoquiasGroupByArgs['orderBy'] }
-      : { orderBy?: centrosParoquiasGroupByArgs['orderBy'] },
+      ? { orderBy: centrosparoquiasGroupByArgs['orderBy'] }
+      : { orderBy?: centrosparoquiasGroupByArgs['orderBy'] },
     OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
     ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
@@ -892,23 +932,23 @@ export interface centrosParoquiasDelegate<ExtArgs extends runtime.Types.Extensio
           ? never
           : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
       }[OrderFields]
-  >(args: Prisma.SubsetIntersection<T, centrosParoquiasGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCentrosParoquiasGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  >(args: Prisma.SubsetIntersection<T, centrosparoquiasGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCentrosparoquiasGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
 /**
- * Fields of the centrosParoquias model
+ * Fields of the centrosparoquias model
  */
-readonly fields: centrosParoquiasFieldRefs;
+readonly fields: centrosparoquiasFieldRefs;
 }
 
 /**
- * The delegate class that acts as a "Promise-like" for centrosParoquias.
+ * The delegate class that acts as a "Promise-like" for centrosparoquias.
  * Why is this prefixed with `Prisma__`?
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
-export interface Prisma__centrosParoquiasClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+export interface Prisma__centrosparoquiasClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  paroquia<T extends Prisma.paroquiasDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.paroquiasDefaultArgs<ExtArgs>>): Prisma.Prisma__paroquiasClient<runtime.Types.Result.GetResult<Prisma.$paroquiasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  membros<T extends Prisma.centrosParoquias$membrosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.centrosParoquias$membrosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paroquias<T extends Prisma.paroquiasDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.paroquiasDefaultArgs<ExtArgs>>): Prisma.Prisma__paroquiasClient<runtime.Types.Result.GetResult<Prisma.$paroquiasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  membros<T extends Prisma.centrosparoquias$membrosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.centrosparoquias$membrosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -935,358 +975,359 @@ export interface Prisma__centrosParoquiasClient<T, Null = never, ExtArgs extends
 
 
 /**
- * Fields of the centrosParoquias model
+ * Fields of the centrosparoquias model
  */
-export interface centrosParoquiasFieldRefs {
-  readonly idCentrosParoquias: Prisma.FieldRef<"centrosParoquias", 'Int'>
-  readonly nomeCentro: Prisma.FieldRef<"centrosParoquias", 'String'>
-  readonly paroquiaId: Prisma.FieldRef<"centrosParoquias", 'Int'>
+export interface centrosparoquiasFieldRefs {
+  readonly idCentrosParoquias: Prisma.FieldRef<"centrosparoquias", 'Int'>
+  readonly nomeCentro: Prisma.FieldRef<"centrosparoquias", 'String'>
+  readonly paroquiaId: Prisma.FieldRef<"centrosparoquias", 'Int'>
+  readonly tipo: Prisma.FieldRef<"centrosparoquias", 'centrosparoquias_tipo'>
 }
     
 
 // Custom InputTypes
 /**
- * centrosParoquias findUnique
+ * centrosparoquias findUnique
  */
-export type centrosParoquiasFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
   /**
-   * Filter, which centrosParoquias to fetch.
+   * Filter, which centrosparoquias to fetch.
    */
-  where: Prisma.centrosParoquiasWhereUniqueInput
+  where: Prisma.centrosparoquiasWhereUniqueInput
 }
 
 /**
- * centrosParoquias findUniqueOrThrow
+ * centrosparoquias findUniqueOrThrow
  */
-export type centrosParoquiasFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
   /**
-   * Filter, which centrosParoquias to fetch.
+   * Filter, which centrosparoquias to fetch.
    */
-  where: Prisma.centrosParoquiasWhereUniqueInput
+  where: Prisma.centrosparoquiasWhereUniqueInput
 }
 
 /**
- * centrosParoquias findFirst
+ * centrosparoquias findFirst
  */
-export type centrosParoquiasFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
   /**
-   * Filter, which centrosParoquias to fetch.
+   * Filter, which centrosparoquias to fetch.
    */
-  where?: Prisma.centrosParoquiasWhereInput
+  where?: Prisma.centrosparoquiasWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of centrosParoquias to fetch.
+   * Determine the order of centrosparoquias to fetch.
    */
-  orderBy?: Prisma.centrosParoquiasOrderByWithRelationInput | Prisma.centrosParoquiasOrderByWithRelationInput[]
+  orderBy?: Prisma.centrosparoquiasOrderByWithRelationInput | Prisma.centrosparoquiasOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for searching for centrosParoquias.
+   * Sets the position for searching for centrosparoquias.
    */
-  cursor?: Prisma.centrosParoquiasWhereUniqueInput
+  cursor?: Prisma.centrosparoquiasWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` centrosParoquias from the position of the cursor.
+   * Take `±n` centrosparoquias from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` centrosParoquias.
+   * Skip the first `n` centrosparoquias.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of centrosParoquias.
+   * Filter by unique combinations of centrosparoquias.
    */
-  distinct?: Prisma.CentrosParoquiasScalarFieldEnum | Prisma.CentrosParoquiasScalarFieldEnum[]
+  distinct?: Prisma.CentrosparoquiasScalarFieldEnum | Prisma.CentrosparoquiasScalarFieldEnum[]
 }
 
 /**
- * centrosParoquias findFirstOrThrow
+ * centrosparoquias findFirstOrThrow
  */
-export type centrosParoquiasFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
   /**
-   * Filter, which centrosParoquias to fetch.
+   * Filter, which centrosparoquias to fetch.
    */
-  where?: Prisma.centrosParoquiasWhereInput
+  where?: Prisma.centrosparoquiasWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of centrosParoquias to fetch.
+   * Determine the order of centrosparoquias to fetch.
    */
-  orderBy?: Prisma.centrosParoquiasOrderByWithRelationInput | Prisma.centrosParoquiasOrderByWithRelationInput[]
+  orderBy?: Prisma.centrosparoquiasOrderByWithRelationInput | Prisma.centrosparoquiasOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for searching for centrosParoquias.
+   * Sets the position for searching for centrosparoquias.
    */
-  cursor?: Prisma.centrosParoquiasWhereUniqueInput
+  cursor?: Prisma.centrosparoquiasWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` centrosParoquias from the position of the cursor.
+   * Take `±n` centrosparoquias from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` centrosParoquias.
+   * Skip the first `n` centrosparoquias.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of centrosParoquias.
+   * Filter by unique combinations of centrosparoquias.
    */
-  distinct?: Prisma.CentrosParoquiasScalarFieldEnum | Prisma.CentrosParoquiasScalarFieldEnum[]
+  distinct?: Prisma.CentrosparoquiasScalarFieldEnum | Prisma.CentrosparoquiasScalarFieldEnum[]
 }
 
 /**
- * centrosParoquias findMany
+ * centrosparoquias findMany
  */
-export type centrosParoquiasFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
   /**
-   * Filter, which centrosParoquias to fetch.
+   * Filter, which centrosparoquias to fetch.
    */
-  where?: Prisma.centrosParoquiasWhereInput
+  where?: Prisma.centrosparoquiasWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of centrosParoquias to fetch.
+   * Determine the order of centrosparoquias to fetch.
    */
-  orderBy?: Prisma.centrosParoquiasOrderByWithRelationInput | Prisma.centrosParoquiasOrderByWithRelationInput[]
+  orderBy?: Prisma.centrosparoquiasOrderByWithRelationInput | Prisma.centrosparoquiasOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for listing centrosParoquias.
+   * Sets the position for listing centrosparoquias.
    */
-  cursor?: Prisma.centrosParoquiasWhereUniqueInput
+  cursor?: Prisma.centrosparoquiasWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` centrosParoquias from the position of the cursor.
+   * Take `±n` centrosparoquias from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` centrosParoquias.
+   * Skip the first `n` centrosparoquias.
    */
   skip?: number
-  distinct?: Prisma.CentrosParoquiasScalarFieldEnum | Prisma.CentrosParoquiasScalarFieldEnum[]
+  distinct?: Prisma.CentrosparoquiasScalarFieldEnum | Prisma.CentrosparoquiasScalarFieldEnum[]
 }
 
 /**
- * centrosParoquias create
+ * centrosparoquias create
  */
-export type centrosParoquiasCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
   /**
-   * The data needed to create a centrosParoquias.
+   * The data needed to create a centrosparoquias.
    */
-  data: Prisma.XOR<Prisma.centrosParoquiasCreateInput, Prisma.centrosParoquiasUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.centrosparoquiasCreateInput, Prisma.centrosparoquiasUncheckedCreateInput>
 }
 
 /**
- * centrosParoquias createMany
+ * centrosparoquias createMany
  */
-export type centrosParoquiasCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * The data used to create many centrosParoquias.
+   * The data used to create many centrosparoquias.
    */
-  data: Prisma.centrosParoquiasCreateManyInput | Prisma.centrosParoquiasCreateManyInput[]
+  data: Prisma.centrosparoquiasCreateManyInput | Prisma.centrosparoquiasCreateManyInput[]
   skipDuplicates?: boolean
 }
 
 /**
- * centrosParoquias update
+ * centrosparoquias update
  */
-export type centrosParoquiasUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
   /**
-   * The data needed to update a centrosParoquias.
+   * The data needed to update a centrosparoquias.
    */
-  data: Prisma.XOR<Prisma.centrosParoquiasUpdateInput, Prisma.centrosParoquiasUncheckedUpdateInput>
+  data: Prisma.XOR<Prisma.centrosparoquiasUpdateInput, Prisma.centrosparoquiasUncheckedUpdateInput>
   /**
-   * Choose, which centrosParoquias to update.
+   * Choose, which centrosparoquias to update.
    */
-  where: Prisma.centrosParoquiasWhereUniqueInput
+  where: Prisma.centrosparoquiasWhereUniqueInput
 }
 
 /**
- * centrosParoquias updateMany
+ * centrosparoquias updateMany
  */
-export type centrosParoquiasUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * The data used to update centrosParoquias.
+   * The data used to update centrosparoquias.
    */
-  data: Prisma.XOR<Prisma.centrosParoquiasUpdateManyMutationInput, Prisma.centrosParoquiasUncheckedUpdateManyInput>
+  data: Prisma.XOR<Prisma.centrosparoquiasUpdateManyMutationInput, Prisma.centrosparoquiasUncheckedUpdateManyInput>
   /**
-   * Filter which centrosParoquias to update
+   * Filter which centrosparoquias to update
    */
-  where?: Prisma.centrosParoquiasWhereInput
+  where?: Prisma.centrosparoquiasWhereInput
   /**
-   * Limit how many centrosParoquias to update.
+   * Limit how many centrosparoquias to update.
    */
   limit?: number
 }
 
 /**
- * centrosParoquias upsert
+ * centrosparoquias upsert
  */
-export type centrosParoquiasUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
   /**
-   * The filter to search for the centrosParoquias to update in case it exists.
+   * The filter to search for the centrosparoquias to update in case it exists.
    */
-  where: Prisma.centrosParoquiasWhereUniqueInput
+  where: Prisma.centrosparoquiasWhereUniqueInput
   /**
-   * In case the centrosParoquias found by the `where` argument doesn't exist, create a new centrosParoquias with this data.
+   * In case the centrosparoquias found by the `where` argument doesn't exist, create a new centrosparoquias with this data.
    */
-  create: Prisma.XOR<Prisma.centrosParoquiasCreateInput, Prisma.centrosParoquiasUncheckedCreateInput>
+  create: Prisma.XOR<Prisma.centrosparoquiasCreateInput, Prisma.centrosparoquiasUncheckedCreateInput>
   /**
-   * In case the centrosParoquias was found with the provided `where` argument, update it with this data.
+   * In case the centrosparoquias was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.centrosParoquiasUpdateInput, Prisma.centrosParoquiasUncheckedUpdateInput>
+  update: Prisma.XOR<Prisma.centrosparoquiasUpdateInput, Prisma.centrosparoquiasUncheckedUpdateInput>
 }
 
 /**
- * centrosParoquias delete
+ * centrosparoquias delete
  */
-export type centrosParoquiasDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
   /**
-   * Filter which centrosParoquias to delete.
+   * Filter which centrosparoquias to delete.
    */
-  where: Prisma.centrosParoquiasWhereUniqueInput
+  where: Prisma.centrosparoquiasWhereUniqueInput
 }
 
 /**
- * centrosParoquias deleteMany
+ * centrosparoquias deleteMany
  */
-export type centrosParoquiasDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Filter which centrosParoquias to delete
+   * Filter which centrosparoquias to delete
    */
-  where?: Prisma.centrosParoquiasWhereInput
+  where?: Prisma.centrosparoquiasWhereInput
   /**
-   * Limit how many centrosParoquias to delete.
+   * Limit how many centrosparoquias to delete.
    */
   limit?: number
 }
 
 /**
- * centrosParoquias.membros
+ * centrosparoquias.membros
  */
-export type centrosParoquias$membrosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquias$membrosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the user
    */
@@ -1308,19 +1349,19 @@ export type centrosParoquias$membrosArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * centrosParoquias without action
+ * centrosparoquias without action
  */
-export type centrosParoquiasDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type centrosparoquiasDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the centrosParoquias
+   * Select specific fields to fetch from the centrosparoquias
    */
-  select?: Prisma.centrosParoquiasSelect<ExtArgs> | null
+  select?: Prisma.centrosparoquiasSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the centrosParoquias
+   * Omit specific fields from the centrosparoquias
    */
-  omit?: Prisma.centrosParoquiasOmit<ExtArgs> | null
+  omit?: Prisma.centrosparoquiasOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.centrosParoquiasInclude<ExtArgs> | null
+  include?: Prisma.centrosparoquiasInclude<ExtArgs> | null
 }

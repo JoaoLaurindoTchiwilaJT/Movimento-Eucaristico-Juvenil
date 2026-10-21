@@ -1,17 +1,15 @@
 generator client {
   provider = "prisma-client"
-  url      = env("DATABASE_URL") 
   output   = "../src/generated/prisma"
+  url      = env("DATABASE_URL")
 }
 
 datasource db {
   provider = "mysql"
-  
 }
 
 model user {
-  idMejista Int @id @default(autoincrement())
-
+  idMejista    Int               @id @default(autoincrement())
   nomeMembro   String
   email        String?
   senha        String?
@@ -21,16 +19,79 @@ model user {
   numeroMembro String
   contacto     Int
   promessado   Promessado
-   // relação com centro
-  centroId Int?
-  centro   centrosParoquias? @relation(fields: [centroId], references: [idCentrosParoquias])
+  centroId     Int?
+  actividades  actividade[]
+  arquivos     arquivo[]
+  livros       livros[]
+  centro       centrosparoquias? @relation(fields: [centroId], references: [idCentrosParoquias])
 
-  livros   livros[]
-  noticias noticias[]
+  @@index([centroId], map: "user_centroId_fkey")
+}
+
+model paroquias {
+  idParoquia       Int                @id @default(autoincrement())
+  nomeParoquia     String
+  quota            Int
+  centrosparoquias centrosparoquias[]
+}
+
+model actividade {
+  idActividades  Int           @id @default(autoincrement())
+  nomeActividade String
+  localizacao    String
+  dataActiv      DateTime
+  descricao      String
+  userId         Int
+  categoria      TipoCategoria
+  estado         TipoEstado
+  statusUpload   TipoStatus
+  user           user          @relation(fields: [userId], references: [idMejista])
+  arquivos       arquivo[]
+
+  @@index([userId], map: "actividade_userId_fkey")
+}
+
+model arquivo {
+  idArquivo    Int         @id @default(autoincrement())
+  filename     String
+  urlfile      String
+  dataFile     DateTime
+  local        localArqu
+  tipoArqui    TipoArqui
+  userId       Int?
+  actividadeId Int?
+  actividade   actividade? @relation(fields: [actividadeId], references: [idActividades], onDelete: Cascade)
+  user         user?       @relation(fields: [userId], references: [idMejista], onDelete: Cascade)
+
+  @@index([actividadeId], map: "arquivo_actividadeId_fkey")
+  @@index([userId], map: "arquivo_userId_fkey")
+}
+
+model livros {
+  idLivro      Int      @id @default(autoincrement())
+  titulo       String
+  url          String
+  dataCadastro DateTime
+  autor        String
+  userId       Int
+  user         user     @relation(fields: [userId], references: [idMejista], onDelete: Cascade)
+
+  @@index([userId], map: "livros_userId_fkey")
+}
+
+model centrosparoquias {
+  idCentrosParoquias Int                   @id @default(autoincrement())
+  nomeCentro         String
+  paroquiaId         Int
+  tipo               centrosparoquias_tipo @default(Normal)
+  paroquias          paroquias             @relation(fields: [paroquiaId], references: [idParoquia], onDelete: Cascade, map: "centrosParoquias_paroquiaId_fkey")
+  membros            user[]
+
+  @@index([paroquiaId], map: "centrosParoquias_paroquiaId_fkey")
 }
 
 enum Promessado {
-  Não
+  Nao
   Sim
 }
 
@@ -39,42 +100,36 @@ enum Role {
   User
 }
 
-model paroquias {
-  idParoquia   Int    @id @default(autoincrement())
-  nomeParoquia String
-  quota Int
-  centros centrosParoquias[]
+enum localArqu {
+  PERFIL
+  MESSAGE
+  ACTIVIDADE
 }
 
-model centrosParoquias {
-  idCentrosParoquias Int @id @default(autoincrement())
-  nomeCentro String
-  paroquiaId Int
-  paroquia   paroquias @relation(fields: [paroquiaId], references: [idParoquia], onDelete: Cascade)
-
-  membros user[]
+enum TipoArqui {
+  USER
+  ACTIVIDADE
 }
 
-
-model noticias {
-  idNoticias Int @id @default(autoincrement())
-
-  tituloNoticia String
-  descricao     String
-  dataPub       DateTime
-
-  userId Int
-  user   user @relation(fields: [userId], references: [idMejista], onDelete: Cascade)
+enum TipoStatus {
+  PROCESSANDO
+  CONCLUIDO
+  ERRO
 }
 
-model livros {
-  idLivro Int @id @default(autoincrement())
+enum TipoEstado {
+  Aberta
+  Encerrada
+}
 
-  titulo       String
-  url          String
-  dataCadastro DateTime
-  autor        String
+enum TipoCategoria {
+  Espiritualidade
+  Missao
+  Acampamento
+  Formacao
+}
 
-  userId Int
-  user   user @relation(fields: [userId], references: [idMejista], onDelete: Cascade)
+enum centrosparoquias_tipo {
+  Sede
+  Normal
 }
