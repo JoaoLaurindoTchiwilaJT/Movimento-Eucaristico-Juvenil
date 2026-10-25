@@ -44,7 +44,6 @@ export async function CreateActividade(data: createActividade) {
   }
 }
 
-
 export async function UpdateActividade(data: updateActividade) {
   console.log("Dados para actualizar actividade:", data);
 

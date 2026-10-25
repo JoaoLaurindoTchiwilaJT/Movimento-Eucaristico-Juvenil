@@ -3,6 +3,7 @@ import api from '@/services/api';
 
 export async function CadastraParoquia(data: createParoquiaSchema) {
   try {
+    console.log(data);
     const response = await api.post(
       '/paroquias/createParoquia',
       data,
@@ -13,8 +14,12 @@ export async function CadastraParoquia(data: createParoquiaSchema) {
       // }
     );
     return response.data;
-  } catch (error) {
-    console.error('Error to create paróquia', error);
+  } catch (error: any) {
+    console.error(
+      'Erro ao cadastrar paróquia:',
+      error.response?.data ?? error.message,
+    );
+
     throw error;
   }
 }

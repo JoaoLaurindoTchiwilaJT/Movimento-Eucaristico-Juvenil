@@ -62,7 +62,6 @@ export default function Centros() {
         const response = await api.get('/centros/findMany');
         setDataCentro(response.data);
       } catch (error) {
-        console.error(error);
         throw error;
       }
     };

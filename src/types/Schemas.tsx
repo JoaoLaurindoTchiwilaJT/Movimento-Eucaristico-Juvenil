@@ -29,7 +29,7 @@ export const createTypeMembro = z
     promessado: z.enum(['Sim', 'Não'], {
       message: 'Selecione uma opção!',
     }),
-
+    email: z.string().email('E-mail inválido').optional(),
     contacto: z.number().min(9, 'Quantidade de números invalidos! '),
 
     cargo: z.string().min(1, 'Escolha um cargo existente!'),
@@ -95,14 +95,12 @@ export const updateTypeActividade = z.object({
   localizacao: z
     .string()
     .min(5, 'A localização deve ter pelo menos 5 caracteres'),
-  descricao: z
-    .string()
-    .min(5, 'A descrição deve ter pelo menos 5 caracteres'),
+  descricao: z.string().min(5, 'A descrição deve ter pelo menos 5 caracteres'),
   dataActiv: z.string().min(1, 'Data é obrigatória'),
   categoria: z.string().min(1, 'Escolha uma categoria'),
   estado: z.string().min(1, 'Seleccione um estado'),
-  idArquivo: z.number().min(2,"Id do arquivo invalido").optional(),
-
+  idArquivo: z.number().min(2, 'Id do arquivo invalido').optional(),
+  idActividades: z.number().min(2, 'Id do arquivo invalido').optional(),
   // Lista de imagens: File = nova imagem; string = URL já existente (modo edição)
   arquivo: z
     .array(
@@ -113,7 +111,9 @@ export const updateTypeActividade = z.object({
           .max(MAX_TAMANHO, 'A imagem não pode exceder 5MB'),
         z.string().min(1),
       ]),
-    ).max(10, 'Pode enviar no máximo 10 imagens').optional(),
+    )
+    .max(10, 'Pode enviar no máximo 10 imagens')
+    .optional(),
 });
 
 export type updateActividade = z.infer<typeof updateTypeActividade>;

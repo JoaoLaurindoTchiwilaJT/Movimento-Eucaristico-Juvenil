@@ -1,9 +1,17 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import { Input } from '@/components/ui/input';
 import api from '@/services/api';
-import { type createMembroSchema, createTypeMembro } from '@/types/Schemas';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import {
+  type createMembroSchema,
+  createTypeMembro,
+} from '@/types/Schemas';
+
+// =====================================================
+// TIPOS
+// =====================================================
 
 type Paroquia = {
   idParoquia: number;
@@ -11,129 +19,427 @@ type Paroquia = {
   quota: number;
 };
 
-type Centros = {
+type Centro = {
   idCentrosParoquias: number;
   nomeCentro: string;
   tipo: string;
   paroquia: Paroquia;
 };
 
-export default function UserForm() {
-  const [paroquiaSelecionada, setParoquiaSelecionada] = useState('');
-  const [centros, setCentros] = useState<Centros[]>([]);
+type UserFormProps = {
+  onDataChange: (data: Partial<createMembroSchema>) => void;
+};
 
+// =====================================================
+// COMPONENTE AUXILIAR
+// =====================================================
+
+type CampoProps = {
+  id: string;
+  label: string;
+  erro?: string;
+  children: React.ReactNode;
+};
+
+function CampoFormulario({
+  id,
+  label,
+  erro,
+  children,
+}: CampoProps) {
+  return (
+    <div className="min-w-0 w-full space-y-1.5">
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium text-gray-700"
+      >
+        {label}
+      </label>
+
+      {children}
+
+      {erro && (
+        <p
+          role="alert"
+          className="break-words text-xs sm:text-sm text-red-500"
+        >
+          {erro}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// =====================================================
+// ESTILOS
+// =====================================================
+
+const classeSelect =
+  'block w-full min-w-0 rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:opacity-70';
+
+const classeInput = 'w-full min-w-0';
+
+// =====================================================
+// FORMULÁRIO
+// =====================================================
+
+export default function UserForm({
+  onDataChange,
+}: UserFormProps) {
   const {
     register,
+    watch,
+    getValues,
     setValue,
+    resetField,
     formState: { errors },
   } = useForm<createMembroSchema>({
     resolver: zodResolver(createTypeMembro),
     defaultValues: {
       promessado: 'Não',
       nomeParoquia: 'Nenhuma',
-      centroId: undefined as unknown as number,
+      nivel: 'MEJ',
     },
   });
 
+  const [centros, setCentros] = useState<Centro[]>([]);
+  const [carregandoCentros, setCarregandoCentros] =
+    useState(true);
+  const [erroCentros, setErroCentros] = useState('');
+
+  const [paroquiaSelecionada, setParoquiaSelecionada] =
+    useState('Nenhuma');
+
+  // =====================================================
+  // COMUNICAÇÃO COM O COMPONENTE PAI
+  // =====================================================
+
   useEffect(() => {
-    const fetchCentros = async () => {
+    const subscription = watch((dados) => {
+      onDataChange(
+        dados as Partial<createMembroSchema>,
+      );
+    });
+
+    onDataChange(getValues());
+
+    return () => subscription.unsubscribe();
+  }, [watch, getValues, onDataChange]);
+
+  // =====================================================
+  // BUSCAR CENTROS
+  // =====================================================
+
+  useEffect(() => {
+    let activo = true;
+
+    async function buscarCentros() {
       try {
-        const response = await api.get('/centros/findMany');
-        setCentros(response.data ?? []);
-      } catch (error) {
-        console.error(error);
+        setCarregandoCentros(true);
+        setErroCentros('');
+
+        const resposta = await api.get<Centro[]>(
+          '/centros/findMany',
+        );
+
+        if (activo) {
+          setCentros(
+            Array.isArray(resposta.data)
+              ? resposta.data
+              : [],
+          );
+        }
+      } catch (erro) {
+        console.error(
+          'Erro ao buscar centros:',
+          erro,
+        );
+
+        if (activo) {
+          setErroCentros(
+            'Não foi possível carregar os centros. Tente novamente.',
+          );
+        }
+      } finally {
+        if (activo) {
+          setCarregandoCentros(false);
+        }
       }
+    }
+
+    void buscarCentros();
+
+    return () => {
+      activo = false;
     };
-    fetchCentros();
   }, []);
 
-  const filterCentros = useMemo(() => {
-    return centros.filter((c) => {
-      const nome = c?.paroquia?.nomeParoquia;
-      if (!nome || !paroquiaSelecionada) return false;
-      return nome.toLowerCase().trim() === paroquiaSelecionada.toLowerCase().trim();
-    });
+  // =====================================================
+  // PARÓQUIAS DISPONÍVEIS
+  // =====================================================
+
+  const paroquias = useMemo(() => {
+    const nomes = centros
+      .map(
+        (centro) =>
+          centro.paroquia?.nomeParoquia,
+      )
+      .filter(
+        (nome): nome is string => Boolean(nome),
+      );
+
+    return [...new Set(nomes)].sort((a, b) =>
+      a.localeCompare(b, 'pt'),
+    );
+  }, [centros]);
+
+  // =====================================================
+  // CENTROS DA PARÓQUIA SELECCIONADA
+  // =====================================================
+
+  const centrosFiltrados = useMemo(() => {
+    if (
+      !paroquiaSelecionada ||
+      paroquiaSelecionada === 'Nenhuma'
+    ) {
+      return [];
+    }
+
+    return centros.filter(
+      (centro) =>
+        centro.paroquia?.nomeParoquia ===
+        paroquiaSelecionada,
+    );
   }, [centros, paroquiaSelecionada]);
 
-  const paroquiasUnicas = [
-    ...new Set(
-      centros
-        .map((c) => c?.paroquia?.nomeParoquia)
-        .filter((nome): nome is string => Boolean(nome)),
-    ),
-  ];
+  // =====================================================
+  // SELECÇÃO AUTOMÁTICA DO CENTRO
+  // =====================================================
 
-  const selectClass =
-    'w-full border rounded-md px-3 py-2 text-sm h-11 focus:outline-none focus:ring-2 focus:ring-amber-700';
+  useEffect(() => {
+    if (centrosFiltrados.length === 0) {
+      resetField('centroId', {
+        defaultValue: undefined as unknown as number,
+      });
 
-  const fields = [
-    {
-      label: 'Nome completo',
-      content: <Input placeholder="Digite seu nome" className="w-full h-11" />,
+      return;
+    }
+
+    const centroActual = getValues('centroId');
+
+    const centroExiste = centrosFiltrados.some(
+      (centro) =>
+        centro.idCentrosParoquias === centroActual,
+    );
+
+    if (!centroExiste) {
+      setValue(
+        'centroId',
+        centrosFiltrados[0].idCentrosParoquias,
+        {
+          shouldValidate: true,
+          shouldDirty: false,
+        },
+      );
+    }
+  }, [
+    centrosFiltrados,
+    getValues,
+    resetField,
+    setValue,
+  ]);
+
+  // =====================================================
+  // ALTERAR PARÓQUIA
+  // =====================================================
+
+  const handleParoquiaChange = useCallback(
+    (
+      event: React.ChangeEvent<HTMLSelectElement>,
+    ) => {
+      const nomeParoquia = event.target.value;
+
+      setParoquiaSelecionada(nomeParoquia);
+
+      setValue('nomeParoquia', nomeParoquia, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      resetField('centroId', {
+        defaultValue: undefined as unknown as number,
+      });
     },
-    {
-      label: 'Data de Nascimento',
-      content: <Input type="date" className="w-full h-11" />,
-    },
-    {
-      label: 'E-mail',
-      content: <Input placeholder="seu@email.com" className="w-full h-11" />,
-    },
-    {
-      label: 'Telefone / WhatsApp',
-      content: <Input placeholder="( +244 ) 922 999 334" className="w-full h-11" />,
-    },
-  ];
+    [resetField, setValue],
+  );
+
+  // =====================================================
+  // RENDERIZAÇÃO RESPONSIVA
+  // =====================================================
 
   return (
-    <div className="flex flex-col gap-4 p-2">
-      {/* Grid de campos simples */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {fields.map((f) => (
-          <div key={f.label} className="flex flex-col gap-1">
-            <label className="text-orange-950 font-medium text-sm">{f.label}</label>
-            {f.content}
-          </div>
-        ))}
+    <div className="grid w-full min-w-0 grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-2 sm:gap-y-6">
+
+      {/* Nome completo */}
+      <div className="min-w-0 sm:col-span-2">
+        <CampoFormulario
+          id="nomeMembro"
+          label="Nome completo"
+          erro={errors.nomeMembro?.message}
+        >
+          <Input
+            id="nomeMembro"
+            {...register('nomeMembro')}
+            placeholder="Introduza o nome completo"
+            autoComplete="name"
+            className={classeInput}
+          />
+        </CampoFormulario>
       </div>
 
-      {/* Selects em grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="flex flex-col gap-1">
-          <label className="text-orange-950 font-medium text-sm">Paróquia</label>
-          <select
-            {...register('nomeParoquia')}
-            value={paroquiaSelecionada || 'Nenhuma'}
-            onChange={(e) => {
-              const paroquia = e.target.value;
-              setParoquiaSelecionada(paroquia);
-              setValue('nomeParoquia', paroquia);
-            }}
-            className={selectClass}
-          >
-            <option value="Nenhuma">Nenhuma</option>
-            {paroquiasUnicas.map((p) => (
-              <option key={p}>{p}</option>
-            ))}
-          </select>
-        </div>
+      {/* E-mail */}
+      <CampoFormulario
+        id="email"
+        label="E-mail"
+        erro={errors.email?.message}
+      >
+        <Input
+          id="email"
+          type="email"
+          {...register('email')}
+          placeholder="Introduza o e-mail"
+          autoComplete="email"
+          className={classeInput}
+        />
+      </CampoFormulario>
 
-        <div className="flex flex-col gap-1">
-          <label className="text-orange-950 font-medium text-sm">Centro</label>
-          <select
-            {...register('centroId', { valueAsNumber: true })}
-            className={selectClass}
-            onChange={(e) => setValue('centroId', Number(e.target.value))}
+      {/* Contacto */}
+      <CampoFormulario
+        id="contacto"
+        label="Contacto"
+        erro={errors.contacto?.message}
+      >
+        <Input
+          id="contacto"
+          type="number"
+          {...register('contacto')}
+          placeholder="Introduza o contacto"
+          autoComplete="tel"
+          className={classeInput}
+        />
+      </CampoFormulario>
+
+      {/* Promessado */}
+      <CampoFormulario
+        id="promessado"
+        label="É promessado?"
+        erro={errors.promessado?.message}
+      >
+        <select
+          id="promessado"
+          {...register('promessado')}
+          className={classeSelect}
+        >
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
+        </select>
+      </CampoFormulario>
+
+      {/* Nível */}
+      <CampoFormulario
+        id="nivel"
+        label="Nível"
+        erro={errors.nivel?.message}
+      >
+        <select
+          id="nivel"
+          {...register('nivel')}
+          className={classeSelect}
+        >
+          <option value="Nenhum">Nenhum</option>
+          <option value="AO">AO</option>
+          <option value="MEJ">MEJ</option>
+          <option value="CE">CE</option>
+        </select>
+      </CampoFormulario>
+
+      {/* Paróquia */}
+      <CampoFormulario
+        id="nomeParoquia"
+        label="Paróquia"
+        erro={errors.nomeParoquia?.message}
+      >
+        <select
+          id="nomeParoquia"
+          {...register('nomeParoquia')}
+          value={paroquiaSelecionada}
+          onChange={handleParoquiaChange}
+          className={classeSelect}
+        >
+          <option value="Nenhuma">Nenhuma</option>
+
+          {paroquias.map((paroquia) => (
+            <option
+              key={paroquia}
+              value={paroquia}
+            >
+              {paroquia}
+            </option>
+          ))}
+        </select>
+      </CampoFormulario>
+
+      {/* Centro */}
+      <CampoFormulario
+        id="centroId"
+        label="Centro"
+        erro={errors.centroId?.message}
+      >
+        <select
+          id="centroId"
+          {...register('centroId', {
+            setValueAs: (valor) =>
+              valor === ''
+                ? undefined
+                : Number(valor),
+          })}
+          disabled={
+            carregandoCentros ||
+            paroquiaSelecionada === 'Nenhuma' ||
+            centrosFiltrados.length === 0
+          }
+          className={classeSelect}
+        >
+          <option value="">
+            {carregandoCentros
+              ? 'A carregar centros...'
+              : paroquiaSelecionada === 'Nenhuma'
+                ? 'Seleccione primeiro uma paróquia'
+                : centrosFiltrados.length === 0
+                  ? 'Não existem centros nesta paróquia'
+                  : 'Seleccione um centro'}
+          </option>
+
+          {centrosFiltrados.map((centro) => (
+            <option
+              key={centro.idCentrosParoquias}
+              value={centro.idCentrosParoquias}
+            >
+              {centro.nomeCentro}
+            </option>
+          ))}
+        </select>
+
+        {erroCentros && (
+          <p
+            role="alert"
+            className="break-words text-xs text-red-500 sm:text-sm"
           >
-            <option value="">Nenhuma</option>
-            {filterCentros.map((c) => (
-              <option key={c.idCentrosParoquias} value={c.idCentrosParoquias}>
-                {c.nomeCentro}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+            {erroCentros}
+          </p>
+        )}
+      </CampoFormulario>
     </div>
   );
 }
+

@@ -12,10 +12,18 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { createTypeActividade, type createActividade } from '@/types/Schemas';
+import {
+  createTypeActividade,
+  type createActividade,
+  type updateActividade,
+} from '@/types/Schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ImageIcon } from 'lucide-react';
-import { CreateActividade, DeleteActividade, getManyActividade, UpdateActividade } from '@/services/actividadeService';
+import {
+  CreateActividade,
+  DeleteActividade,
+  UpdateActividade,
+} from '@/services/actividadeService';
 import api from '@/services/api';
 
 // Categorias disponíveis (mesmas usadas nos filtros da página pública)
@@ -46,7 +54,7 @@ type ArquivoExistente = {
 };
 
 // Actividade = dados do formulário + identificador da actividade e arquivos com os seus IDs.
-type Actividade = Omit<createActividade, 'arquivo'> & {
+type Actividade = Omit<createActividade | updateActividade, 'arquivo'> & {
   id: number;
   arquivo: ArquivoExistente[];
 };
@@ -160,7 +168,6 @@ export default function Actividades() {
     register,
     handleSubmit,
     control,
-    setValue,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<createActividade>({
@@ -206,7 +213,6 @@ export default function Actividades() {
     setIsOpen(false);
   };
 
-  
   useEffect(() => {
     const fetchActividades = async () => {
       try {
@@ -256,7 +262,10 @@ export default function Actividades() {
                 urlfile,
               };
             })
-            .filter((arquivo: ArquivoExistente | null): arquivo is ArquivoExistente => arquivo !== null);
+            .filter(
+              (arquivo: ArquivoExistente | null): arquivo is ArquivoExistente =>
+                arquivo !== null,
+            );
 
           return {
             id: Number(item.idActividades ?? item.id),
@@ -269,9 +278,11 @@ export default function Actividades() {
                 : '',
             descricao: item.descricao ?? '',
             categoria:
-              item.categoria === 'Missão' ? 'Missao' :
-              item.categoria === 'Formação' ? 'Formacao' :
-              item.categoria ?? '',
+              item.categoria === 'Missão'
+                ? 'Missao'
+                : item.categoria === 'Formação'
+                  ? 'Formacao'
+                  : (item.categoria ?? ''),
             estado: item.estado ?? '',
             arquivo: arquivos,
           } as Actividade;
@@ -287,7 +298,7 @@ export default function Actividades() {
 
     fetchActividades();
   }, []);
-  
+
   // Preenche todos os campos de uma só vez ao abrir a edição.
   // O formulário usa as URLs dos arquivos existentes; os IDs ficam guardados
   // em actividadeEdit.arquivo para identificar eliminações.
@@ -302,9 +313,11 @@ export default function Actividades() {
       dataActiv: item.dataActiv ? String(item.dataActiv).split('T')[0] : '',
       descricao: item.descricao ?? '',
       categoria:
-        item.categoria === 'Missão' ? 'Missao' :
-        item.categoria === 'Formação' ? 'Formacao' :
-        item.categoria,
+        item.categoria === 'Missão'
+          ? 'Missao'
+          : item.categoria === 'Formação'
+            ? 'Formacao'
+            : item.categoria,
       estado: item.estado ?? '',
       arquivo: (item.arquivo ?? []).map((arquivo) => arquivo.urlfile),
     });
@@ -314,8 +327,8 @@ export default function Actividades() {
   };
 
   const onDelete = async (id: number) => {
-   await DeleteActividade(String(id));
-   setDataActividades((prev) => prev.filter((item) => item.id !== id));
+    await DeleteActividade(String(id));
+    setDataActividades((prev) => prev.filter((item) => item.id !== id));
   };
 
   // Valida os ficheiros escolhidos e junta os válidos aos já existentes
@@ -438,11 +451,8 @@ export default function Actividades() {
                   idsArquivosEliminar.length === 1
                     ? idsArquivosEliminar[0]
                     : idsArquivosEliminar,
-                
               }
-            : {
-            
-              }),
+            : {}),
           arquivo: novosArquivos,
         };
 
@@ -473,7 +483,9 @@ export default function Actividades() {
         );
 
         // Volta a consultar a API para obter os URLs/IDs actualizados após o upload.
-        const respostaActualizada = await api.get('/actividade/getManyActividade');
+        const respostaActualizada = await api.get(
+          '/actividade/getManyActividade',
+        );
         const resultadoActualizado = respostaActualizada.data;
         const listaActualizada = Array.isArray(resultadoActualizado?.data)
           ? resultadoActualizado.data
@@ -481,52 +493,125 @@ export default function Actividades() {
             ? resultadoActualizado
             : [];
 
-        const actividadesActualizadas: Actividade[] = listaActualizada.map((item: any) => {
-          const recebidos = Array.isArray(item.arquivos)
-            ? item.arquivos
-            : Array.isArray(item.arquivo)
-              ? item.arquivo
-              : [];
-          const arquivos: ArquivoExistente[] = recebidos
-            .map((arquivo: any) => {
-              if (typeof arquivo === 'string') return { urlfile: arquivo };
-              const urlfile = arquivo?.urlfile ?? arquivo?.url;
-              if (typeof urlfile !== 'string' || !urlfile.trim()) return null;
-              const idArquivo = Number(arquivo?.idArquivo ?? arquivo?.id);
-              return {
-                ...(Number.isInteger(idArquivo) && idArquivo > 0 ? { idArquivo } : {}),
-                urlfile,
-              };
-            })
-            .filter((arquivo: ArquivoExistente | null): arquivo is ArquivoExistente => arquivo !== null);
+        const actividadesActualizadas: Actividade[] = listaActualizada.map(
+          (item: any) => {
+            const recebidos = Array.isArray(item.arquivos)
+              ? item.arquivos
+              : Array.isArray(item.arquivo)
+                ? item.arquivo
+                : [];
+            const arquivos: ArquivoExistente[] = recebidos
+              .map((arquivo: any) => {
+                if (typeof arquivo === 'string') return { urlfile: arquivo };
+                const urlfile = arquivo?.urlfile ?? arquivo?.url;
+                if (typeof urlfile !== 'string' || !urlfile.trim()) return null;
+                const idArquivo = Number(arquivo?.idArquivo ?? arquivo?.id);
+                return {
+                  ...(Number.isInteger(idArquivo) && idArquivo > 0
+                    ? { idArquivo }
+                    : {}),
+                  urlfile,
+                };
+              })
+              .filter(
+                (
+                  arquivo: ArquivoExistente | null,
+                ): arquivo is ArquivoExistente => arquivo !== null,
+              );
 
-          return {
-            id: Number(item.idActividades ?? item.id),
-            nomeActividade: item.nomeActividade ?? '',
-            localizacao: item.localizacao ?? '',
-            dataActiv: item.dataActiv
-              ? String(item.dataActiv).split('T')[0]
-              : item.data
-                ? String(item.data).split('T')[0]
-                : '',
-            descricao: item.descricao ?? '',
-            categoria:
-              item.categoria === 'Missão' ? 'Missao' :
-              item.categoria === 'Formação' ? 'Formacao' :
-              item.categoria ?? '',
-            estado: item.estado ?? '',
-            arquivo: arquivos,
-          } as Actividade;
-        });
+            return {
+              id: Number(item.idActividades ?? item.id),
+              nomeActividade: item.nomeActividade ?? '',
+              localizacao: item.localizacao ?? '',
+              dataActiv: item.dataActiv
+                ? String(item.dataActiv).split('T')[0]
+                : item.data
+                  ? String(item.data).split('T')[0]
+                  : '',
+              descricao: item.descricao ?? '',
+              categoria:
+                item.categoria === 'Missão'
+                  ? 'Missao'
+                  : item.categoria === 'Formação'
+                    ? 'Formacao'
+                    : (item.categoria ?? ''),
+              estado: item.estado ?? '',
+              arquivo: arquivos,
+            } as Actividade;
+          },
+        );
 
         setDataActividades(actividadesActualizadas);
       } else {
         // Cria uma nova actividade
         console.log('Chegou');
         await CreateActividade(data);
-        const result = await getManyActividade();
+        // Reconsulta a API e normaliza a resposta para o tipo usado pela tabela.
+        // Assim, "arquivo" contém objectos ArquivoExistente e preserva os IDs.
+        const respostaCriada = await api.get('/actividade/getManyActividade');
+        const resultadoCriado = respostaCriada.data;
+        const listaCriada = Array.isArray(resultadoCriado?.data)
+          ? resultadoCriado.data
+          : Array.isArray(resultadoCriado)
+            ? resultadoCriado
+            : [];
 
-        setDataActividades(result);
+        const actividadesCriadas: Actividade[] = listaCriada.map(
+          (item: any) => {
+            const recebidos = Array.isArray(item.arquivos)
+              ? item.arquivos
+              : Array.isArray(item.arquivo)
+                ? item.arquivo
+                : Array.isArray(item.fileUrls)
+                  ? item.fileUrls
+                  : Array.isArray(item.imagens)
+                    ? item.imagens
+                    : [];
+
+            const arquivos: ArquivoExistente[] = recebidos
+              .map((arquivo: any) => {
+                if (typeof arquivo === 'string') return { urlfile: arquivo };
+
+                const urlfile = arquivo?.urlfile ?? arquivo?.url;
+                if (typeof urlfile !== 'string' || !urlfile.trim()) return null;
+
+                const idArquivo = Number(arquivo?.idArquivo ?? arquivo?.id);
+                return {
+                  ...(Number.isInteger(idArquivo) && idArquivo > 0
+                    ? { idArquivo }
+                    : {}),
+                  urlfile,
+                };
+              })
+              .filter(
+                (
+                  arquivo: ArquivoExistente | null,
+                ): arquivo is ArquivoExistente => arquivo !== null,
+              );
+
+            return {
+              id: Number(item.idActividades ?? item.id),
+              nomeActividade: item.nomeActividade ?? '',
+              localizacao: item.localizacao ?? '',
+              dataActiv: item.dataActiv
+                ? String(item.dataActiv).split('T')[0]
+                : item.data
+                  ? String(item.data).split('T')[0]
+                  : '',
+              descricao: item.descricao ?? '',
+              categoria:
+                item.categoria === 'Missão'
+                  ? 'Missao'
+                  : item.categoria === 'Formação'
+                    ? 'Formacao'
+                    : (item.categoria ?? ''),
+              estado: item.estado ?? '',
+              arquivo: arquivos,
+            } as Actividade;
+          },
+        );
+
+        setDataActividades(actividadesCriadas);
       }
       closeModal();
     } catch {

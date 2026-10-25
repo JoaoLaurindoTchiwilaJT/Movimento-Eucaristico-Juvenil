@@ -11,7 +11,7 @@ export async function UpdateCentro(data: {
 
     return response.data;
   } catch (error) {
-     console.log()
+     
     throw error;
   }
 }
@@ -31,8 +31,12 @@ export async function GetCentro() {
   try {
     const response = await api.get('/centros/findMany');
     return response.data;
-  } catch (error) {
-    console.log()
+  } catch (error: any) {
+    console.error(
+      'Erro ao cadastrar paróquia:',
+      error.response?.data ?? error.message,
+    );
+
     throw error;
   }
 }

@@ -1,4 +1,10 @@
+import { useCallback, useState } from 'react';
+import type { FormEvent } from 'react';
+import type { createMembroSchema } from '@/types/Schemas';
+
 import logotipo from '@/assets/logotipo.png';
+import amigos from '@/assets/amigos.png';
+
 import { NavLink } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -13,7 +19,7 @@ import {
   Users,
   Youtube,
 } from 'lucide-react';
-import amigos from '@/assets/amigos.png';
+
 import { Button } from '../ui/button';
 import UserForm from './Form/UserForm';
 import ReviewForm from './Form/ReviewForm';
@@ -41,15 +47,18 @@ function StepIndicator({ currentStep }: { currentStep: number }) {
                   isDone
                     ? 'bg-amber-400 border-amber-400 text-white'
                     : isActive
-                    ? 'bg-white border-amber-400 text-amber-500'
-                    : 'bg-white border-gray-300 text-gray-400'
+                      ? 'bg-white border-amber-400 text-amber-500'
+                      : 'bg-white border-gray-300 text-gray-400'
                 }`}
               >
                 {isDone ? '✓' : i + 1}
               </div>
+
               <span
                 className={`text-xs whitespace-nowrap ${
-                  isDone || isActive ? 'text-amber-500 font-medium' : 'text-gray-400'
+                  isDone || isActive
+                    ? 'text-amber-500 font-medium'
+                    : 'text-gray-400'
                 }`}
               >
                 {step.label}
@@ -71,25 +80,63 @@ function StepIndicator({ currentStep }: { currentStep: number }) {
 }
 
 export default function Footer() {
-  const formComponents = [<UserForm />, <ReviewForm />, <ThanksForm />];
+  // Dados partilhados entre as etapas do formulário.
+  const [dadosCadastro, setDadosCadastro] = useState<
+    Partial<createMembroSchema>
+  >({});
+
+  const [interesse, setInteresse] = useState('');
+
+  // Mantém os dados anteriores e actualiza apenas os campos recebidos.
+  const atualizarDados = useCallback((dados: Partial<createMembroSchema>) => {
+    setDadosCadastro((anterior) => ({
+      ...anterior,
+      ...dados,
+    }));
+  }, []);
+
+  const formComponents = [
+    <UserForm key="dados-pessoais" onDataChange={atualizarDados} />,
+    <ReviewForm
+      key="interesses"
+      selectedInterest={interesse}
+      onInterestChange={setInteresse}
+    />,
+    <ThanksForm key="confirmacao" />,
+  ];
 
   const { currentStep, currentComponent, changeStep, isLastStep, isFirstStep } =
     useForm(formComponents);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!isLastStep) {
+      changeStep(currentStep + 1);
+      return;
+    }
+
+    // Os dados ficam disponíveis para ligar à rota real de cadastro.
+    // Não é enviada uma requisição porque a rota da API não foi fornecida.
+    console.log('Dados pessoais:', dadosCadastro);
+    console.log('Interesse seleccionado:', interesse);
+  };
 
   return (
     <footer className="flex flex-col gap-5">
       {/* Cadastramento */}
       <section className="bg-amber-400">
         <div className="flex flex-col lg:flex-row items-center justify-around p-4 md:p-8 gap-8">
-          {/* Info cards */}
+          {/* Informações */}
           <div className="flex flex-col w-full lg:w-auto">
             <div className="flex flex-col p-4 md:p-6">
               <h1 className="font-semibold text-xl text-orange-950">
                 Cadastrar-se
               </h1>
+
               <p className="text-black font-medium text-sm">
                 Faça parte dessa missão! Juntos, podemos transformar{' '}
-                <br className="hidden md:block" /> o mundo com o amor de Cristo.
+                <br className="hidden md:block" />o mundo com o amor de Cristo.
               </p>
             </div>
 
@@ -140,16 +187,18 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Form */}
+          {/* Formulário */}
           <div className="w-full lg:w-auto">
             <form
               className="bg-white p-6 md:p-8 flex flex-col rounded-md gap-4 w-full lg:w-[800px] lg:h-[500px]"
-              onSubmit={(e) => changeStep(currentStep + 1, e)}
+              onSubmit={handleSubmit}
             >
               <div className="flex justify-center">
                 <StepIndicator currentStep={currentStep} />
               </div>
+
               <div>{currentComponent}</div>
+
               <div className="actions flex justify-between p-2 md:p-4">
                 {!isFirstStep && (
                   <Button
@@ -157,16 +206,26 @@ export default function Footer() {
                     className="text-white bg-orange-950 cursor-pointer text-base h-10 rounded-md w-36 md:w-40"
                     onClick={() => changeStep(currentStep - 1)}
                   >
-                    <ArrowLeft size={24} /> <span>Voltar</span>
+                    <ArrowLeft size={24} />
+                    <span>Voltar</span>
                   </Button>
                 )}
+
                 {!isLastStep ? (
-                  <Button className="text-white bg-orange-950 cursor-pointer text-base h-10 rounded-md w-36 md:w-40 ml-auto">
-                    <span>Continuar</span> <ArrowRight size={24} />
+                  <Button
+                    type="submit"
+                    className="text-white bg-orange-950 cursor-pointer text-base h-10 rounded-md w-36 md:w-40 ml-auto"
+                  >
+                    <span>Continuar</span>
+                    <ArrowRight size={24} />
                   </Button>
                 ) : (
-                  <Button className="text-white bg-orange-950 cursor-pointer text-base h-10 rounded-md w-36 md:w-40 ml-auto">
-                    <span>Confirmar</span> <Send size={24} />
+                  <Button
+                    type="submit"
+                    className="text-white bg-orange-950 cursor-pointer text-base h-10 rounded-md w-36 md:w-40 ml-auto"
+                  >
+                    <span>Confirmar</span>
+                    <Send size={24} />
                   </Button>
                 )}
               </div>
@@ -183,29 +242,40 @@ export default function Footer() {
             alt=""
             className="hidden md:block h-48 absolute left-20 top-1"
           />
+
           <div className="md:ml-90 text-center md:text-left">
             <h1 className="text-yellow-400 text-3xl font-bold">Faça parte!</h1>
+
             <p className="text-white">
               Jovens que se encontram com Cristo,{' '}
-              <br className="hidden md:block" /> transformam o mundo
+              <br className="hidden md:block" />
+              transformam o mundo
             </p>
           </div>
-          <button className="bg-yellow-400 cursor-pointer flex p-4 gap-2 rounded-full text-orange-950 h-10 justify-center items-center whitespace-nowrap">
-            <UserPlus /> Cadastrar-se agora!
+
+          <button
+            type="button"
+            className="bg-yellow-400 cursor-pointer flex p-4 gap-2 rounded-full text-orange-950 h-10 justify-center items-center whitespace-nowrap"
+          >
+            <UserPlus />
+            Cadastrar-se agora!
           </button>
         </div>
       </section>
 
-      {/* Logo + Links + Redes */}
+      {/* Logo, links e redes sociais */}
       <div className="w-full flex flex-col md:flex-row justify-around items-start gap-8 px-6 pb-4">
-        {/* Logo */}
         <div>
           <div className="flex justify-center items-center gap-6">
             <img src={logotipo} className="w-30 h-30" alt="" />
+
             <h1 className="text-orange-950 font-bold text-xl">
-              Movimento <br /> Eucarístico <br /> Juvenil
+              Movimento <br />
+              Eucarístico <br />
+              Juvenil
             </h1>
           </div>
+
           <p className="text-orange-950 font-medium text-xl mt-2">
             Tudo por vós,
             <br />
@@ -213,9 +283,10 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Links Rápidos */}
+        {/* Links rápidos */}
         <div className="flex flex-col gap-3">
           <h1 className="text-orange-950 font-bold text-xl">Links Rápidos</h1>
+
           <NavLink to="">Inicio</NavLink>
           <NavLink to="">Sobre</NavLink>
           <NavLink to="">Actividades</NavLink>
@@ -223,16 +294,19 @@ export default function Footer() {
           <NavLink to="">Cadastrar</NavLink>
         </div>
 
-        {/* Redes Sociais */}
+        {/* Redes sociais */}
         <div className="flex flex-col gap-4">
           <h1 className="text-orange-950 font-bold text-xl">Redes Sociais</h1>
+
           <div className="flex gap-4">
             <NavLink className="bg-orange-950 rounded-full flex p-2" to="">
               <Instagram className="text-white" />
             </NavLink>
+
             <NavLink className="bg-orange-950 rounded-full flex p-2" to="">
               <Facebook className="text-white" />
             </NavLink>
+
             <NavLink className="bg-orange-950 rounded-full flex p-2" to="">
               <Youtube className="text-white" />
             </NavLink>
@@ -242,7 +316,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="bg-orange-950 text-white min-h-10 flex justify-center items-center text-center px-4 py-2 text-sm">
-        &copy; 2026 Movimento Eucaristico Juvenil - MEJ. Todos os direitos
+        &copy; 2026 Movimento Eucarístico Juvenil - MEJ. Todos os direitos
         reservados.
       </div>
     </footer>
