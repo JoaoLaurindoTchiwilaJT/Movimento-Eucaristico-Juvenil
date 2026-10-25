@@ -7,12 +7,12 @@ export class userMej {
   async CreateUser(datas: CreateMember) {
     try {
       const result = await prisma.$transaction(async (tx) => {
-        const centro = await tx.centrosParoquias.findUnique({
+        const centro = await tx.centrosparoquias.findUnique({
           where: {
             idCentrosParoquias: datas.centroId,
           },
           include: {
-            paroquia: true,
+            paroquias: true,
           },
         });
 
@@ -33,7 +33,7 @@ export class userMej {
           },
         });
 
-        const codigo = gerarCodigo(membro.idMejista, centro.paroquia.nomeParoquia);
+        const codigo = gerarCodigo(membro.idMejista, centro.paroquias.nomeParoquia);
 
         const membroAtualizado = await tx.user.update({
           where: {
@@ -103,14 +103,14 @@ export class userMej {
             centroId: true,
             centro: {
               select: {
-                paroquia: true,
+                paroquias: true,
               },
             },
           },
         });
 
-        if (dataUpdate.centroId === verifCentId?.centro?.paroquia.idParoquia) {
-          const nomeParoquia = verifCentId?.centro?.paroquia.nomeParoquia || "";
+        if (dataUpdate.centroId === verifCentId?.centro?.paroquias.idParoquia) {
+          const nomeParoquia = verifCentId?.centro?.paroquias.nomeParoquia || "";
           dataUpdate.numeroMembro = gerarCodigo(datas.idMejista, nomeParoquia);
         }
 
@@ -153,7 +153,7 @@ export class userMej {
         include: {
           centro: {
             include: {
-              paroquia: true,
+              paroquias: true,
             },
           },
         },
@@ -176,7 +176,7 @@ export class userMej {
         include: {
           centro: {
             include: {
-              paroquia: {
+              paroquias: {
                 select: {
                   nomeParoquia: true,
                 },
@@ -231,7 +231,7 @@ export class userMej {
 
       const totalParoquia = await prisma.paroquias.count();
 
-      const totalCentros = await prisma.centrosParoquias.count();
+      const totalCentros = await prisma.centrosparoquias.count();
 
       //Promessados
       const totalUsuarioPromessados = await prisma.user.count({
@@ -240,7 +240,7 @@ export class userMej {
 
       //Não Promessados
       const totalUsuarioNaoPromessados = await prisma.user.count({
-        where: { promessado: "Não", role: "User" },
+        where: { Promessado: "Não", role: "User" },
       });
 
       const data = {

@@ -23,6 +23,7 @@ export class centroController {
 
       return res.status(201).send(result);
     } catch (error) {
+      console.error(error)
       return res.status(500).send("Internal error server!");
     }
   }
@@ -102,6 +103,7 @@ export class centroController {
 
       return res.status(200).send(result);
     } catch (error) {
+    
       return res.status(500).send("Internal error server!");
     }
   }

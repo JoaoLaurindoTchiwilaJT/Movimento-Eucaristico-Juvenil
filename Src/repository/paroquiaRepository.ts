@@ -12,7 +12,7 @@ export class paroquiasMej {
         },
       });
 
-      await prisma.centrosParoquias.create({
+      await prisma.centrosparoquias.create({
         data: {
           nomeCentro: "Centro sede " + datas.nomeParoquia,
           paroquiaId: result.idParoquia,
@@ -65,7 +65,7 @@ export class paroquiasMej {
     try {
       const result = await prisma.paroquias.findMany({
         include: {
-          centros: {
+          centrosparoquias: {
             include: {
               membros: true,
             },
@@ -78,13 +78,13 @@ export class paroquiasMej {
           idParoquia: paroquia.idParoquia,
           nomeParoquia: paroquia.nomeParoquia,
           quota: paroquia.quota,
-          centros: paroquia.centros,
+          centros: paroquia.centrosparoquias,
           coordenador: "Coordenador ausente ",
           totalPromessados: 0,
           totalNaoPromessados: 0,
         };
 
-        paroquia.centros.forEach((centro) => {
+        paroquia.centrosparoquias.forEach((centro) => {
           centro.membros.forEach((membro) => {
             if (membro.promessado === "Sim") {
               if (membro.cargo?.toLocaleLowerCase() === "coordenador") {

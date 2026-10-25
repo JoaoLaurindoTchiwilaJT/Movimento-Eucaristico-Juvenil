@@ -21,6 +21,7 @@ export class paroquiasController {
        
       return res.status(201).send(result);
     } catch (error) {
+      console.error(error);
       return res.status(500).send("Internal error server!");
     }
   }

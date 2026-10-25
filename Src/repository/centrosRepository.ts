@@ -12,14 +12,14 @@ export class centrosMej {
       });
 
       if (paroquiaConfirm) {
-        const result = await prisma.centrosParoquias.create({
+        const result = await prisma.centrosparoquias.create({
           data: {
             nomeCentro: datas.nomeCentro,
             paroquiaId: datas.idParoquia,
           },
         });
 
-        const result1 = await prisma.centrosParoquias.findMany({
+        const result1 = await prisma.centrosparoquias.findMany({
           where: {
             idCentrosParoquias: result.idCentrosParoquias,
           },
@@ -54,7 +54,7 @@ export class centrosMej {
   async updateCentro(datas: updateCentro) {
     try {
       if (!datas.idCentrosParoquias) throw new Error("Id da paróquia é obrigatório!");
-      const result = await prisma.centrosParoquias.update({
+      const result = await prisma.centrosparoquias.update({
         where: {
           idCentrosParoquias: datas.idCentrosParoquias,
         },
@@ -74,7 +74,7 @@ export class centrosMej {
 
   async findByIdCentros(id: number) {
     try {
-      const result = await prisma.centrosParoquias.findUnique({
+      const result = await prisma.centrosparoquias.findUnique({
         where: { idCentrosParoquias: id },
         include: {
           membros: {
@@ -106,10 +106,10 @@ export class centrosMej {
 
   async findManyCentros() {
     try {
-      const result = await prisma.centrosParoquias.findMany({
+      const result = await prisma.centrosparoquias.findMany({
         include: {
           membros: true,
-          paroquia: true,
+          paroquias: true,
         },
       });
 
@@ -119,7 +119,7 @@ export class centrosMej {
           idCentrosParoquias: centro.idCentrosParoquias,
           nomeCentro: centro.nomeCentro,
           coordenador: "Sem coordenador",
-          paroquia: centro.paroquia,
+          paroquia: centro.paroquias,
           totalPromessados: 0,
           totalNaoPromessados: 0,
         };
@@ -144,14 +144,14 @@ export class centrosMej {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
         return null;
       }
-
+      console.error("Erro original ao buscar centros:", error);
       throw new Error("Error to find many Centros");
     }
   }
 
   async deleteCentros(id: number) {
     try {
-      const centro = await prisma.centrosParoquias.findUnique({
+      const centro = await prisma.centrosparoquias.findUnique({
         where: { idCentrosParoquias: id },
       });
 
@@ -163,7 +163,7 @@ export class centrosMej {
         throw new Error("Não é possível eliminar este centro porque é um centro sede");
       }
 
-      const result = await prisma.centrosParoquias.delete({
+      const result = await prisma.centrosparoquias.delete({
         where: { idCentrosParoquias: id },
       });
 
