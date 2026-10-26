@@ -279,7 +279,6 @@ export default function UserForm({
 
   return (
     <div className="grid w-full min-w-0 grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-2 sm:gap-y-6">
-
       {/* Nome completo */}
       <div className="min-w-0 sm:col-span-2">
         <CampoFormulario
@@ -298,11 +297,7 @@ export default function UserForm({
       </div>
 
       {/* E-mail */}
-      <CampoFormulario
-        id="email"
-        label="E-mail"
-        erro={errors.email?.message}
-      >
+      <CampoFormulario id="email" label="E-mail" erro={errors.email?.message}>
         <Input
           id="email"
           type="email"
@@ -322,7 +317,9 @@ export default function UserForm({
         <Input
           id="contacto"
           type="number"
-          {...register('contacto')}
+          {...register('contacto', {
+            valueAsNumber: true,
+          })}
           placeholder="Introduza o contacto"
           autoComplete="tel"
           className={classeInput}
@@ -346,16 +343,8 @@ export default function UserForm({
       </CampoFormulario>
 
       {/* Nível */}
-      <CampoFormulario
-        id="nivel"
-        label="Nível"
-        erro={errors.nivel?.message}
-      >
-        <select
-          id="nivel"
-          {...register('nivel')}
-          className={classeSelect}
-        >
+      <CampoFormulario id="nivel" label="Nível" erro={errors.nivel?.message}>
+        <select id="nivel" {...register('nivel')} className={classeSelect}>
           <option value="Nenhum">Nenhum</option>
           <option value="AO">AO</option>
           <option value="MEJ">MEJ</option>
@@ -379,10 +368,7 @@ export default function UserForm({
           <option value="Nenhuma">Nenhuma</option>
 
           {paroquias.map((paroquia) => (
-            <option
-              key={paroquia}
-              value={paroquia}
-            >
+            <option key={paroquia} value={paroquia}>
               {paroquia}
             </option>
           ))}
@@ -398,10 +384,7 @@ export default function UserForm({
         <select
           id="centroId"
           {...register('centroId', {
-            setValueAs: (valor) =>
-              valor === ''
-                ? undefined
-                : Number(valor),
+            setValueAs: (valor) => (valor === '' ? undefined : Number(valor)),
           })}
           disabled={
             carregandoCentros ||

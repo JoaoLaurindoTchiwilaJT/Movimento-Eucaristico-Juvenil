@@ -16,11 +16,12 @@ export type createCentroSchema = z.infer<typeof createTypeCentro>;
 
 export const createTypeMembro = z
   .object({
-    nomeMembro: z.string().nonempty('O nome do Membro é invalido!').min(5),
+    nomeMembro: z.string().nonempty('O nome do Membro é inválido!').min(5),
+
     nomeParoquia: z
       .string()
       .refine((value) => value !== 'Nenhuma', {
-        message: 'Selecione uma paróquia !',
+        message: 'Selecione uma paróquia!',
       })
       .min(5),
 
@@ -29,18 +30,22 @@ export const createTypeMembro = z
     promessado: z.enum(['Sim', 'Não'], {
       message: 'Selecione uma opção!',
     }),
-    email: z.string().email('E-mail inválido').optional(),
-    contacto: z.number().min(9, 'Quantidade de números invalidos! '),
 
-    cargo: z.string().min(1, 'Escolha um cargo existente!'),
+    email: z.string().email('E-mail inválido').optional(),
+
+    contacto: z.number().min(9, 'Quantidade de números inválida!'),
+
+    // Cargo opcional
+    cargo: z.string().optional(),
 
     nivel: z.string().refine((value) => value !== 'Nenhum', {
-      message: 'Selecione um nivel para o membro',
+      message: 'Selecione um nível para o membro',
     }),
   })
   .superRefine((data, ctx) => {
+    // Só valida a regra do coordenador quando existe um cargo.
     if (
-      data.cargo.toLowerCase() === 'coordenador' &&
+      data.cargo?.trim().toLowerCase() === 'coordenador' &&
       data.promessado !== 'Sim'
     ) {
       ctx.addIssue({

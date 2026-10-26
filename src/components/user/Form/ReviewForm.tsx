@@ -19,14 +19,14 @@ export default function ReviewForm({
   return (
     <div className="flex flex-col gap-4 p-2">
       <p className="text-sm text-gray-500">
-        Selecione as áreas que mais despertam o seu interesse dentro do MEJ.
+        Selecione a área que mais desperta o seu interesse dentro do MEJ.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {interests.map((interest) => (
           <label
             key={interest}
-            className={`flex items-center gap-3 border rounded-md px-3 h-11 cursor-pointer transition-colors ${
+            className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-md border px-3 py-2 transition-colors ${
               selectedInterest === interest
                 ? 'border-amber-500 bg-amber-50'
                 : 'border-input hover:border-amber-400'
@@ -35,12 +35,13 @@ export default function ReviewForm({
             <input
               type="radio"
               name="interest"
-              className="w-4 h-4 accent-amber-600 shrink-0"
+              value={interest}
+              className="h-4 w-4 shrink-0 accent-amber-600"
               checked={selectedInterest === interest}
               onChange={() => onInterestChange(interest)}
             />
 
-            <span className="text-sm text-orange-950 font-medium">
+            <span className="text-sm font-medium text-orange-950">
               {interest}
             </span>
           </label>

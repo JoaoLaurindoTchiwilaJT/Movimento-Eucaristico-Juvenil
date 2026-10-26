@@ -7,16 +7,14 @@ export async function DeleteMember(idMejista: number) {
       data: { idMejista },
     });
 
-    return { 
+    return {
       success: true,
-      message: response.data?.message || 'Membro eliminado com sucesso',
+      message: response.data?.message ?? 'Membro eliminado com sucesso',
     };
-  } catch (error:any) {
-    const message = error.response?.data?.message;
-
+  } catch (error: any) {
     return {
       success: false,
-      message: message || 'Erro ao eliminar Usuario',
+      message: error.response?.data?.message ?? 'Erro ao eliminar membro',
     };
   }
 }
@@ -24,10 +22,10 @@ export async function DeleteMember(idMejista: number) {
 export async function GetMember() {
   try {
     const response = await api.get('/user/findMany');
-
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error('Erro ao buscar membros:', error);
+    throw error;
   }
 }
 
@@ -42,22 +40,19 @@ export async function UpdateMember(data: {
 }) {
   try {
     const response = await api.put('/user/updateMember', data);
-
     return response.data;
   } catch (error) {
-    console.log("error" + error);
+    console.error('Erro ao actualizar membro:', error);
     throw error;
   }
 }
 
 export async function CreateMember(data: createMembroSchema) {
   try {
-
     const response = await api.post('/user/createMember', data);
-   
     return response.data;
   } catch (error) {
-    console.log("error" + error);
+    console.error('Erro ao cadastrar membro:', error);
     throw error;
   }
 }

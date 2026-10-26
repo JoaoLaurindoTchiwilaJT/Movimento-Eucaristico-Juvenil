@@ -1,58 +1,54 @@
-import { useEffect, useState } from "react";
-import { CheckCircle, Mail } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { CheckCircle, Mail } from 'lucide-react';
 
 export default function SuccessScreen() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 200);
+    const timeout = window.setTimeout(() => {
+      setVisible(true);
+    }, 100);
+
+    return () => window.clearTimeout(timeout);
   }, []);
 
   return (
-    
-     <div
-        className={`w-full text-center transition-all duration-700 transform ${
-          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-        }`}
-      >
-        {/* Ícone animado */}
-        <div className="flex justify-center mb-2">
-          <div className="relative">
-            <CheckCircle size={48} className="text-green-500 animate-bounce" />
-            <span className="absolute inset-0 rounded-full bg-green-100 blur-xl opacity-40 animate-pulse" />
-          </div>
-        </div>
-
-        {/* Título */}
-        <h1 className="text-lg font-bold text-orange-950 mb-2">
-          Inscrição concluída com sucesso!
-        </h1>
-
-        {/* Mensagem */}
-        <p className="text-gray-700 text-xs leading-relaxed mb-4">
-          A tua candidatura foi recebida e está a ser processada pela nossa equipa.
-          Em breve receberás um link de acesso ao teu <strong>perfil pessoal</strong>,
-          onde poderás acompanhar o teu histórico, atividades e atualizações da comunidade.
-        </p>
-
-        {/* Caixa de informação */}
-        <div className="bg-amber-100 border border-amber-300 rounded-lg p-3 text-left text-xs mb-3">
-          <div className="flex items-center gap-2 font-semibold text-orange-950 mb-2">
-            <Mail size={16} />
-            O que acontece a seguir?
-          </div>
-          <ul className="list-disc pl-4 text-gray-800 space-y-1">
-            <li>Receberás um link de acesso ao teu perfil</li>
-            <li>Poderás ver histórico de atividades</li>
-            <li>Serás notificado sobre eventos e novidades</li>
-          </ul>
-        </div>
-
-        {/* Status final */}
-        <div className="text-xs text-gray-500">
-          Obrigado por te juntares à nossa comunidade 🙏
-        </div>
+    <div
+      role="status"
+      className={`w-full text-center transition-all duration-500 ${
+        visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+      }`}
+    >
+      <div className="mb-3 flex justify-center">
+        <CheckCircle size={48} className="text-green-500" />
       </div>
- 
+
+      <h2 className="mb-2 text-lg font-bold text-orange-950">
+        Inscrição concluída com sucesso!
+      </h2>
+
+      <p className="mb-4 text-sm leading-relaxed text-gray-700">
+        O teu cadastro foi recebido pela nossa equipa. Acompanha as próximas
+        comunicações do MEJ.
+      </p>
+
+      <div className="mb-3 rounded-lg border border-amber-300 bg-amber-100 p-3 text-left text-sm">
+        <div className="mb-2 flex items-center gap-2 font-semibold text-orange-950">
+          <Mail size={18} />O que acontece a seguir?
+        </div>
+
+        <ul className="list-disc space-y-1 pl-5 text-gray-800">
+          <li>A equipa poderá analisar os teus dados.</li>
+          <li>
+            Receberás informações sobre os próximos passos pelos canais
+            disponibilizados.
+          </li>
+        </ul>
+      </div>
+
+      <p className="text-xs text-gray-500">
+        Obrigado por te juntares à nossa comunidade.
+      </p>
+    </div>
   );
 }

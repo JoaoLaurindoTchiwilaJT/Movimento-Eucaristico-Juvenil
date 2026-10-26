@@ -1,74 +1,62 @@
 import { useCallback, useState } from 'react';
 import type { FormEvent } from 'react';
-import type { createMembroSchema } from '@/types/Schemas';
-
-import logotipo from '@/assets/logotipo.png';
-import amigos from '@/assets/amigos.png';
-
-import { NavLink } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import {
   ArrowLeft,
   ArrowRight,
-  Church,
-  Facebook,
-  HeartHandshake,
-  Instagram,
+  CheckCircle,
+  LoaderCircle,
   Send,
-  Target,
-  UserPlus,
-  Users,
-  Youtube,
 } from 'lucide-react';
+
+import type { createMembroSchema } from '@/types/Schemas';
+import { createTypeMembro } from '@/types/Schemas';
+import { CreateMember } from '@/services/membroService';
 
 import { Button } from '../ui/button';
 import UserForm from './Form/UserForm';
 import ReviewForm from './Form/ReviewForm';
 import ThanksForm from './Form/Thanks';
-import useForm from '@/hooks/useForm';
 
-const steps = [
-  { label: 'Dados pessoais' },
-  { label: 'Interesses' },
-  { label: 'Confirmação' },
-];
+const steps = ['Dados pessoais', 'Interesses', 'Confirmação'];
 
 function StepIndicator({ currentStep }: { currentStep: number }) {
   return (
-    <div className="flex items-center w-full">
-      {steps.map((step, i) => {
-        const isDone = i < currentStep;
-        const isActive = i === currentStep;
+    <div className="flex w-full items-center">
+      {steps.map((label, index) => {
+        const concluido = index < currentStep;
+        const activo = index === currentStep;
 
         return (
-          <div key={i} className="flex items-center flex-1 last:flex-none">
+          <div key={label} className="flex flex-1 items-center last:flex-none">
             <div className="flex flex-col items-center gap-1.5">
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold border-2 transition-all duration-300 ${
-                  isDone
-                    ? 'bg-amber-400 border-amber-400 text-white'
-                    : isActive
-                      ? 'bg-white border-amber-400 text-amber-500'
-                      : 'bg-white border-gray-300 text-gray-400'
+                className={`flex h-9 w-9 items-center justify-center rounded-full border-2 text-sm font-semibold ${
+                  concluido
+                    ? 'border-amber-400 bg-amber-400 text-white'
+                    : activo
+                      ? 'border-amber-400 bg-white text-amber-600'
+                      : 'border-gray-300 bg-white text-gray-400'
                 }`}
               >
-                {isDone ? '✓' : i + 1}
+                {concluido ? '✓' : index + 1}
               </div>
 
               <span
-                className={`text-xs whitespace-nowrap ${
-                  isDone || isActive
-                    ? 'text-amber-500 font-medium'
+                className={`text-center text-[10px] sm:text-xs ${
+                  activo || concluido
+                    ? 'font-medium text-amber-600'
                     : 'text-gray-400'
                 }`}
               >
-                {step.label}
+                {label}
               </span>
             </div>
 
-            {i < steps.length - 1 && (
+            {index < steps.length - 1 && (
               <div
-                className={`flex-1 h-0.5 mx-1 mb-5 rounded transition-all duration-300 ${
-                  i < currentStep ? 'bg-amber-400' : 'bg-gray-200'
+                className={`mx-1 mb-5 h-0.5 flex-1 ${
+                  index < currentStep ? 'bg-amber-400' : 'bg-gray-200'
                 }`}
               />
             )}
@@ -80,245 +68,327 @@ function StepIndicator({ currentStep }: { currentStep: number }) {
 }
 
 export default function Footer() {
-  // Dados partilhados entre as etapas do formulário.
+  const [currentStep, setCurrentStep] = useState(0);
+
   const [dadosCadastro, setDadosCadastro] = useState<
     Partial<createMembroSchema>
   >({});
 
   const [interesse, setInteresse] = useState('');
+  const [carregando, setCarregando] = useState(false);
+  const [cadastroConcluido, setCadastroConcluido] = useState(false);
+  const [erroCadastro, setErroCadastro] = useState('');
 
-  // Mantém os dados anteriores e actualiza apenas os campos recebidos.
+  // Recebe e acumula os dados enviados pelo UserForm.
   const atualizarDados = useCallback((dados: Partial<createMembroSchema>) => {
-    setDadosCadastro((anterior) => ({
-      ...anterior,
-      ...dados,
-    }));
+    console.log('[CADASTRO] Dados recebidos do UserForm:', dados);
+
+    setDadosCadastro((anterior) => {
+      const novosDados = {
+        ...anterior,
+        ...dados,
+      };
+
+      console.log('[CADASTRO] Dados acumulados:', novosDados);
+
+      return novosDados;
+    });
+
+    setErroCadastro('');
   }, []);
 
-  const formComponents = [
-    <UserForm key="dados-pessoais" onDataChange={atualizarDados} />,
-    <ReviewForm
-      key="interesses"
-      selectedInterest={interesse}
-      onInterestChange={setInteresse}
-    />,
-    <ThanksForm key="confirmacao" />,
-  ];
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const { currentStep, currentComponent, changeStep, isLastStep, isFirstStep } =
-    useForm(formComponents);
+    setErroCadastro('');
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    // Etapas 1 e 2: avançar sem enviar o cadastro para o servidor.
+    if (currentStep < 2) {
+      if (currentStep === 1 && !interesse.trim()) {
+        setErroCadastro('Selecciona uma área de interesse para continuar.');
+        console.warn('[CADASTRO] Nenhuma área de interesse seleccionada.');
+        return;
+      }
 
-    if (!isLastStep) {
-      changeStep(currentStep + 1);
+      console.log('[CADASTRO] Avançando de etapa:', {
+        etapaAtual: currentStep,
+        proximaEtapa: currentStep + 1,
+        dadosCadastro,
+        interesse,
+      });
+
+      setCurrentStep((anterior) => anterior + 1);
       return;
     }
 
-    // Os dados ficam disponíveis para ligar à rota real de cadastro.
-    // Não é enviada uma requisição porque a rota da API não foi fornecida.
-    console.log('Dados pessoais:', dadosCadastro);
-    console.log('Interesse seleccionado:', interesse);
+    // Etapa 3: validar e enviar o cadastro.
+    console.group('[CADASTRO] Validação final');
+
+    console.log('Dados completos recebidos:', dadosCadastro);
+    console.log('Área de interesse seleccionada:', interesse);
+
+    const resultado = createTypeMembro.safeParse(dadosCadastro);
+
+    if (!resultado.success) {
+      const erros = resultado.error.issues.map((issue) => {
+        const campo = issue.path.map(String).join('.') || 'formulario';
+
+        return {
+          campo,
+          valorRecebido: dadosCadastro[campo as keyof typeof dadosCadastro],
+          mensagem: issue.message,
+          codigo: issue.code,
+        };
+      });
+
+      console.error('[CADASTRO] Existem campos inválidos:', erros);
+
+      console.error('[CADASTRO] Detalhes completos do Zod:', resultado.error);
+
+      console.table(erros);
+
+      console.log(
+        '[CADASTRO] Dados recebidos para comparação:',
+        JSON.stringify(dadosCadastro, null, 2),
+      );
+
+      console.groupEnd();
+
+      setErroCadastro(
+        `Existem ${erros.length} erro(s) nos dados do cadastro. Abre a consola do navegador (F12) para identificar os campos.`,
+      );
+
+      return;
+    }
+
+    console.log('[CADASTRO] Validação concluída com sucesso.');
+    console.log('[CADASTRO] Dados validados para envio:', resultado.data);
+
+    console.groupEnd();
+
+    try {
+      setCarregando(true);
+
+      // Envia somente dados validados pelo schema.
+      const resposta = await CreateMember(resultado.data);
+
+      console.log('[CADASTRO] Resposta do servidor:', resposta);
+
+      setCadastroConcluido(true);
+    } catch (error: unknown) {
+      console.group('[CADASTRO] Erro ao enviar os dados');
+
+      if (error instanceof AxiosError) {
+        console.error('Mensagem:', error.message);
+        console.error('Código HTTP:', error.response?.status);
+        console.error('Resposta da API:', error.response?.data);
+        console.error('URL:', error.config?.url);
+        console.error('Método:', error.config?.method);
+      } else {
+        console.error('Erro inesperado:', error);
+      }
+
+      console.error('Dados que foram enviados:', resultado.data);
+
+      console.groupEnd();
+
+      setErroCadastro(
+        error instanceof AxiosError
+          ? error.response?.data?.message ||
+              'Não foi possível cadastrar o membro. Verifica a consola para mais detalhes.'
+          : 'Ocorreu um erro inesperado durante o cadastro.',
+      );
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  const voltar = () => {
+    if (carregando) return;
+
+    setErroCadastro('');
+    setCurrentStep((anterior) => Math.max(0, anterior - 1));
   };
 
   return (
     <footer className="flex flex-col gap-5">
-      {/* Cadastramento */}
-      <section className="bg-amber-400">
-        <div className="flex flex-col lg:flex-row items-center justify-around p-4 md:p-8 gap-8">
-          {/* Informações */}
-          <div className="flex flex-col w-full lg:w-auto">
-            <div className="flex flex-col p-4 md:p-6">
-              <h1 className="font-semibold text-xl text-orange-950">
-                Cadastrar-se
-              </h1>
+      <section className="bg-amber-400 p-4 sm:p-6 md:p-8">
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-start gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="space-y-5 text-orange-950">
+            <div>
+              <h1 className="text-2xl font-bold">Cadastrar-se</h1>
 
-              <p className="text-black font-medium text-sm">
-                Faça parte dessa missão! Juntos, podemos transformar{' '}
-                <br className="hidden md:block" />o mundo com o amor de Cristo.
+              <p className="mt-2 text-sm">
+                Faça parte dessa missão! Juntos, podemos transformar o mundo com
+                o amor de Cristo.
               </p>
             </div>
 
-            <div className="flex items-center gap-4 p-3 md:p-4">
-              <Target size={32} className="text-white shrink-0" />
-              <div>
-                <h1 className="font-semibold text-lg text-orange-950">
-                  Encontre uma comunidade
-                </h1>
-                <p className="text-black font-medium text-sm">
-                  Participe de grupos perto de você.
-                </p>
-              </div>
+            <div>
+              <h2 className="font-semibold">Encontre uma comunidade</h2>
+              <p className="text-sm">Participe de grupos perto de você.</p>
             </div>
 
-            <div className="flex items-center gap-4 p-3 md:p-4">
-              <Users size={32} className="text-white shrink-0" />
-              <div>
-                <h1 className="font-semibold text-lg text-orange-950">
-                  Comunidade
-                </h1>
-                <p className="text-black font-medium text-sm">
-                  Participe de grupos perto de você.
-                </p>
-              </div>
+            <div>
+              <h2 className="font-semibold">Comunidade</h2>
+              <p className="text-sm">
+                Participe de grupos e crie novas amizades.
+              </p>
             </div>
 
-            <div className="flex items-center gap-4 p-3 md:p-4">
-              <Church size={32} className="text-white shrink-0" />
-              <div>
-                <h1 className="font-semibold text-lg text-orange-950">Fé</h1>
-                <p className="text-black font-medium text-sm">
-                  Fortaleça a sua vida espiritual.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 p-3 md:p-4">
-              <HeartHandshake size={32} className="text-white shrink-0" />
-              <div>
-                <h1 className="font-semibold text-lg text-orange-950">
-                  Amizade
-                </h1>
-                <p className="text-black font-medium text-sm">
-                  Crie novas amizades e conexões.
-                </p>
-              </div>
+            <div>
+              <h2 className="font-semibold">Fé</h2>
+              <p className="text-sm">Fortaleça a sua vida espiritual.</p>
             </div>
           </div>
 
-          {/* Formulário */}
-          <div className="w-full lg:w-auto">
-            <form
-              className="bg-white p-6 md:p-8 flex flex-col rounded-md gap-4 w-full lg:w-[800px] lg:h-[500px]"
-              onSubmit={handleSubmit}
+          <form
+            onSubmit={handleSubmit}
+            className="flex min-h-[400px] w-full min-w-0 flex-col gap-5 rounded-lg bg-white p-4 shadow-sm sm:p-6 md:p-8"
+          >
+            {!cadastroConcluido && <StepIndicator currentStep={currentStep} />}
+
+            {/*
+              Mantém o UserForm montado para preservar os valores
+              do React Hook Form entre as etapas.
+            */}
+            <div
+              className={
+                currentStep === 0 && !cadastroConcluido ? 'block' : 'hidden'
+              }
             >
-              <div className="flex justify-center">
-                <StepIndicator currentStep={currentStep} />
+              <UserForm onDataChange={atualizarDados} />
+            </div>
+
+            {!cadastroConcluido && currentStep === 1 && (
+              <ReviewForm
+                selectedInterest={interesse}
+                onInterestChange={(valor) => {
+                  setInteresse(valor);
+                  setErroCadastro('');
+                  console.log(
+                    '[CADASTRO] Área de interesse seleccionada:',
+                    valor,
+                  );
+                }}
+              />
+            )}
+
+            {!cadastroConcluido && currentStep === 2 && (
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-orange-950">
+                  <CheckCircle className="text-amber-600" />
+                  <h2 className="font-semibold">Confirmar cadastro</h2>
+                </div>
+
+                <p className="text-sm text-gray-600">
+                  Revê os dados pessoais e a área de interesse antes de concluir
+                  a inscrição.
+                </p>
+
+                <div className="space-y-2 rounded-md bg-amber-50 p-4 text-sm">
+                  <p>
+                    <strong>Nome:</strong>{' '}
+                    {dadosCadastro.nomeMembro || 'Não preenchido'}
+                  </p>
+
+                  <p>
+                    <strong>Paróquia:</strong>{' '}
+                    {dadosCadastro.nomeParoquia || 'Não seleccionada'}
+                  </p>
+
+                  <p>
+                    <strong>Centro ID:</strong>{' '}
+                    {dadosCadastro.centroId ?? 'Não seleccionado'}
+                  </p>
+
+                  <p>
+                    <strong>Contacto:</strong>{' '}
+                    {dadosCadastro.contacto ?? 'Não preenchido'}
+                  </p>
+
+                  <p>
+                    <strong>Cargo:</strong>{' '}
+                    {dadosCadastro.cargo || 'Não preenchido'}
+                  </p>
+
+                  <p>
+                    <strong>Nível:</strong>{' '}
+                    {dadosCadastro.nivel || 'Não preenchido'}
+                  </p>
+
+                  <p>
+                    <strong>Promessado:</strong>{' '}
+                    {dadosCadastro.promessado || 'Não seleccionado'}
+                  </p>
+
+                  <p>
+                    <strong>Email:</strong>{' '}
+                    {dadosCadastro.email || 'Não preenchido'}
+                  </p>
+
+                  <p>
+                    <strong>Interesse:</strong>{' '}
+                    {interesse || 'Não seleccionado'}
+                  </p>
+                </div>
               </div>
+            )}
 
-              <div>{currentComponent}</div>
+            {cadastroConcluido && <ThanksForm />}
 
-              <div className="actions flex justify-between p-2 md:p-4">
-                {!isFirstStep && (
+            {erroCadastro && !cadastroConcluido && (
+              <p
+                role="alert"
+                className="rounded-md bg-red-50 p-3 text-sm text-red-700"
+              >
+                {erroCadastro}
+              </p>
+            )}
+
+            {!cadastroConcluido && (
+              <div className="mt-auto flex flex-wrap justify-between gap-3 border-t pt-4">
+                {currentStep > 0 ? (
                   <Button
                     type="button"
-                    className="text-white bg-orange-950 cursor-pointer text-base h-10 rounded-md w-36 md:w-40"
-                    onClick={() => changeStep(currentStep - 1)}
+                    variant="outline"
+                    disabled={carregando}
+                    onClick={voltar}
                   >
-                    <ArrowLeft size={24} />
-                    <span>Voltar</span>
-                  </Button>
-                )}
-
-                {!isLastStep ? (
-                  <Button
-                    type="submit"
-                    className="text-white bg-orange-950 cursor-pointer text-base h-10 rounded-md w-36 md:w-40 ml-auto"
-                  >
-                    <span>Continuar</span>
-                    <ArrowRight size={24} />
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Voltar
                   </Button>
                 ) : (
-                  <Button
-                    type="submit"
-                    className="text-white bg-orange-950 cursor-pointer text-base h-10 rounded-md w-36 md:w-40 ml-auto"
-                  >
-                    <span>Confirmar</span>
-                    <Send size={24} />
-                  </Button>
+                  <div />
                 )}
+
+                <Button
+                  type="submit"
+                  disabled={carregando}
+                  className="bg-orange-950 text-white hover:bg-orange-900"
+                >
+                  {carregando ? (
+                    <>
+                      <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />A
+                      cadastrar...
+                    </>
+                  ) : currentStep < 2 ? (
+                    <>
+                      Continuar
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  ) : (
+                    <>
+                      Confirmar
+                      <Send className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
               </div>
-            </form>
-          </div>
+            )}
+          </form>
         </div>
       </section>
-
-      {/* Publicidade */}
-      <section className="p-4">
-        <div className="bg-orange-950 relative rounded-xl p-6 md:p-8 flex flex-col md:flex-row justify-center md:justify-around items-center gap-6 md:gap-4 min-h-[160px]">
-          <img
-            src={amigos}
-            alt=""
-            className="hidden md:block h-48 absolute left-20 top-1"
-          />
-
-          <div className="md:ml-90 text-center md:text-left">
-            <h1 className="text-yellow-400 text-3xl font-bold">Faça parte!</h1>
-
-            <p className="text-white">
-              Jovens que se encontram com Cristo,{' '}
-              <br className="hidden md:block" />
-              transformam o mundo
-            </p>
-          </div>
-
-          <button
-            type="button"
-            className="bg-yellow-400 cursor-pointer flex p-4 gap-2 rounded-full text-orange-950 h-10 justify-center items-center whitespace-nowrap"
-          >
-            <UserPlus />
-            Cadastrar-se agora!
-          </button>
-        </div>
-      </section>
-
-      {/* Logo, links e redes sociais */}
-      <div className="w-full flex flex-col md:flex-row justify-around items-start gap-8 px-6 pb-4">
-        <div>
-          <div className="flex justify-center items-center gap-6">
-            <img src={logotipo} className="w-30 h-30" alt="" />
-
-            <h1 className="text-orange-950 font-bold text-xl">
-              Movimento <br />
-              Eucarístico <br />
-              Juvenil
-            </h1>
-          </div>
-
-          <p className="text-orange-950 font-medium text-xl mt-2">
-            Tudo por vós,
-            <br />
-            Sagrado Coração de Jesus!
-          </p>
-        </div>
-
-        {/* Links rápidos */}
-        <div className="flex flex-col gap-3">
-          <h1 className="text-orange-950 font-bold text-xl">Links Rápidos</h1>
-
-          <NavLink to="">Inicio</NavLink>
-          <NavLink to="">Sobre</NavLink>
-          <NavLink to="">Actividades</NavLink>
-          <NavLink to="">Loja</NavLink>
-          <NavLink to="">Cadastrar</NavLink>
-        </div>
-
-        {/* Redes sociais */}
-        <div className="flex flex-col gap-4">
-          <h1 className="text-orange-950 font-bold text-xl">Redes Sociais</h1>
-
-          <div className="flex gap-4">
-            <NavLink className="bg-orange-950 rounded-full flex p-2" to="">
-              <Instagram className="text-white" />
-            </NavLink>
-
-            <NavLink className="bg-orange-950 rounded-full flex p-2" to="">
-              <Facebook className="text-white" />
-            </NavLink>
-
-            <NavLink className="bg-orange-950 rounded-full flex p-2" to="">
-              <Youtube className="text-white" />
-            </NavLink>
-          </div>
-        </div>
-      </div>
-
-      {/* Copyright */}
-      <div className="bg-orange-950 text-white min-h-10 flex justify-center items-center text-center px-4 py-2 text-sm">
-        &copy; 2026 Movimento Eucarístico Juvenil - MEJ. Todos os direitos
-        reservados.
-      </div>
     </footer>
   );
 }
