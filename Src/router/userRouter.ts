@@ -110,7 +110,7 @@ export async function userRouter(app: FastifyTypeInstance) {
             senha: z.string().nullable(),
             nivel: z.string(),
             role: z.string(),
-            cargo: z.string(),
+            cargo: z.string().optional(),
             numeroMembro: z.string(),
             contacto: z.number(),
             centroId: z.number(),
