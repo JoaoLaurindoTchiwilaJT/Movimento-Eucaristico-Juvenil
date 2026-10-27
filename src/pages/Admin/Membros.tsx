@@ -31,7 +31,7 @@ type Centro = {
   idCentrosParoquias: string;
   nomeCentro: string;
   tipo: string;
-  paroquia: Paroquia;
+  paroquias: Paroquia;
 };
 
 type Centros = {
@@ -130,6 +130,8 @@ export default function Membros() {
     const fetchMembros = async () => {
       try {
         const response = await api.get('/user/findMany');
+
+        console.dir(response.data, { depth: null });
         setDataMembro(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error(error);
@@ -146,7 +148,7 @@ export default function Membros() {
 
   useEffect(() => {
     if (memberEdit) {
-      const paroquia = memberEdit.centro?.paroquia?.nomeParoquia ?? '';
+      const paroquia = memberEdit.centro?.paroquias?.nomeParoquia ?? '';
 
       setParoquiaSelecionada(paroquia);
 
@@ -282,7 +284,7 @@ export default function Membros() {
                       {item.nomeMembro}
                     </TableCell>
                     {/* ✅ Optional chaining para evitar crash se centro/paroquia for undefined */}
-                    <TableCell>{item.centro?.paroquia?.nomeParoquia}</TableCell>
+                    <TableCell>{item.centro?.paroquias?.nomeParoquia}</TableCell>
                     <TableCell className="text-center">
                       {item.centro?.tipo}
                     </TableCell>

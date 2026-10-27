@@ -22,6 +22,7 @@ export async function DeleteMember(idMejista: number) {
 export async function GetMember() {
   try {
     const response = await api.get('/user/findMany');
+    console.log(response)
     return response.data;
   } catch (error) {
     console.error('Erro ao buscar membros:', error);

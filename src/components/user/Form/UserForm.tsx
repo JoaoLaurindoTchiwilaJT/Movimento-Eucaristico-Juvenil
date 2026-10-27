@@ -99,6 +99,7 @@ export default function UserForm({
       promessado: 'Não',
       nomeParoquia: 'Nenhuma',
       nivel: 'MEJ',
+      cargo: "MEMBRO"
     },
   });
 
