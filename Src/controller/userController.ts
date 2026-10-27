@@ -91,6 +91,7 @@ export class UserController {
         return res.status(404).send("Not found users");
       }
 
+      console.log(result)
       return res.status(200).send(result);
     } catch (error) {
       return res.status(500).send("Internal server Error !" + error);

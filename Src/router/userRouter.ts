@@ -18,7 +18,7 @@ export async function userRouter(app: FastifyTypeInstance) {
           nomeMembro: z.string().min(2, "Insira o 1ª e o Ultimo nome!"),
           contacto: z.number(),
           centroId: z.number().min(1, "Selecione um centro valido!"),
-          cargo: z.string().min(1, "Escolha um cargo existente!"),
+          cargo: z.string().min(1, "Escolha um cargo existente!").optional(),
           nivel: z.string().min(1, "O nivel selecionado está incorrecto!"),
           promessado: z.string().max(3),
         }),
@@ -31,7 +31,7 @@ export async function userRouter(app: FastifyTypeInstance) {
             senha: z.string().nullable(),
             numeroMembro: z.string(),
             contacto: z.number(),
-            cargo: z.string(),
+            cargo: z.string().optional(),
             centroId: z.number(),
             nivel: z.string(),
             role: z.string(),
@@ -132,7 +132,7 @@ export async function userRouter(app: FastifyTypeInstance) {
   );
 
   // Buscar todos os membros
-  app.get(
+  app.get( 
     "/findMany",
     {
       // preHandler: verifyJWT,
@@ -159,7 +159,7 @@ export async function userRouter(app: FastifyTypeInstance) {
                 nomeCentro: z.string(),
                 paroquiaId: z.number(),
                 tipo: z.string(),
-                paroquia: z
+                paroquias: z
                   .object({
                     nomeParoquia: z.string(),
                   })

@@ -4,52 +4,59 @@ import { CreateMember, type LoginUser, type updateMember } from "@model/dao";
 import { Prisma } from "generated/prisma/client";
 
 export class userMej {
+  
   async CreateUser(datas: CreateMember) {
     try {
-      const result = await prisma.$transaction(async (tx) => {
-        const centro = await tx.centrosparoquias.findUnique({
-          where: {
-            idCentrosParoquias: datas.centroId,
-          },
-          include: {
-            paroquias: true,
-          },
-        });
+      const result = await prisma.$transaction(
+        async (tx) => {
+          const centro = await tx.centrosparoquias.findUnique({
+            where: {
+              idCentrosParoquias: datas.centroId,
+            },
+            include: {
+              paroquias: true,
+            },
+          });
 
-        if (!centro) {
-          throw new Error("Centro não encontrado");
-        }
+          if (!centro) {
+            throw new Error("Centro não encontrado");
+          }
 
-        const membro = await tx.user.create({
-          data: {
-            nomeMembro: datas.nomeMembro,
-            numeroMembro: "TEMP",
-            contacto: datas.contacto,
-            nivel: datas.nivel,
-            cargo: datas.cargo ?? "Membro",
-            centroId: datas.centroId,
-            promessado: datas.promessado as any,
-            role: "User",
-          },
-        });
+          const membro = await tx.user.create({
+            data: {
+              nomeMembro: datas.nomeMembro,
+              numeroMembro: "TEMP",
+              contacto: datas.contacto,
+              nivel: datas.nivel,
+              cargo: datas.cargo ?? "Membro",
+              centroId: datas.centroId,
+              promessado: datas.promessado as any,
+              role: "User",
+            },
+          });
 
-        const codigo = gerarCodigo(membro.idMejista, centro.paroquias.nomeParoquia);
+          const codigo = gerarCodigo(membro.idMejista, centro.paroquias.nomeParoquia);
 
-        const membroAtualizado = await tx.user.update({
-          where: {
-            idMejista: membro.idMejista,
-          },
-          data: {
-            numeroMembro: codigo,
-          },
-        });
+          const membroAtualizado = await tx.user.update({
+            where: {
+              idMejista: membro.idMejista,
+            },
+            data: {
+              numeroMembro: codigo,
+            },
+          });
 
-        return membroAtualizado;
-      });
+          return membroAtualizado;
+        },
+        {
+          maxWait: 10000,
+          timeout: 20000,
+        },
+      );
 
       return result;
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao criar membro:", error);
 
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new Error("Erro Prisma: " + error.code);
@@ -257,5 +264,4 @@ export class userMej {
       throw new Error("Error to get data");
     }
   }
-  
 }
