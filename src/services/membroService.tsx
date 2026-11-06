@@ -37,6 +37,7 @@ export async function UpdateMember(data: {
   cargo: string;
   promessado: string;
   contacto: number;
+  email: string;
   nivel: string;
 }) {
   try {

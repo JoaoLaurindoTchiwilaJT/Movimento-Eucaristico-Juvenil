@@ -27,11 +27,11 @@ export const createTypeMembro = z
 
     centroId: z.number().min(1, 'Selecione um centro!'),
 
-    promessado: z.enum(['Sim', 'Não'], {
+    promessado: z.enum(['Sim', 'Nao'], {
       message: 'Selecione uma opção!',
     }),
 
-    email: z.string().email('E-mail inválido').optional(),
+    email: z.string().email('E-mail inválido'),
 
     contacto: z.number().min(9, 'Quantidade de números inválida!'),
 

@@ -21,6 +21,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Edit, Trash2Icon, UserPlus } from 'lucide-react';
 
+
 type Paroquia = {
   idParoquia: number;
   nomeParoquia: string;
@@ -51,6 +52,7 @@ type Membro = {
   centroId: number;
   centro: Centro;
   nivel: string;
+  email: string;
 };
 
 export default function Membros() {
@@ -65,7 +67,7 @@ export default function Membros() {
   } = useForm<createMembroSchema>({
     resolver: zodResolver(createTypeMembro),
     defaultValues: {
-      promessado: 'Não',
+      promessado: 'Nao',
       nomeParoquia: 'Nenhuma',
       centroId: undefined as unknown as number,
     },
@@ -154,8 +156,10 @@ export default function Membros() {
 
       setValue('nomeMembro', memberEdit.nomeMembro);
       setValue('cargo', memberEdit.cargo);
-      setValue('promessado', memberEdit.promessado as 'Sim' | 'Não');
+      setValue('promessado', memberEdit.promessado as 'Sim' | 'Nao');
       setValue('contacto', memberEdit.contacto);
+      setValue('email', memberEdit.email);
+      setValue('nivel', memberEdit.nivel);
       setValue('nomeParoquia', paroquia);
     }
   }, [memberEdit, setValue]);
@@ -180,8 +184,9 @@ export default function Membros() {
           nomeMembro: data.nomeMembro,
           contacto: data.contacto,
           centroId: data.centroId,
-          cargo: data.cargo,
+          cargo: data.cargo ?? 'Membro',
           nivel: data.nivel || 'MEJ',
+          email: data.email,
           promessado: data.promessado,
         };
         await UpdateMember(body);
@@ -256,6 +261,9 @@ export default function Membros() {
                   Contacto
                 </TableHead>
                 <TableHead className="text-amber-600 font-semibold text-center">
+                  email
+                </TableHead>
+                <TableHead className="text-amber-600 font-semibold text-center">
                   Acções
                 </TableHead>
               </TableRow>
@@ -277,14 +285,16 @@ export default function Membros() {
                     className="hover:bg-gray-50 transition"
                     key={item.idMejista}
                   >
-                    <TableCell className="font-medium whitespace-normal break-words">
+                    <TableCell className="font-medium whitespace-normal wrap-break-word">
                       {item.numeroMembro}
                     </TableCell>
-                    <TableCell className="font-medium whitespace-normal break-words">
+                    <TableCell className="font-medium whitespace-normal wrap-break-word">
                       {item.nomeMembro}
                     </TableCell>
                     {/* ✅ Optional chaining para evitar crash se centro/paroquia for undefined */}
-                    <TableCell>{item.centro?.paroquias?.nomeParoquia}</TableCell>
+                    <TableCell>
+                      {item.centro?.paroquias?.nomeParoquia}
+                    </TableCell>
                     <TableCell className="text-center">
                       {item.centro?.tipo}
                     </TableCell>
@@ -295,6 +305,9 @@ export default function Membros() {
                     </TableCell>
                     <TableCell className="text-center">
                       {item.contacto}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {item.email}
                     </TableCell>
                     <TableCell className="text-center space-x-2">
                       <button
@@ -331,7 +344,7 @@ export default function Membros() {
             onSubmit={handleSubmit(onSubmit)}
             className="w-full max-w-2xl bg-white p-5 md:p-8 shadow-2xl rounded-2xl flex flex-col gap-6 my-auto"
           >
-            {/* HEADER DO MODAL */}
+            {/* CABEÇALHO */}
             <div className="flex justify-between items-start">
               <div>
                 <h1 className="text-lg md:text-xl font-semibold text-amber-800">
@@ -341,6 +354,7 @@ export default function Membros() {
                 </h1>
                 <div className="w-12 h-1 bg-amber-800 rounded-md mt-1" />
               </div>
+
               <Button
                 type="button"
                 variant="ghost"
@@ -351,17 +365,21 @@ export default function Membros() {
               </Button>
             </div>
 
-            {/* GRID PRINCIPAL */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* ESQUERDA */}
-              <div className="flex flex-col gap-4">
-                <div>
+            {/* DADOS PESSOAIS */}
+            <div className="flex flex-col gap-4">
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
+                Dados pessoais
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* NOME */}
+                <div className="md:col-span-2">
                   <label className="text-sm font-medium text-amber-800">
                     Nome do Membro
                   </label>
                   <Input
                     {...register('nomeMembro')}
-                    placeholder="Digite o nome"
+                    placeholder="Digite o nome completo"
                     className="mt-1 focus-visible:ring-amber-700"
                   />
                   {errors.nomeMembro && (
@@ -371,56 +389,110 @@ export default function Membros() {
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-amber-800">
-                      Paróquia
-                    </label>
-                    <select
-                      {...register('nomeParoquia')}
-                      value={paroquiaSelecionada || 'Nenhuma'}
-                      onChange={(e) => {
-                        const paroquia = e.target.value;
-                        setParoquiaSelecionada(paroquia);
-                        setValue('nomeParoquia', paroquia);
-                      }}
-                      className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-amber-700"
-                    >
-                      <option value="Nenhuma">Nenhuma</option>
-                      {/* ✅ Usa a variável pré-computada com protecção */}
-                      {paroquiasUnicas.map((p) => (
-                        <option key={p}>{p}</option>
-                      ))}
-                    </select>
-                  </div>
+                {/* CONTACTO */}
+                <div>
+                  <label className="text-sm font-medium text-amber-800">
+                    Contacto
+                  </label>
+                  <Input
+                    type="number"
+                    {...register('contacto', { valueAsNumber: true })}
+                    placeholder="Digite o contacto"
+                    className="mt-1 focus-visible:ring-amber-700 no-spinner"
+                  />
+                  {errors.contacto && (
+                    <span className="text-red-700 text-sm">
+                      {errors.contacto.message}
+                    </span>
+                  )}
+                </div>
 
-                  <div>
-                    <label className="text-sm font-medium text-amber-800">
-                      Centro
-                    </label>
-                    <select
-                      {...register('centroId', { valueAsNumber: true })}
-                      className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-amber-700"
-                      onChange={(e) =>
-                        setValue('centroId', Number(e.target.value))
-                      }
-                    >
-                      <option value="">Nenhuma</option>
-                      {filterCentros.map((c) => (
-                        <option
-                          key={c.idCentrosParoquias}
-                          value={c.idCentrosParoquias}
-                        >
-                          {c.nomeCentro}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                {/* EMAIL */}
+                <div>
+                  <label className="text-sm font-medium text-amber-800">
+                    E-mail
+                  </label>
+                  <Input
+                    type="email"
+                    {...register('email')}
+                    placeholder="Digite o e-mail"
+                    className="mt-1 focus-visible:ring-amber-700"
+                  />
+                  {errors.email && (
+                    <span className="text-red-700 text-sm">
+                      {errors.email.message}
+                    </span>
+                  )}
+                </div>
+
+                {/* PARÓQUIA */}
+                <div>
+                  <label className="text-sm font-medium text-amber-800">
+                    Paróquia
+                  </label>
+                  <select
+                    {...register('nomeParoquia')}
+                    value={paroquiaSelecionada || 'Nenhuma'}
+                    onChange={(e) => {
+                      const paroquia = e.target.value;
+                      setParoquiaSelecionada(paroquia);
+                      setValue('nomeParoquia', paroquia);
+                    }}
+                    className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-amber-700"
+                  >
+                    <option value="Nenhuma">Nenhuma</option>
+                    {paroquiasUnicas.map((p) => (
+                      <option key={p} value={p}>
+                        {p}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.nomeParoquia && (
+                    <span className="text-red-700 text-sm">
+                      {errors.nomeParoquia.message}
+                    </span>
+                  )}
+                </div>
+
+                {/* CENTRO */}
+                <div>
+                  <label className="text-sm font-medium text-amber-800">
+                    Centro
+                  </label>
+                  <select
+                    {...register('centroId', { valueAsNumber: true })}
+                    className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-amber-700"
+                    onChange={(e) =>
+                      setValue('centroId', Number(e.target.value))
+                    }
+                  >
+                    <option value="">Nenhum</option>
+                    {filterCentros.map((c) => (
+                      <option
+                        key={c.idCentrosParoquias}
+                        value={c.idCentrosParoquias}
+                      >
+                        {c.nomeCentro}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.centroId && (
+                    <span className="text-red-700 text-sm">
+                      {errors.centroId.message}
+                    </span>
+                  )}
                 </div>
               </div>
+            </div>
 
-              {/* DIREITA */}
-              <div className="flex flex-col gap-4">
+            {/* DADOS DO MOVIMENTO */}
+            <div className="flex flex-col gap-4">
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
+                Dados do Movimento
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* CARGO */}
                 <div>
                   <label className="text-sm font-medium text-amber-800">
                     Cargo
@@ -431,69 +503,59 @@ export default function Membros() {
                     className="mt-1 focus-visible:ring-amber-700"
                   />
                 </div>
-
+                {/* NÍVEL */}
                 <div>
                   <label className="text-sm font-medium text-amber-800">
-                    Contacto
+                    Nível
                   </label>
-                  <Input
-                    type="number"
-                    {...register('contacto', { valueAsNumber: true })}
-                    placeholder="Digite o Contacto"
-                    className="mt-1 focus-visible:ring-amber-700 no-spinner"
-                  />
+                  <select
+                    {...register('nivel')}
+                    className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-amber-700"
+                  >
+                    <option value="Nenhum">Nenhum</option>
+                    <option value="AO">A.O</option>
+                    <option value="MEJ">MEJ</option>
+                    <option value="CE">C.E</option>
+                  </select>
+                </div>
+
+                {/* PROMESSADO */}
+                <div className="md:col-span-2">
+                  <label className="text-sm font-medium text-amber-800">
+                    Promessado
+                  </label>
+
+                  <div className="flex gap-6 mt-3">
+                    <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                      <Input
+                        type="radio"
+                        value="Sim"
+                        {...register('promessado')}
+                        className="w-4 h-4 accent-amber-700"
+                      />
+                      Sim
+                    </label>
+
+                    <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                      <Input
+                        type="radio"
+                        value="Nao"
+                        {...register('promessado')}
+                        className="w-4 h-4 accent-amber-700"
+                      />
+                      Não
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* LINHA FINAL */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label className="text-sm font-medium text-amber-800">
-                  Promessado
-                </label>
-                <div className="flex gap-6 mt-2">
-                  <label className="flex items-center gap-2 text-sm text-amber-800">
-                    <Input
-                      type="radio"
-                      value="Sim"
-                      {...register('promessado')}
-                    />
-                    Sim
-                  </label>
-                  <label className="flex items-center gap-2 text-sm text-amber-800">
-                    <Input
-                      type="radio"
-                      value="Não"
-                      {...register('promessado')}
-                    />
-                    Não
-                  </label>
-                </div>
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-amber-800">
-                  Nível
-                </label>
-                <select
-                  {...register('nivel')}
-                  className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-amber-700"
-                >
-                  <option>Nenhum</option>
-                  <option value="AO">A.O</option>
-                  <option value="MEJ">MEJ</option>
-                  <option value="CE">C.E</option>
-                </select>
-              </div>
-            </div>
-
-            {/* BOTÃO SUBMIT */}
+            {/* BOTÃO */}
             <Button
               type="submit"
               className="mt-2 bg-amber-700 hover:bg-amber-800 transition-all active:scale-[0.97] w-full cursor-pointer"
             >
-              Confirmar
+              {memberEdit ? 'Actualizar Membro' : 'Cadastrar Membro'}
             </Button>
           </form>
         </div>
