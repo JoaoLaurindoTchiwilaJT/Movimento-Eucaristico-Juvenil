@@ -20,14 +20,14 @@ export async function userRouter(app: FastifyTypeInstance) {
           centroId: z.number().min(1, "Selecione um centro valido!"),
           cargo: z.string().min(1, "Escolha um cargo existente!").optional(),
           nivel: z.string().min(1, "O nivel selecionado está incorrecto!"),
+          email: z.email().min(1,"O E-mail é invalido"),
           promessado: z.string().max(3),
         }),
-
         response: {
           201: z.object({
             idMejista: z.number(),
             nomeMembro: z.string(),
-            email: z.string().nullable(),
+            email: z.string(),
             senha: z.string().nullable(),
             numeroMembro: z.string(),
             contacto: z.number(),
@@ -66,8 +66,9 @@ export async function userRouter(app: FastifyTypeInstance) {
           centroId: z.number().min(1, "Selecione um centro valido!").optional(),
           cargo: z.string().min(1, "Escolha um cargo existente!").optional(),
           nivel: z.string().min(1, "O nivel selecionado está incorrecto!").optional(),
+          email: z.email().min(1, "O E-mail é invalido").optional(),
           promessado: z
-            .enum(["Sim", "Não"], {
+            .enum(["Sim", "Nao"], {
               message: "Selecione uma opção!",
             })
             .optional(),
@@ -76,11 +77,11 @@ export async function userRouter(app: FastifyTypeInstance) {
           200: z.object({
             idMejista: z.number(),
             nomeMembro: z.string(),
-            email: z.null(),
-            senha: z.null(),
+            email: z.string(),
+            senha: z.string().nullable(),
             numeroMembro: z.string(),
             contacto: z.number(),
-            cargo: z.string(),
+            cargo: z.string().optional(),
             centroId: z.number(),
             nivel: z.string(),
             role: z.string(),
@@ -106,7 +107,7 @@ export async function userRouter(app: FastifyTypeInstance) {
           200: z.object({
             idMejista: z.number(),
             nomeMembro: z.string(),
-            email: z.string().nullable(),
+            email: z.string(),
             senha: z.string().nullable(),
             nivel: z.string(),
             role: z.string(),
@@ -153,7 +154,6 @@ export async function userRouter(app: FastifyTypeInstance) {
               contacto: z.number(),
               promessado: z.string(),
               centroId: z.number(),
-
               centro: z.object({
                 idCentrosParoquias: z.number(),
                 nomeCentro: z.string(),

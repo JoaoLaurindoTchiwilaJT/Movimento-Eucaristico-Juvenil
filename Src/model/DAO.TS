@@ -15,6 +15,7 @@ export const CreateTypeMember = z.object({
   centroId: z.coerce.number().min(1, "Selecione um centro valido!").optional(),
   cargo: z.string().min(1, "Escolha um cargo existente!"),
   nivel: z.string().min(1, "O nivel selecionado está incorrecto!"),
+  email: z.email().min(1,"O E-mail é invalido"),
   promessado: z.string(),
 });
 
@@ -28,7 +29,7 @@ export const updateTypeMember = z.object({
   centroId: z.coerce.number().min(1, "Selecione um centro valido!").optional(),
   cargo: z.string().min(1, "Escolha um cargo existente!").optional(),
   nivel: z.string().min(1, "O nivel selecionado está incorrecto!").optional(),
-  promessado: z.enum(["Sim", "Não"], {
+  promessado: z.enum(["Sim", "Nao"], {
     message: "Selecione uma opção!",
   }),
 });

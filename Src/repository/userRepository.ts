@@ -31,6 +31,7 @@ export class userMej {
               cargo: datas.cargo ?? "Membro",
               centroId: datas.centroId,
               promessado: datas.promessado as any,
+              email: datas.email,
               role: "User",
             },
           });

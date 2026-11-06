@@ -47,6 +47,7 @@ export class UserController {
 
       return res.status(404).send("User Not Found!");
     } catch (error) {
+      console.error("Erro", error);
       return res.status(500).send("Internal server Error !" + error);
     }
   }
